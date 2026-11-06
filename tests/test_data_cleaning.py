@@ -1,5 +1,6 @@
-"""DEV-004 / DEV-015 Section 26.1 data tests, run against the cleaned
-processed dataset (data/processed/modelling_base_*.csv).
+"""DEV-004 / DEV-015 Section 26.1 data tests, run against a cleaned processed
+dataset rebuilt into a temporary folder from the real interim file (see
+tests/conftest.py), never against or over data/processed/ itself.
 
 Skipped entirely when no processed file exists locally (fresh clone
 without having run the pipeline / without network access to re-acquire
@@ -12,11 +13,9 @@ import src  # noqa: F401  (ADR-003 import order - must precede pandas/numpy too)
 import pandas as pd
 import pytest
 
-from src.data.build_processed_dataset import build
 from src.data.clean_dataset import REPO_ROOT, clean_raw_observations, load_canonical_districts
 
 INTERIM_CSV = REPO_ROOT / "data" / "interim" / "dcs_multi_district_2024_raw.csv"
-PROCESSED_CSV = REPO_ROOT / "data" / "processed" / "modelling_base_2024.csv"
 
 pytestmark = pytest.mark.skipif(
     not INTERIM_CSV.exists(), reason="interim extraction cache not present locally"
@@ -24,13 +23,13 @@ pytestmark = pytest.mark.skipif(
 
 
 @pytest.fixture(scope="module")
-def processed_df() -> pd.DataFrame:
-    # Use the canonical pipeline entry point (clean + DMT cross-validate),
+def processed_df(isolated_processed_csv) -> pd.DataFrame:
+    # Built by the canonical pipeline entry point (clean + DMT cross-validate),
     # not clean_dataset.run() alone - see src/data/build_processed_dataset.py
     # and REF-009 ADR-006 for why calling clean_dataset.run() in isolation
-    # would silently wipe the DMT cross-validation flags.
-    build(INTERIM_CSV, PROCESSED_CSV)
-    return pd.read_csv(PROCESSED_CSV)
+    # would silently wipe the DMT cross-validation flags. The build goes to a
+    # temporary folder (tests/conftest.py, REF-009 ADR-035).
+    return pd.read_csv(isolated_processed_csv)
 
 
 def test_no_unknown_district_names(processed_df):

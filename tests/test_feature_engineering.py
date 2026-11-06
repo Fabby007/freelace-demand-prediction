@@ -13,11 +13,9 @@ import pandas as pd
 import pytest
 import yaml
 
-from src.data.build_processed_dataset import build
 from src.features.build_features import ENGINEERED_COLUMNS, FEATURE_LIST_YAML, build_features
 
 _INTERIM_CSV = Path(__file__).resolve().parents[1] / "data" / "interim" / "dcs_multi_district_2024_raw.csv"
-_PROCESSED_CSV = Path(__file__).resolve().parents[1] / "data" / "processed" / "modelling_base_2024.csv"
 
 pytestmark = pytest.mark.skipif(
     not _INTERIM_CSV.exists(), reason="interim extraction cache not present locally"
@@ -25,9 +23,8 @@ pytestmark = pytest.mark.skipif(
 
 
 @pytest.fixture(scope="module")
-def processed_df() -> pd.DataFrame:
-    build(_INTERIM_CSV, _PROCESSED_CSV)
-    return pd.read_csv(_PROCESSED_CSV)
+def processed_df(isolated_processed_csv) -> pd.DataFrame:
+    return pd.read_csv(isolated_processed_csv)
 
 
 @pytest.fixture(scope="module")

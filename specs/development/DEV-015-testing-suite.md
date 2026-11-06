@@ -106,6 +106,8 @@ A full audit of the existing suite against every DEV spec's Testing Requirements
 
 Also found and fixed: a missing test file that a module's own docstring and the data source register claimed existed (`tests/test_district_geojson.py`), a dangling "(log as ADR)" reference in TODO.md with no corresponding REF-009 entry (retroactively logged as ADR-025), a foundational smoke test that hadn't been updated for DEV-014's new `src/evaluation` package, and a `pytestmark` scoping mistake caught in this session's own new test file before it shipped.
 
+**Correction (2026-11-07, REF-009 ADR-035):** the isolation audit above missed one path: seven test modules were still rewriting `data/processed/modelling_base_2024.csv` and `reports/dmt_cross_validation.md` through `build()`, and three upload tests were writing into `app/static/images/mechanics/`. Both are now redirected to temporary folders, and checksums of all project files were compared before and after a full-suite run.
+
 No test was weakened, skipped, or had its assertions loosened to obtain a green suite (Business Rule) — every change either added a missing test, fixed a genuine bug the tests exposed, or corrected test isolation without changing what is being verified.
 
 ## Dashboard QA (real, not just AppTest simulation)

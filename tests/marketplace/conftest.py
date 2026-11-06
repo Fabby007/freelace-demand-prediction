@@ -16,8 +16,14 @@ from app.models.user import ROLE_CUSTOMER, User
 
 
 @pytest.fixture
-def app():
+def app(tmp_path, monkeypatch):
     application = create_app("testing")
+    # drop_all() below must only ever run against the in-memory test database,
+    # never instance/marketplace.db.
+    assert application.config["SQLALCHEMY_DATABASE_URI"] == "sqlite:///:memory:"
+    # Uploads are saved under static_folder, so tests must not use the real
+    # app/static/images/mechanics/ folder (REF-009 ADR-035).
+    monkeypatch.setattr(application, "static_folder", str(tmp_path / "static"))
     with application.app_context():
         yield application
         db.session.remove()

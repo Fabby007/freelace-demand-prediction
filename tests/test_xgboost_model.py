@@ -15,7 +15,6 @@ import pandas as pd
 import pytest
 import yaml
 
-from src.data.build_processed_dataset import build
 from src.features.build_features import build_features
 from src.features.assemble_modelling_dataset import SPLIT_CONFIG_YAML, add_target, assign_split
 from src.models.baseline import add_baseline_predictions, MODEL_PARAMS_YAML as BASELINE_MODEL_PARAMS_YAML
@@ -35,7 +34,6 @@ from src.models.xgboost_model import (
 )
 
 _INTERIM_CSV = Path(__file__).resolve().parents[1] / "data" / "interim" / "dcs_multi_district_2024_raw.csv"
-_PROCESSED_CSV = Path(__file__).resolve().parents[1] / "data" / "processed" / "modelling_base_2024.csv"
 
 pytestmark = pytest.mark.skipif(
     not _INTERIM_CSV.exists(), reason="interim extraction cache not present locally"
@@ -49,9 +47,8 @@ def split_config() -> dict:
 
 
 @pytest.fixture(scope="module")
-def assembled_df(split_config) -> pd.DataFrame:
-    build(_INTERIM_CSV, _PROCESSED_CSV)
-    processed = pd.read_csv(_PROCESSED_CSV)
+def assembled_df(split_config, isolated_processed_csv) -> pd.DataFrame:
+    processed = pd.read_csv(isolated_processed_csv)
     featured = build_features(processed)
     df = add_target(featured)
     return assign_split(df, split_config)

@@ -87,8 +87,14 @@ def test_run_raises_if_rebuilt_features_diverge_from_metadata(tmp_path):
     with open(metadata_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f)
 
+    # Outputs redirected so that a regression in this guard fails the test
+    # without overwriting the real SHAP report and explanations CSV.
     with pytest.raises(ValueError):
-        run(models_dir=corrupted_dir)
+        run(
+            models_dir=corrupted_dir,
+            global_summary_json=tmp_path / "shap_global_summary.json",
+            local_explanations_csv=tmp_path / "shap_local_explanations_test_v1.csv",
+        )
 
 
 # --- SHAP additivity sanity check -------------------------------------------

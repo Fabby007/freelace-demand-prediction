@@ -10,11 +10,9 @@ import src  # noqa: F401  (ADR-003 import order - must precede pandas/numpy too)
 import pandas as pd
 import pytest
 
-from src.data.build_processed_dataset import build
 from src.data.validate_against_dmt import cross_check, flag_implausible_rows
 
 _INTERIM_CSV = Path(__file__).resolve().parents[1] / "data" / "interim" / "dcs_multi_district_2024_raw.csv"
-_PROCESSED_CSV = Path(__file__).resolve().parents[1] / "data" / "processed" / "modelling_base_2024.csv"
 
 pytestmark = pytest.mark.skipif(
     not _INTERIM_CSV.exists(), reason="interim extraction cache not present locally"
@@ -22,11 +20,10 @@ pytestmark = pytest.mark.skipif(
 
 
 @pytest.fixture(scope="module")
-def processed_df() -> pd.DataFrame:
-    # Canonical pipeline entry point - see src/data/build_processed_dataset.py
-    # and REF-009 ADR-006.
-    build(_INTERIM_CSV, _PROCESSED_CSV)
-    return pd.read_csv(_PROCESSED_CSV)
+def processed_df(isolated_processed_csv) -> pd.DataFrame:
+    # Built by the canonical pipeline entry point (REF-009 ADR-006), into a
+    # temporary folder (tests/conftest.py, REF-009 ADR-035).
+    return pd.read_csv(isolated_processed_csv)
 
 
 def test_cross_check_covers_all_vehicle_type_year_metric_combinations(processed_df):

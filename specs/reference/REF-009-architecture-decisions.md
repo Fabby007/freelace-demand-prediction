@@ -358,6 +358,15 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Not logged as a numbered ADR: no implementation decision was made here (nothing was built, changed, or deviated from) — this is a record of a documentation correction, following the same pattern as DEV-023's "verified, not a defect" note above.
 - Affected specs: REF-012 (Section 3, corrected), DEV-024 (full audit record in DEV-024.md).
 
+### ADR-035 — Test suite never writes to real project files: temporary-folder fixtures in `tests/conftest.py`
+- Date: 2026-11-07
+- Status: Accepted
+- Context: Seven test modules (`test_baseline_model`, `test_data_cleaning`, `test_dataset_assembly`, `test_dmt_cross_validation`, `test_feature_engineering`, `test_lstm_model`, `test_xgboost_model`) called `build()` with the real output path and the default report path, so every `pytest` run rewrote `data/processed/modelling_base_2024.csv` and `reports/dmt_cross_validation.md`. Three marketplace upload tests also saved files into the real `app/static/images/mechanics/` folder. Two further paths were latent: `test_shap_explainer`'s guard test left its outputs on their real default paths, and `log_run()`'s MLflow-failure fallback defaults to the real `reports/` folder and cannot be redirected through the `run()` functions.
+- Decision: Test-only fix, with no production code changed. `tests/conftest.py` adds a session fixture, `isolated_processed_csv`, that rebuilds the processed dataset into a temporary folder through `build()` (so ADR-006 still holds), and a session-wide autouse fixture that points `log_run()`'s default `mlruns_dir` and `fallback_log_dir` at temporary folders. `tests/marketplace/conftest.py` points the test app's `static_folder` at `tmp_path` and asserts the in-memory database before any `drop_all()`.
+- Alternatives considered: Adding a `fallback_log_dir` parameter to each `run()` function (rejected for now - changes production code when a test-side redirect is enough); backing up and restoring real files around tests (rejected - a crash mid-test would leave real files modified).
+- Rationale: Real interim data stays the read-only input, so the tests still exercise the real pipeline and real values, while everything they generate goes to disposable folders. Replacing `log_run.__defaults__` is unusual, but it is confined to one fixture and restored afterward.
+- Affected specs: DEV-015.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.
