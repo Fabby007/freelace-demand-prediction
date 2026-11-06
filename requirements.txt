@@ -1,0 +1,69 @@
+# Pinned dependencies for the Mechanic Service Demand Opportunity Prediction
+# and Recommendation System (Sri Lanka). See specs/reference/REF-008-technology-stack.md
+# for the canonical stack table this file implements.
+#
+# Python 3.10+ required.
+
+# Data processing
+pandas==2.2.2
+numpy==1.26.4
+
+# Tabular ML
+xgboost==2.0.3
+scikit-learn==1.4.2
+
+# Deep learning (LSTM)
+tensorflow==2.16.1
+
+# NLP
+sentence-transformers==2.7.0
+
+# Explainability
+shap==0.45.0
+tf-keras==2.16.0  # required by transformers' TF-integration probe (triggered indirectly by shap.TreeExplainer
+                  # when sentence-transformers has already imported `transformers` in the same process) under
+                  # tensorflow==2.16's Keras-3-by-default; see specs/reference/REF-009-architecture-decisions.md ADR-015
+
+# Dashboard & visualisation
+streamlit==1.34.0
+plotly==5.22.0
+
+# Experiment tracking (choose one; see specs/reference/REF-009-architecture-decisions.md for the ADR once decided)
+mlflow==2.13.0
+
+# Data storage / parquet support
+pyarrow==15.0.2
+
+# Data acquisition (table/PDF extraction, scraping)
+requests==2.32.2
+beautifulsoup4==4.12.3
+pdfplumber==0.11.0
+openpyxl==3.1.2
+
+# Testing
+pytest==8.2.1
+
+# Pinned transitively-required packages (see specs/reference/REF-009-architecture-decisions.md ADR-004)
+setuptools<81  # mlflow==2.13.0 imports pkg_resources, removed from setuptools>=81
+torch==2.13.0  # required by sentence-transformers; must be importable first on Windows, see ADR-003 and src/__init__.py
+scipy==1.17.1  # DEV-014: src/evaluation/model_evaluation.py imports scipy.stats.spearmanr directly (previously
+                # only a transitive dependency of scikit-learn, now pinned since it is imported by first-party code)
+
+# --- Marketplace extension (app/) — see specs/reference/REF-010-marketplace-web-architecture.md ---
+# Entirely additive; nothing above this line is changed by the marketplace extension (REF-009 ADR-027).
+Flask==3.1.3            # was already present transitively (mlflow's tracking server); now pinned since
+                          # app/ imports it directly throughout — see REF-009 ADR-029
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Flask-WTF==1.3.0
+WTForms==3.2.2
+SQLAlchemy==2.0.52       # was already present transitively (mlflow); now pinned since app/__init__.py
+                          # imports sqlalchemy.event/Engine directly — see REF-009 ADR-029
+Werkzeug==3.1.8           # was already present transitively (Flask); now pinned since
+                          # app/models/user.py imports werkzeug.security directly — see REF-009 ADR-029
+PyYAML==6.0.3             # was already present transitively; now pinned since app/config.py imports
+                          # yaml directly (same rationale as ADR-024's scipy pin) — see REF-009 ADR-029
+click==8.4.2              # was already present transitively (Flask); now pinned since app/cli.py
+                          # imports click directly — see REF-009 ADR-029
+email-validator==2.3.0    # required by WTForms' Email() validator (app/forms/auth.py); performs syntax
+                          # validation only (check_deliverability=False), no network/DNS calls

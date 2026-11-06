@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Manage Reviews{% endblock %}
+{% block content %}
+<section class="admin-page">
+  <h1>Manage Reviews</h1>
+  <p><a href="{{ url_for('admin.dashboard') }}">&larr; Back to dashboard</a></p>
+
+  <form method="GET" class="search-filter-form" novalidate>
+    {# Harmless on a GET form (no state changes here) — kept so a valid,
+       session-bound CSRF token is always present on this page even when
+       the table below has zero rows to render one from. #}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="filter-row">
+      <div class="form-field">
+        <label for="status">Status</label>
+        <select name="status" id="status" class="form-input">
+          <option value="" {{ "selected" if not status_filter }}>All</option>
+          <option value="visible" {{ "selected" if status_filter == "visible" }}>Visible</option>
+          <option value="removed_by_admin" {{ "selected" if status_filter == "removed_by_admin" }}>Removed</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="{{ url_for('admin.reviews') }}" class="btn btn-secondary">Clear</a>
+    </div>
+  </form>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Mechanic</th>
+          <th>Customer</th>
+          <th>Rating</th>
+          <th>Review</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in reviews %}
+          <tr>
+            <td><a href="{{ url_for('marketplace.mechanic_profile', mechanic_id=review.mechanic_id) }}">{{ review.mechanic.user.name }}</a></td>
+            <td>{{ review.customer.name }}</td>
+            <td>{{ review.rating }} / 5</td>
+            <td class="review-text-cell">{{ review.review_text }}</td>
+            <td>{{ review.created_at.strftime('%d %b %Y') }}</td>
+            <td><span class="tag {{ 'tag-blocked' if review.status != 'visible' else '' }}">{{ "Removed" if review.status != "visible" else "Visible" }}</span></td>
+            <td class="admin-actions">
+              {% if review.status == "visible" %}
+                <form method="POST" action="{{ url_for('admin.admin_remove_review', review_id=review.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+              {% else %}
+                <form method="POST" action="{{ url_for('admin.admin_restore_review', review_id=review.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-secondary">Restore</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="text-muted">No reviews match this filter.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if pagination.pages > 1 %}
+    <nav class="pagination" aria-label="Review list pages">
+      {% if pagination.has_prev %}
+        <a href="{{ url_for('admin.reviews', status=status_filter, page=pagination.prev_num) }}">&laquo; Previous</a>
+      {% endif %}
+      <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+      {% if pagination.has_next %}
+        <a href="{{ url_for('admin.reviews', status=status_filter, page=pagination.next_num) }}">Next &raquo;</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+</section>
+{% endblock %}

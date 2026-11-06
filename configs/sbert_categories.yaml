@@ -1,0 +1,25 @@
+# SBERT category-description configuration (DEV-011)
+#
+# Fixed, small set of category descriptions used as the semantic-matching targets
+# for natural-language queries. Not user-editable at runtime.
+
+categories:
+  - canonical_name: Motorcycle
+    description: >
+      A mechanic who repairs and services motorcycles and motorbikes,
+      including engine work, tyres, brakes, and routine maintenance.
+  - canonical_name: Car
+    description: >
+      A mechanic who repairs and services cars, including engine work,
+      brakes, tyres, and routine maintenance.
+  - canonical_name: Three-wheeler
+    description: >
+      A mechanic who repairs and services three-wheelers (trishaws/tuk-tuks),
+      including engine work, tyres, brakes, and routine maintenance.
+
+# Tuned during DEV-011 against sentence-transformers/all-MiniLM-L6-v2 (REF-009 ADR-016)
+# using a hand-written spot-check query set (see specs/development/DEV-011-sbert-nlp-query.md
+# and tests/test_sbert_router.py) — materially lower than the 0.55 placeholder; see
+# REF-009 ADR-017 for the full evidence and rationale.
+similarity_threshold: 0.30  # top category's cosine similarity must reach this to be "supported" at all
+ambiguous_margin: 0.05      # if top-two category scores differ by less than this, treat as ambiguous (unchanged from placeholder — empirically still reasonable)

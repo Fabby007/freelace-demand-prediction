@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "_review_helpers.html" import render_rating_summary, render_review_disclaimer, render_review_list %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<section class="profile-page">
+  <div class="profile-header">
+    <img
+      class="profile-photo"
+      src="{{ url_for('static', filename=profile.profile_image_path) if profile.profile_image_path else url_for('static', filename='images/default-avatar.svg') }}"
+      alt="Profile photo">
+    <div>
+      <h1>{{ current_user.name }}</h1>
+      <p class="profile-meta">{{ profile.district }} &middot; {{ profile.years_experience }} year{{ 's' if profile.years_experience != 1 else '' }} of experience</p>
+    </div>
+    <a class="btn btn-secondary profile-edit-link" href="{{ url_for('mechanic.edit_profile') }}">Edit profile</a>
+  </div>
+
+  <div class="profile-section">
+    <h2>Contact</h2>
+    <p>{{ profile.contact_number }}</p>
+  </div>
+
+  <div class="profile-section">
+    <h2>Vehicle types</h2>
+    {% if profile.vehicle_types %}
+      <ul class="tag-list">
+        {% for vt in profile.vehicle_types %}<li class="tag">{{ vt }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No vehicle types selected yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="profile-section">
+    <h2>Services</h2>
+    {% if profile.services %}
+      <ul class="tag-list">
+        {% for service in profile.services %}<li class="tag">{{ service.name }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No services selected yet.</p>
+    {% endif %}
+  </div>
+
+  {% if profile.description %}
+  <div class="profile-section">
+    <h2>About</h2>
+    <p>{{ profile.description }}</p>
+  </div>
+  {% endif %}
+
+  <div class="profile-section">
+    <h2>Ratings &amp; Reviews</h2>
+    {{ render_rating_summary(profile.average_rating, profile.review_count) }}
+    {{ render_review_disclaimer() }}
+    {{ render_review_list(reviews, "No reviews yet.") }}
+  </div>
+
+  <div class="profile-section">
+    <a class="btn btn-primary" href="{{ url_for('insights.dashboard') }}">View Opportunity Insights</a>
+  </div>
+</section>
+{% endblock %}

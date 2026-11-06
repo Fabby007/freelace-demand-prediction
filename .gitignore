@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+*.env.local
+
+# Marketplace extension — local instance data (SQLite DB), never committed
+instance/
+
+# Data (raw/interim/processed are reproducible from documented sources; not committed by default)
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/source_register.csv
+
+# Trained models / large artefacts
+models/*
+!models/.gitkeep
+
+# MLflow / experiment tracking local artefacts
+mlruns/
+mlartifacts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Additional secrets / credentials
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Local databases (any location)
+*.db
+*.sqlite
+*.sqlite3
+
+# Marketplace user uploads (profile photos - personal data, never committed)
+app/static/images/mechanics/*
+
+# Local tool state, logs, Office lock files
+.claude/
+*.log
+~$*
+
+# Duplicate document folders (canonical copies live in research/documentation/)
+Claude outputs/
+Documents/

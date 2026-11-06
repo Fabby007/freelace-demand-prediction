@@ -1,0 +1,30 @@
+{% macro render_rating_summary(average_rating, review_count) %}
+  {% if average_rating is not none %}
+    <p class="rating-summary"><strong>{{ average_rating }} / 5</strong> &middot; Based on {{ review_count }} review{{ 's' if review_count != 1 else '' }}</p>
+  {% else %}
+    <p class="rating-summary text-muted">No ratings yet</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro render_review_disclaimer() %}
+  <p class="disclaimer-text">Ratings and reviews are submitted directly by platform users and are not verified against any completed-job or booking record.</p>
+{% endmacro %}
+
+{% macro render_review_list(reviews, empty_message) %}
+  {% if reviews %}
+    <ul class="review-list">
+      {% for review in reviews %}
+        <li class="review-item">
+          <div class="review-item-header">
+            <span class="review-item-rating">{{ review.rating }} / 5</span>
+            <span class="review-item-author">{{ review.customer.name }}</span>
+            <span class="review-item-date">{{ review.created_at.strftime('%d %b %Y') }}</span>
+          </div>
+          <p class="review-item-text">{{ review.review_text }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">{{ empty_message }}</p>
+  {% endif %}
+{% endmacro %}

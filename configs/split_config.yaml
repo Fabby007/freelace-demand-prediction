@@ -1,0 +1,38 @@
+# Chronological train/validation/test split configuration (DEV-006)
+#
+# Boundaries must be strictly chronological — no random splitting
+# (MASTER_PROMPT.md Hard Rules; source doc Section 23.4).
+#
+# Real source coverage (data/processed/modelling_features_2024.csv) is yearly-only,
+# 2019-2023 (5 distinct years; see REF-001 Section 5 granularity rule and
+# REF-009 ADR-008) — "yearly" is a data-driven decision, not a defect.
+#
+# IMPORTANT: start_period/end_period below are target_year values (the year being
+# PREDICTED, i.e. new_registrations at year+1 relative to the feature row — see
+# DEV-006 Target Decision Record / src/features/assemble_modelling_dataset.py),
+# not the feature row's own `year`. With only 5 observed years, at most 4 years
+# carry a non-null target_value (2019 has no prior period fed forward, and 2023 has
+# no future year yet — see module docstring), leaving too few periods for a
+# conventional multi-year-per-split design. REF-009 ADR-008 records the accepted
+# thin-split approach: 2 target-years to train, 1 to validation, 1 to test.
+
+granularity: yearly
+
+train:
+  start_period: 2020
+  end_period: 2021
+
+validation:
+  start_period: 2022
+  end_period: 2022
+
+test:
+  start_period: 2023
+  end_period: 2023
+
+# The three fields below are written by src/features/assemble_modelling_dataset.py::run()
+# when it freezes the dataset — dataset_version/dataset_sha256 are a content hash of
+# the frozen CSV (stable across reruns unless the data genuinely changes; see ADR-009).
+dataset_version: modelling_dataset_v1_1310eaead622
+dataset_sha256: 1310eaead622d0a1e3608bfbc1b4ca547e6ad8365444c21a5102bcecccd1fed8
+frozen_date: '2026-08-15'

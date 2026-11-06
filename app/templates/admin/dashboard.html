@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<section class="admin-page">
+  <h1>Admin Dashboard</h1>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.customers }}</span>
+      <span class="stat-label">Customers</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.mechanics }}</span>
+      <span class="stat-label">Mechanics</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.mechanic_profiles }}</span>
+      <span class="stat-label">Mechanic profiles</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.blocked_accounts }}</span>
+      <span class="stat-label">Blocked accounts</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.total_reviews }}</span>
+      <span class="stat-label">Total reviews</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-value">{{ counts.removed_reviews }}</span>
+      <span class="stat-label">Removed reviews</span>
+    </div>
+  </div>
+
+  <div class="admin-nav-links">
+    <a class="btn btn-primary" href="{{ url_for('admin.users') }}">Manage Users</a>
+    <a class="btn btn-primary" href="{{ url_for('admin.mechanics') }}">Manage Mechanics</a>
+    <a class="btn btn-primary" href="{{ url_for('admin.reviews') }}">Manage Reviews</a>
+  </div>
+</section>
+{% endblock %}

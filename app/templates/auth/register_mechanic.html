@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_form_helpers.html" import render_field %}
+{% block title %}Register as a Freelancer{% endblock %}
+{% block content %}
+<section class="form-page">
+  <h1>Register as a Freelancer</h1>
+  <p class="form-intro">After creating your account, you'll be able to complete your mechanic profile (district, services, contact number) so customers can find you.</p>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.name) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.confirm_password) }}
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+  <p class="form-footnote">
+    Already have an account? <a href="{{ url_for('auth.login_choice') }}">Log in</a>.<br>
+    Are you a customer? <a href="{{ url_for('auth.register_customer') }}">Register as a customer instead</a>.
+  </p>
+</section>
+{% endblock %}

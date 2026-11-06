@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% from "_form_helpers.html" import render_field %}
+{% from "_review_helpers.html" import render_rating_summary, render_review_disclaimer, render_review_list %}
+{% block title %}{{ profile.user.name }}{% endblock %}
+{% block content %}
+<section class="profile-page">
+  {% if current_user.is_authenticated and current_user.is_admin and profile.user.status != 'active' %}
+    <p class="tag tag-blocked">This account is blocked and hidden from customer search.</p>
+  {% endif %}
+  <div class="profile-header">
+    <img
+      class="profile-photo"
+      src="{{ url_for('static', filename=profile.profile_image_path) if profile.profile_image_path else url_for('static', filename='images/default-avatar.svg') }}"
+      alt="{{ profile.user.name }}">
+    <div>
+      <h1>{{ profile.user.name }}</h1>
+      <p class="profile-meta">{{ profile.district }} &middot; {{ profile.years_experience }} year{{ 's' if profile.years_experience != 1 else '' }} of experience</p>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <h2>Contact</h2>
+    <p>{{ profile.contact_number }}</p>
+    <a class="btn btn-primary" href="{{ tel_href }}">Call Mechanic</a>
+  </div>
+
+  <div class="profile-section">
+    <h2>Vehicle types</h2>
+    {% if profile.vehicle_types %}
+      <ul class="tag-list">
+        {% for vt in profile.vehicle_types %}<li class="tag">{{ vt }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">Not specified.</p>
+    {% endif %}
+  </div>
+
+  <div class="profile-section">
+    <h2>Services</h2>
+    {% if profile.services %}
+      <ul class="tag-list">
+        {% for service in profile.services %}<li class="tag">{{ service.name }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">Not specified.</p>
+    {% endif %}
+  </div>
+
+  {% if profile.description %}
+  <div class="profile-section">
+    <h2>About</h2>
+    <p>{{ profile.description }}</p>
+  </div>
+  {% endif %}
+
+  <div class="profile-section" id="reviews">
+    <h2>Ratings &amp; Reviews</h2>
+    {{ render_rating_summary(profile.average_rating, profile.review_count) }}
+    {{ render_review_disclaimer() }}
+
+    {% if current_user.is_authenticated and current_user.is_customer %}
+      <div class="review-form-box">
+        <h3>{{ 'Edit your review' if my_review else 'Leave a review' }}</h3>
+        <form method="POST" action="{{ url_for('reviews.submit_review', mechanic_id=profile.id) }}" novalidate>
+          {{ review_form.hidden_tag() }}
+          {{ render_field(review_form.rating) }}
+          {{ render_field(review_form.review_text) }}
+          {{ review_form.submit(class="btn btn-primary") }}
+        </form>
+        {% if my_review %}
+          <form
+            method="POST"
+            action="{{ url_for('reviews.delete_review', mechanic_id=profile.id) }}"
+            class="inline-delete-form"
+            onsubmit="return confirm('Delete your review? This cannot be undone.');">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-secondary">Delete my review</button>
+          </form>
+        {% endif %}
+      </div>
+    {% elif not current_user.is_authenticated %}
+      <p><a href="{{ url_for('auth.login', next=request.path) }}">Log in as a customer</a> to leave a review.</p>
+    {% endif %}
+
+    {{ render_review_list(reviews, "No reviews yet — be the first to review this mechanic.") }}
+  </div>
+</section>
+{% endblock %}

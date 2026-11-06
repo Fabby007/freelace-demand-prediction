@@ -1,0 +1,90 @@
+{
+  "dataset_version": "modelling_dataset_v1_1310eaead622",
+  "generated_date": "2026-08-15",
+  "n_rows_explained": 47,
+  "note": "SHAP values quantify how much each feature moved this model's prediction for this row, relative to the model's average prediction. They describe the trained model's learned predictive association, not a real-world causal effect - do not present them as proof that a feature causes higher/lower service demand (CLAUDE.md Section 19, REF-007 Section 4).",
+  "aggregated_feature_ranking": [
+    {
+      "feature": "new_registrations",
+      "mean_abs_shap": 814.1526489257812
+    },
+    {
+      "feature": "reg_lag_1",
+      "mean_abs_shap": 74.97978210449219
+    },
+    {
+      "feature": "vehicle_population",
+      "mean_abs_shap": 40.23957824707031
+    },
+    {
+      "feature": "change_from_lag_2",
+      "mean_abs_shap": 25.49757957458496
+    },
+    {
+      "feature": "reg_growth_pct",
+      "mean_abs_shap": 20.966819763183594
+    },
+    {
+      "feature": "vehicle_type",
+      "mean_abs_shap": 14.974728310361822
+    },
+    {
+      "feature": "rolling_mean_3",
+      "mean_abs_shap": 11.03953742980957
+    },
+    {
+      "feature": "reg_lag_2",
+      "mean_abs_shap": 0.5216032862663269
+    },
+    {
+      "feature": "rolling_std_3",
+      "mean_abs_shap": 0.3933574855327606
+    }
+  ],
+  "raw_feature_ranking": [
+    {
+      "feature": "new_registrations",
+      "mean_abs_shap": 814.1526489257812
+    },
+    {
+      "feature": "reg_lag_1",
+      "mean_abs_shap": 74.97978210449219
+    },
+    {
+      "feature": "vehicle_population",
+      "mean_abs_shap": 40.23958206176758
+    },
+    {
+      "feature": "change_from_lag_2",
+      "mean_abs_shap": 25.497577667236328
+    },
+    {
+      "feature": "reg_growth_pct",
+      "mean_abs_shap": 20.966819763183594
+    },
+    {
+      "feature": "vehicle_type_Motorcycle",
+      "mean_abs_shap": 14.97472858428955
+    },
+    {
+      "feature": "rolling_mean_3",
+      "mean_abs_shap": 11.039539337158203
+    },
+    {
+      "feature": "reg_lag_2",
+      "mean_abs_shap": 0.5216033458709717
+    },
+    {
+      "feature": "rolling_std_3",
+      "mean_abs_shap": 0.3933575749397278
+    },
+    {
+      "feature": "vehicle_type_Car",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "vehicle_type_Three-wheeler",
+      "mean_abs_shap": 0.0
+    }
+  ]
+}

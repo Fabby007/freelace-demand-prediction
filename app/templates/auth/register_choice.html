@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<section class="auth-choice-page">
+  <h1>Register</h1>
+  <p class="page-intro">Choose the type of account you'd like to create.</p>
+  <div class="auth-choice-grid">
+    <a class="auth-choice-card" href="{{ url_for('auth.register_customer') }}">
+      <h2>Register as Customer</h2>
+      <p>Search for freelance mechanics and leave reviews.</p>
+    </a>
+    <a class="auth-choice-card" href="{{ url_for('auth.register_mechanic') }}">
+      <h2>Register as Freelancer</h2>
+      <p>List your services and reach nearby customers.</p>
+    </a>
+  </div>
+  <p class="auth-choice-footnote">
+    Already have an account? <a href="{{ url_for('auth.login_choice') }}">Log in</a>.
+  </p>
+</section>
+{% endblock %}

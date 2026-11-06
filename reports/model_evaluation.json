@@ -1,0 +1,175 @@
+{
+  "generated_date": "2026-08-15",
+  "dataset_version": "modelling_dataset_v1_1310eaead622",
+  "random_seed": 42,
+  "xgboost_feature_columns": [
+    "new_registrations",
+    "vehicle_population",
+    "reg_lag_1",
+    "reg_lag_2",
+    "reg_growth_pct",
+    "change_from_lag_2",
+    "rolling_mean_3",
+    "rolling_std_3",
+    "vehicle_type_Motorcycle",
+    "vehicle_type_Car",
+    "vehicle_type_Three-wheeler"
+  ],
+  "xgboost_selected_hyperparameters": {
+    "n_estimators": 500,
+    "learning_rate": 0.01,
+    "max_depth": 5,
+    "min_child_weight": 3,
+    "subsample": 1.0,
+    "colsample_bytree": 1.0
+  },
+  "regression_comparison": [
+    {
+      "model": "baseline_previous_period",
+      "split": "validation",
+      "n_total": 49,
+      "n_scored": 43,
+      "mae": 130.7906976744186,
+      "rmse": 442.570241435923,
+      "r2": -1.3990383542130838,
+      "n_negative_predictions": 0
+    },
+    {
+      "model": "baseline_moving_average",
+      "split": "validation",
+      "n_total": 49,
+      "n_scored": 45,
+      "mae": 4161.155555555555,
+      "rmse": 7293.645756562504,
+      "r2": -669.9061327220244,
+      "n_negative_predictions": 0
+    },
+    {
+      "model": "baseline_linear_trend",
+      "split": "validation",
+      "n_total": 49,
+      "n_scored": 39,
+      "mae": 2690.051282049379,
+      "rmse": 5151.167286181027,
+      "r2": -305.152260833148,
+      "n_negative_predictions": 32
+    },
+    {
+      "model": "baseline_previous_period",
+      "split": "test",
+      "n_total": 47,
+      "n_scored": 42,
+      "mae": 230.52380952380952,
+      "rmse": 555.8028084714595,
+      "r2": 0.4913802807825386,
+      "n_negative_predictions": 0
+    },
+    {
+      "model": "baseline_moving_average",
+      "split": "test",
+      "n_total": 47,
+      "n_scored": 45,
+      "mae": 2714.6000000000004,
+      "rmse": 4640.952074390569,
+      "r2": -35.783705423457064,
+      "n_negative_predictions": 0
+    },
+    {
+      "model": "baseline_linear_trend",
+      "split": "test",
+      "n_total": 47,
+      "n_scored": 40,
+      "mae": 5576.924999997061,
+      "rmse": 10484.82725298261,
+      "r2": -172.46577359100596,
+      "n_negative_predictions": 37
+    },
+    {
+      "model": "xgboost_v1",
+      "split": "validation",
+      "mae": 125.22394545467533,
+      "rmse": 218.4880408043023,
+      "r2": 0.36643985975396076,
+      "n_total": 49,
+      "n_scored": 49,
+      "n_negative_predictions": null
+    },
+    {
+      "model": "xgboost_v1",
+      "split": "test",
+      "n_total": 47,
+      "n_scored": 47,
+      "mae": 312.8663456186335,
+      "rmse": 696.8137542719835,
+      "r2": 0.1447167933003769,
+      "n_negative_predictions": 1
+    },
+    {
+      "model": "xgboost_v1_matched_subset",
+      "split": "test",
+      "n_total": 42,
+      "n_scored": 42,
+      "mae": 306.39188114802045,
+      "rmse": 710.0239510376093,
+      "r2": 0.16996249227234173,
+      "n_negative_predictions": 1
+    },
+    {
+      "model": "baseline_previous_period_matched_subset",
+      "split": "test",
+      "n_total": 42,
+      "n_scored": 42,
+      "mae": 230.52380952380952,
+      "rmse": 555.8028084714595,
+      "r2": 0.4913802807825386,
+      "n_negative_predictions": 0
+    }
+  ],
+  "ranking_metrics": {
+    "Motorcycle": {
+      "n_scored": 19,
+      "spearman_r": 0.7047462553346442,
+      "spearman_p": 0.000753672900090078,
+      "top_k_overlap": 0.6666666666666666,
+      "k": 3
+    },
+    "Car": {
+      "n_scored": 20,
+      "spearman_r": 0.2276669378692753,
+      "spearman_p": 0.3343660020053441,
+      "top_k_overlap": 0.3333333333333333,
+      "k": 3
+    },
+    "Three-wheeler": {
+      "n_scored": 8,
+      "spearman_r": 0.048196269271187996,
+      "spearman_p": 0.909771840305317,
+      "top_k_overlap": 0.3333333333333333,
+      "k": 3
+    }
+  },
+  "lstm": {
+    "decision": "skip",
+    "reasoning": [
+      "Section 15.1's sequence window is defined in months ('sliding window of previous 6 or 12 months'), written for monthly-cadence data. The frozen dataset's `month` column is null for every row (0% monthly coverage, yearly-only granularity per REF-001 Section 5) - the documented sequence construction does not apply at all, independent of row count.",
+      "Even granting an undocumented reinterpretation of the window as 6 yearly periods instead of months, a series needs 7 consecutive non-null yearly observations to form even one (input-window, target) training pair. The real data's longest consecutive run across all 75 district x vehicle_type series is 5 year(s) (the dataset only spans 5 distinct years, 2019-2023, at all); 0/75 series meet the 7-period threshold."
+    ]
+  },
+  "headline": {
+    "baseline_test_mae": 230.52380952380952,
+    "xgboost_matched_subset_mae": 306.39188114802045,
+    "xgboost_full_coverage_mae": 312.8663456186335,
+    "n_matched": 42
+  },
+  "known_limitations": [
+    "Fallback-path proxy target: target_value is future new_registrations, not a real observed mechanic-demand signal (DEV-002 Target Decision Record) - every metric in this report, including the ranking metrics below, describes how well the model forecasts vehicle registrations, not measured mechanic job demand.",
+    "DCS/DMT reconciliation gap (REF-006 Section 5.1): Car (2019-2021) and Three-wheeler (2022) district-summed new_registrations exceed the DMT national total - 100/375 rows flagged (`data_quality_flag`), not excluded or corrected.",
+    "Real 2020-2022 vehicle-registration collapse (REF-006 Section 5.2): several high-volume districts show an extreme, genuine multi-year drop (e.g. Gampaha Motorcycle 32,698 -> 909 registrations, 2019-2021) consistent with Sri Lanka's economic crisis and import restrictions - this regime shift, not a modelling defect, explains most of the error below.",
+    "XGBoost does not outperform the naive persistence baseline on the test period (REF-006 Section 5.3) - reported plainly, not hidden: baseline_previous_period test MAE 230.5 vs. XGBoost's matched-subset test MAE 306.4 on the identical 42 rows.",
+    "LSTM was assessed and skipped (REF-006 Section 5.4, REF-009 ADR-013): the dataset is yearly-only (0% monthly coverage) and spans only 5 distinct years, so 0/75 series can form even one training sequence at the documented minimum 6-period lookback - not a resourcing shortfall, a categorical data-density failure.",
+    "SBERT similarity margins can be tight for naturally-phrased (longer) queries (REF-006 Section 5.5) - not a regression-model finding, included for completeness of the pipeline's documented limitations.",
+    "Thin validation/test periods: validation covers a single target-year (49 rows), test covers a single target-year (47 rows, 20 Car / 19 Motorcycle / 8 Three-wheeler) - R^2 and ranking metrics on these splits, and especially per-vehicle-type ranking metrics on the 8-row Three-wheeler slice, must be read as indicative, not statistically robust (Edge Case, REF-006 'Small dataset / many features' risk).",
+    "Negative-prediction findings: DEV-007's linear-trend baseline produces physically impossible negative predictions for 82-93% of its scored rows (REF-009 ADR-010); XGBoost's test predictions include 1 negative value out of 47 - both disclosed via `n_negative_predictions`, never clipped."
+  ],
+  "production_model_recommendation": "XGBoost"
+}

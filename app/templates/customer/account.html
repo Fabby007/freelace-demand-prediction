@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "_form_helpers.html" import render_field %}
+{% block title %}My Account{% endblock %}
+{% block content %}
+<section class="form-page">
+  <h1>My Account</h1>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.name) }}
+    {{ render_field(form.email) }}
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "n_distinct_years": 5,
+  "month_populated": false,
+  "n_series": 75,
+  "min_lookback_periods": 6,
+  "required_consecutive_run": 7,
+  "max_consecutive_run": 5,
+  "n_series_meeting_yearly_threshold": 0,
+  "decision": "skip",
+  "reasoning": [
+    "Section 15.1's sequence window is defined in months ('sliding window of previous 6 or 12 months'), written for monthly-cadence data. The frozen dataset's `month` column is null for every row (0% monthly coverage, yearly-only granularity per REF-001 Section 5) - the documented sequence construction does not apply at all, independent of row count.",
+    "Even granting an undocumented reinterpretation of the window as 6 yearly periods instead of months, a series needs 7 consecutive non-null yearly observations to form even one (input-window, target) training pair. The real data's longest consecutive run across all 75 district x vehicle_type series is 5 year(s) (the dataset only spans 5 distinct years, 2019-2023, at all); 0/75 series meet the 7-period threshold."
+  ]
+}

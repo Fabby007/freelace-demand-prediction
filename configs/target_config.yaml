@@ -1,0 +1,32 @@
+# Target-variable configuration (DEV-002 Target Decision Record / DEV-006)
+#
+# Decision finalized 2026-08-15 - see specs/development/DEV-002-data-source-register.md
+# "Target Decision Record" for full rationale and sources considered.
+
+target_path: fallback  # "preferred" (real demand target) | "fallback" (proxy forecast)
+
+target_variable_name: target_value
+
+target_description: >
+  Forecasted new vehicle registrations (district x year x vehicle_type), sourced from
+  DCS District Statistical Handbook "New Vehicle Registrations in District" tables
+  (Table 9.4-equivalent), used as a real, observable service-opportunity proxy.
+  No real mechanic-demand dataset (repair requests, bookings, completed jobs) was
+  found for Sri Lanka despite searching DCS, DMT, Kaggle, and data.gov.lk.
+
+is_real_demand_target: false  # drives dashboard/report wording (REF-007 Section 4) - proxy framing required everywhere
+
+target_horizon_periods: 1  # DEV-006: target_value at year t = new_registrations at t+1 (next-period forecast)
+
+supporting_stock_variable:
+  column: vehicle_population
+  source_description: >
+    DCS District Statistical Handbook "No. of Revenue License issued for Motor
+    Vehicles in District" tables (Table 9.3-equivalent) - used as the vehicle
+    stock/population proxy (Appendix A), not as the target.
+
+re_evaluation_trigger: >
+  If a real Sri Lanka mechanic-service-demand dataset is found in a later session
+  (e.g. via data.gov.lk once its SSL/access issue is resolved), this decision must
+  be revisited before further modelling proceeds - do not silently keep the fallback
+  path once a preferred-path dataset becomes available.

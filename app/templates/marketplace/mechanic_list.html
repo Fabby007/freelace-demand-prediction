@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% from "_review_helpers.html" import render_rating_summary %}
+{% block title %}Search Mechanics{% endblock %}
+{% block content %}
+<section class="search-page">
+  <h1>Find a Mechanic</h1>
+
+  <form method="GET" class="search-filter-form" novalidate>
+    <div class="filter-row">
+      <div class="form-field">
+        {{ form.district.label }}
+        {{ form.district(class="form-input") }}
+      </div>
+      <div class="form-field">
+        {{ form.vehicle_type.label }}
+        {{ form.vehicle_type(class="form-input") }}
+      </div>
+      <div class="form-field">
+        {{ form.service.label }}
+        {{ form.service(class="form-input") }}
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a href="{{ url_for('marketplace.search') }}" class="btn btn-secondary">Clear</a>
+    </div>
+  </form>
+
+  {% if mechanics %}
+    <p class="results-count">{{ pagination.total }} mechanic{{ 's' if pagination.total != 1 else '' }} found</p>
+    <div class="mechanic-grid">
+      {% for mechanic in mechanics %}
+        <div class="mechanic-card">
+          <img
+            class="mechanic-card-photo"
+            src="{{ url_for('static', filename=mechanic.profile_image_path) if mechanic.profile_image_path else url_for('static', filename='images/default-avatar.svg') }}"
+            alt="{{ mechanic.user.name }}">
+          <div class="mechanic-card-body">
+            <h2>{{ mechanic.user.name }}</h2>
+            <p class="mechanic-card-meta">
+              {{ mechanic.district }} &middot;
+              {{ mechanic.years_experience }} year{{ 's' if mechanic.years_experience != 1 else '' }} experience
+            </p>
+            {% if mechanic.vehicle_types %}
+              <ul class="tag-list">
+                {% for vt in mechanic.vehicle_types %}<li class="tag">{{ vt }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            {% if mechanic.services %}
+              <p class="mechanic-card-services">{{ mechanic.services[:3] | map(attribute='name') | join(', ') }}</p>
+            {% endif %}
+            <div class="mechanic-card-rating">{{ render_rating_summary(mechanic.average_rating, mechanic.review_count) }}</div>
+            <a class="btn btn-primary" href="{{ url_for('marketplace.mechanic_profile', mechanic_id=mechanic.id) }}">View Profile</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if pagination.pages > 1 %}
+      <nav class="pagination" aria-label="Search results pages">
+        {% if pagination.has_prev %}
+          <a href="{{ url_for('marketplace.search', district=form.district.data, vehicle_type=form.vehicle_type.data, service=form.service.data, page=pagination.prev_num) }}">&laquo; Previous</a>
+        {% endif %}
+        <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+        {% if pagination.has_next %}
+          <a href="{{ url_for('marketplace.search', district=form.district.data, vehicle_type=form.vehicle_type.data, service=form.service.data, page=pagination.next_num) }}">Next &raquo;</a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% else %}
+    <div class="empty-state">
+      <p>No mechanics found for these filters.</p>
+      {% if has_filters %}
+        <a href="{{ url_for('marketplace.search') }}">Clear filters</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

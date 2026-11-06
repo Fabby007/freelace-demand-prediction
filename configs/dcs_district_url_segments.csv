@@ -1,0 +1,33 @@
+canonical_district,url_segment,confirmed_source
+Colombo,Colombo,DCS_HandbookIndex 2026-08-15
+Gampaha,Gampaha,DCS_HandbookIndex 2026-08-15
+Kalutara,Kalutara,verified against live statistical%20Hbook table endpoint 2026-08-15
+Kalutara,Kalutura,DCS_HandbookIndex 2026-08-15 (cover-index namespace spelling only; table endpoint uses 'Kalutara')
+Kandy,Kandy,DCS_HandbookIndex 2026-08-15
+Matale,Matale,DCS_HandbookIndex 2026-08-15
+Nuwara Eliya,NuwaraEliya,verified against live statistical%20Hbook table endpoint 2026-08-15
+Nuwara Eliya,Nuwara-Eliya,DCS_HandbookIndex 2026-08-15 (cover-index namespace spelling only; table endpoint uses 'NuwaraEliya')
+Galle,Galle,DCS_HandbookIndex 2026-08-15
+Matara,Matara,DCS_HandbookIndex 2026-08-15
+Hambantota,Hambantota,DCS_HandbookIndex 2026-08-15
+Jaffna,Jaffna,DCS_HandbookIndex 2026-08-15
+Mannar,Mannar,DCS_HandbookIndex 2026-08-15
+Vavuniya,Vavuniya,DCS_HandbookIndex 2026-08-15
+Mullaitivu,Mullaitivu,DCS_HandbookIndex 2026-08-15
+Mullaitivu,Mullativue,DCS_HandbookIndex 2026-08-15 (alternate spelling used for some years)
+Kilinochchi,Kilinochchi,DCS_HandbookIndex 2026-08-15
+Kilinochchi,Killinochchi,DCS_HandbookIndex 2026-08-15 (alternate spelling used for some years)
+Batticaloa,Batticaloa,DCS_HandbookIndex 2026-08-15
+Ampara,Ampara,DCS_HandbookIndex 2026-08-15
+Trincomalee,Trincomalee,DCS_HandbookIndex 2026-08-15
+Kurunegala,Kurunegala,DCS_HandbookIndex 2026-08-15
+Kurunegala,Kurunagala,DCS_HandbookIndex 2026-08-15 (alternate spelling used for some years)
+Puttalam,Puttalam,DCS_HandbookIndex 2026-08-15
+Anuradhapura,Anuradhapura,DCS_HandbookIndex 2026-08-15
+Polonnaruwa,Polonnaruwa,verified against live statistical%20Hbook table endpoint 2026-08-15
+Polonnaruwa,Polonnoruwa,DCS_HandbookIndex 2026-08-15 (cover-index namespace spelling only; table endpoint uses 'Polonnaruwa')
+Badulla,Badulla,DCS_HandbookIndex 2026-08-15
+Monaragala,Monaragala,DCS_HandbookIndex 2026-08-15
+Ratnapura,Ratnapura,DCS_HandbookIndex 2026-08-15
+Ratnapura,Rathnapura,DCS_HandbookIndex 2026-08-15 (alternate spelling used for some years)
+Kegalle,Kegalle,DCS_HandbookIndex 2026-08-15

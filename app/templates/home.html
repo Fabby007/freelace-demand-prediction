@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">25 districts &middot; Sri Lanka</p>
+    <h1>Find a freelance mechanic near you</h1>
+    <p class="hero-sub">Search by district, vehicle type, and service — then contact the mechanic directly. Mechanic Finder is a directory, not a booking service.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('marketplace.search') }}">Search Mechanics</a>
+      {% if not current_user.is_authenticated %}
+        <a class="btn btn-invert btn-lg" href="{{ url_for('auth.register_choice') }}">Register</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <form method="GET" action="{{ url_for('marketplace.search') }}" class="hero-search" novalidate>
+    <div class="hero-search-field">
+      {{ form.district.label }}
+      {{ form.district(class="form-input") }}
+    </div>
+    <div class="hero-search-field">
+      {{ form.vehicle_type.label }}
+      {{ form.vehicle_type(class="form-input") }}
+    </div>
+    <div class="hero-search-field">
+      {{ form.service.label }}
+      {{ form.service(class="form-input") }}
+    </div>
+    <button type="submit" class="btn btn-primary hero-search-submit">Search</button>
+  </form>
+</section>
+
+<section class="feature-grid">
+  <div class="feature-card">
+    <h3>Direct Contact</h3>
+    <p>See a mechanic's phone number right on their profile and call them yourself — no middleman, no dispatcher, no waiting.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Search by District</h3>
+    <p>Filter by district, vehicle type, and service across all 25 districts in Sri Lanka to find someone genuinely nearby.</p>
+  </div>
+  <div class="feature-card">
+    <h3>Real Customer Reviews</h3>
+    <p>Read star ratings and written reviews left directly by other customers before you decide who to call.</p>
+  </div>
+</section>
+{% endblock %}

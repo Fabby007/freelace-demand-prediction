@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_form_helpers.html" import render_field %}
+{% block title %}{{ login_heading }}{% endblock %}
+{% block content %}
+<section class="form-page">
+  <h1>{{ login_heading }}</h1>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    {% if login_as %}<input type="hidden" name="as" value="{{ login_as }}">{% endif %}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+  <p class="form-footnote">
+    New here?
+    <a href="{{ url_for('auth.register_customer') }}">Register as a customer</a> or
+    <a href="{{ url_for('auth.register_mechanic') }}">register as a freelancer</a>.
+  </p>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Home{% endblock %} — Mechanic Finder Sri Lanka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('marketplace.home') }}">Mechanic Finder</a>
+      <nav class="main-nav">
+        <a href="{{ url_for('marketplace.search') }}">Search</a>
+        {% if current_user.is_authenticated %}
+          {% if current_user.is_customer %}
+            <a href="{{ url_for('customer.account') }}">My Account</a>
+            <a href="{{ url_for('customer.reviews') }}">My Reviews</a>
+          {% elif current_user.is_mechanic %}
+            <a href="{{ url_for('mechanic.profile') }}">My Profile</a>
+            <a href="{{ url_for('insights.dashboard') }}">Opportunity Insights</a>
+          {% elif current_user.is_admin %}
+            <a href="{{ url_for('admin.dashboard') }}">Admin</a>
+          {% endif %}
+          <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+          <div class="nav-auth-actions">
+            <a class="btn btn-invert btn-sm" href="{{ url_for('auth.login_choice') }}">Login</a>
+            <a class="btn btn-primary btn-sm" href="{{ url_for('auth.register_choice') }}">Register</a>
+          </div>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for category, message in messages %}
+            <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Mechanic Finder is a directory to help customers find and contact freelance mechanics in Sri Lanka directly. It is not a booking, dispatch, or payment service.</p>
+    </div>
+  </footer>
+</body>
+</html>

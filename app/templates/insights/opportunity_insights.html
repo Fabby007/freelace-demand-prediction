@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Opportunity Insights{% endblock %}
+{% block content %}
+<section class="insights-page">
+  <h1>Opportunity Insights</h1>
+  <p class="page-intro">
+    See which districts currently show the strongest predicted service opportunity for your
+    vehicle category, using the project's XGBoost prediction model and SHAP explanations —
+    the same backend the research dashboard uses.
+  </p>
+
+  {% if backend_unavailable %}
+    <div class="empty-state">
+      <p>Opportunity Insights is temporarily unavailable — the prediction model could not be loaded. Please try again later.</p>
+    </div>
+  {% else %}
+    <p class="disclaimer-banner">{{ result.disclaimer }}</p>
+
+    <form method="GET" class="search-filter-form" novalidate>
+      <div class="filter-row">
+        <div class="form-field">
+          {{ form.vehicle_type.label }}
+          {{ form.vehicle_type(class="form-input") }}
+        </div>
+        <div class="form-field">
+          {{ form.period.label }}
+          {{ form.period(class="form-input") }}
+        </div>
+        <div class="form-field">
+          {{ form.district.label }}
+          {{ form.district(class="form-input") }}
+        </div>
+        <div class="form-field">
+          {{ form.top_n.label }}
+          {{ form.top_n(class="form-input", min="1", max=max_top_n) }}
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button type="submit" class="btn btn-primary">View Opportunities</button>
+      </div>
+    </form>
+
+    {% if result.status != "ok" %}
+      <div class="empty-state">
+        <p>{{ result.message }}</p>
+      </div>
+    {% elif district_not_found %}
+      <div class="empty-state">
+        <p>No opportunity data available for this district.</p>
+      </div>
+    {% else %}
+      <h2>
+        {% if selected_district %}
+          Opportunity for {{ selected_district }} — {{ result.vehicle_type }} mechanics in {{ result.period }}
+        {% else %}
+          Top districts for {{ result.vehicle_type }} mechanics in {{ result.period }}
+        {% endif %}
+      </h2>
+      <div class="insights-grid">
+        {% for entry in display_entries %}
+          <div class="insights-card">
+            <div class="insights-card-header">
+              <span class="insights-rank">#{{ entry.rank }}</span>
+              <h3>{{ entry.district }}</h3>
+              <span class="tag">{{ entry.opportunity_band }}</span>
+            </div>
+            <p class="insights-predicted-value">Predicted value: <strong>{{ "%.0f"|format(entry.predicted_value) }}</strong></p>
+
+            {% if entry.positive_factors %}
+              <p class="insights-factors-label">Positive factors</p>
+              <ul class="insights-factors-list">
+                {% for factor in entry.positive_factors %}<li>{{ factor.plain_language | capitalize }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            {% if entry.negative_factors %}
+              <p class="insights-factors-label">Negative factors</p>
+              <ul class="insights-factors-list">
+                {% for factor in entry.negative_factors %}<li>{{ factor.plain_language | capitalize }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+
+            <p class="insights-sentence">{{ entry.recommendation_sentence }}</p>
+            <p class="field-hint">{{ entry.shap_note }}</p>
+
+            {% if entry.data_quality_flag or entry.target_data_quality_flag %}
+              <p class="field-hint">Data quality note: {{ entry.target_data_quality_flag or entry.data_quality_flag }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="profile-section">
+      <h2>Model &amp; data information</h2>
+      <table class="admin-table">
+        <tbody>
+          <tr><th>Production model</th><td>{{ model_info.production_model }}</td></tr>
+          <tr><th>Dataset version</th><td>{{ model_info.dataset_version }}</td></tr>
+          <tr><th>Model trained</th><td>{{ model_info.model_trained }}</td></tr>
+          <tr><th>Test-period average error (MAE)</th><td>{{ model_info.test_mae }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="disclaimer-banner">{{ result.disclaimer }}</p>
+  {% endif %}
+</section>
+{% endblock %}

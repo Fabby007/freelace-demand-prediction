@@ -1,0 +1,21 @@
+# District Ranking & Recommendation Engine configuration (DEV-012)
+#
+# Section 18 step 4 leaves the exact opportunity-band thresholding mechanism open
+# ("thresholds based on quantiles or a documented training-data rule"). This project
+# uses PER-VEHICLE-TYPE quartiles of the TRAIN-split target_value distribution
+# (data/processed/modelling_dataset_v1.csv), computed once per process and never
+# recomputed ad hoc per query — see specs/reference/REF-009-architecture-decisions.md
+# ADR-018 for the full rationale (why per-vehicle-type, not global; why quartiles;
+# why train-split only).
+
+band_quantiles: [0.25, 0.50, 0.75]  # -> Low / Moderate / High / Very High
+band_labels: [Low, Moderate, High, "Very High"]
+
+top_n: 5           # Section 18 step 6: "top three or top five" — default to 5
+n_positive_factors: 2   # max positive SHAP factors surfaced per recommendation sentence
+n_negative_factors: 1   # max negative SHAP factors surfaced per recommendation sentence (honesty — DEV-012 Edge Case)
+
+# Appendix C.3, verbatim — must appear on every recommendation-bearing output.
+disclaimer: >
+  Predictions are based on available historical and proxy data. They indicate relative
+  service opportunity and do not guarantee customer numbers, employment or income.

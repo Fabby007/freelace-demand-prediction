@@ -1,0 +1,25 @@
+# Non-secret marketplace application configuration (REF-010, DEV-018 FR11).
+#
+# Secrets — SECRET_KEY, database URI overrides, admin-provisioning
+# credentials — are read from environment variables in app/config.py and
+# app/cli.py, never placed here or committed to version control.
+
+session:
+  permanent_session_lifetime_days: 7
+
+search:
+  # Consumed by DEV-020 (Mechanic Search & Discovery). Not read by any
+  # DEV-018 route yet — the /search page is a stub in this phase.
+  results_per_page: 12
+
+reviews:
+  # Consumed by DEV-021 (Ratings & Reviews). Not read by any DEV-018 route.
+  min_review_text_length: 10
+  max_review_text_length: 1000
+
+uploads:
+  # Consumed by DEV-019 (Mechanic Profiles) for the profile-photo upload.
+  # MAX_CONTENT_LENGTH itself is already wired into app/config.py in DEV-018
+  # since it is a Flask-level setting, even though no upload route exists yet.
+  max_content_length_bytes: 2097152
+  allowed_image_extensions: [".png", ".jpg", ".jpeg"]

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<section class="admin-page">
+  <h1>Manage Users</h1>
+  <p><a href="{{ url_for('admin.dashboard') }}">&larr; Back to dashboard</a></p>
+
+  <form method="GET" class="search-filter-form" novalidate>
+    {# Harmless on a GET form (no state changes here) — kept so a valid,
+       session-bound CSRF token is always present on this page even when
+       the table below has zero rows to render one from. #}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="filter-row">
+      <div class="form-field">
+        <label for="role">Role</label>
+        <select name="role" id="role" class="form-input">
+          <option value="" {{ "selected" if not role_filter }}>All roles</option>
+          <option value="customer" {{ "selected" if role_filter == "customer" }}>Customer</option>
+          <option value="mechanic" {{ "selected" if role_filter == "mechanic" }}>Mechanic</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="status">Status</label>
+        <select name="status" id="status" class="form-input">
+          <option value="" {{ "selected" if not status_filter }}>All statuses</option>
+          <option value="active" {{ "selected" if status_filter == "active" }}>Active</option>
+          <option value="blocked" {{ "selected" if status_filter == "blocked" }}>Blocked</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="{{ url_for('admin.users') }}" class="btn btn-secondary">Clear</a>
+    </div>
+  </form>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role | capitalize }}</td>
+            <td><span class="tag {{ 'tag-blocked' if user.status == 'blocked' else '' }}">{{ user.status | capitalize }}</span></td>
+            <td>{{ user.created_at.strftime('%d %b %Y') }}</td>
+            <td class="admin-actions">
+              {% if user.status == "active" %}
+                <form method="POST" action="{{ url_for('admin.block_user', user_id=user.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-secondary">Block</button>
+                </form>
+              {% else %}
+                <form method="POST" action="{{ url_for('admin.unblock_user', user_id=user.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-secondary">Unblock</button>
+                </form>
+              {% endif %}
+              <form
+                method="POST"
+                action="{{ url_for('admin.delete_user', user_id=user.id) }}"
+                onsubmit="return confirm('Permanently delete this account? This cannot be undone.');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="text-muted">No users match these filters.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if pagination.pages > 1 %}
+    <nav class="pagination" aria-label="User list pages">
+      {% if pagination.has_prev %}
+        <a href="{{ url_for('admin.users', role=role_filter, status=status_filter, page=pagination.prev_num) }}">&laquo; Previous</a>
+      {% endif %}
+      <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+      {% if pagination.has_next %}
+        <a href="{{ url_for('admin.users', role=role_filter, status=status_filter, page=pagination.next_num) }}">Next &raquo;</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+</section>
+{% endblock %}

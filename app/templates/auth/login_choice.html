@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<section class="auth-choice-page">
+  <h1>Log in</h1>
+  <p class="page-intro">Choose how you'd like to log in.</p>
+  <div class="auth-choice-grid">
+    <a class="auth-choice-card" href="{{ url_for('auth.login') }}?as=customer">
+      <h2>Login as Customer</h2>
+      <p>Find and contact freelance mechanics near you.</p>
+    </a>
+    <a class="auth-choice-card" href="{{ url_for('auth.login') }}?as=mechanic">
+      <h2>Login as Freelancer</h2>
+      <p>Manage your profile and view your Opportunity Insights.</p>
+    </a>
+  </div>
+  <p class="auth-choice-footnote">
+    Don't have an account? <a href="{{ url_for('auth.register_choice') }}">Register</a>.
+  </p>
+</section>
+{% endblock %}

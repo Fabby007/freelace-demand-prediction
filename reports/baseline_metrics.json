@@ -1,0 +1,59 @@
+{
+  "dataset_version": "modelling_dataset_v1_1310eaead622",
+  "generated_date": "2026-08-15",
+  "moving_average_window": 3,
+  "metrics": {
+    "validation": {
+      "baseline_previous_period": {
+        "n_total": 49,
+        "n_scored": 43,
+        "mae": 130.7906976744186,
+        "rmse": 442.570241435923,
+        "r2": -1.3990383542130838,
+        "n_negative_predictions": 0
+      },
+      "baseline_moving_average": {
+        "n_total": 49,
+        "n_scored": 45,
+        "mae": 4161.155555555555,
+        "rmse": 7293.645756562504,
+        "r2": -669.9061327220244,
+        "n_negative_predictions": 0
+      },
+      "baseline_linear_trend": {
+        "n_total": 49,
+        "n_scored": 39,
+        "mae": 2690.051282049379,
+        "rmse": 5151.167286181027,
+        "r2": -305.152260833148,
+        "n_negative_predictions": 32
+      }
+    },
+    "test": {
+      "baseline_previous_period": {
+        "n_total": 47,
+        "n_scored": 42,
+        "mae": 230.52380952380952,
+        "rmse": 555.8028084714595,
+        "r2": 0.4913802807825386,
+        "n_negative_predictions": 0
+      },
+      "baseline_moving_average": {
+        "n_total": 47,
+        "n_scored": 45,
+        "mae": 2714.6000000000004,
+        "rmse": 4640.952074390569,
+        "r2": -35.783705423457064,
+        "n_negative_predictions": 0
+      },
+      "baseline_linear_trend": {
+        "n_total": 47,
+        "n_scored": 40,
+        "mae": 5576.924999997061,
+        "rmse": 10484.82725298261,
+        "r2": -172.46577359100596,
+        "n_negative_predictions": 37
+      }
+    }
+  }
+}

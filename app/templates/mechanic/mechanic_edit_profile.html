@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_form_helpers.html" import render_field %}
+{% block title %}{{ 'Complete Your Profile' if is_new else 'Edit Profile' }}{% endblock %}
+{% block content %}
+<section class="form-page form-page-wide">
+  <h1>{{ 'Complete Your Mechanic Profile' if is_new else 'Edit Your Profile' }}</h1>
+  {% if is_new %}
+    <p class="form-intro">Customers can't find you until this is filled in. It only takes a minute.</p>
+  {% endif %}
+  <form method="POST" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.contact_number) }}
+    {{ render_field(form.district) }}
+    {{ render_field(form.years_experience) }}
+    {{ render_field(form.description) }}
+
+    <div class="form-field">
+      {{ form.vehicle_types.label }}
+      <div class="checkbox-list">{{ form.vehicle_types() }}</div>
+      {% for error in form.vehicle_types.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+    </div>
+
+    <div class="form-field">
+      {{ form.services.label }}
+      <div class="checkbox-list">{{ form.services() }}</div>
+      {% for error in form.services.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+    </div>
+
+    <div class="form-field">
+      {{ form.photo.label }}
+      {{ form.photo() }}
+      {% for error in form.photo.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+      <p class="field-hint">PNG or JPG, up to 2MB. Optional — a default avatar is used if you skip this.</p>
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+</section>
+{% endblock %}
