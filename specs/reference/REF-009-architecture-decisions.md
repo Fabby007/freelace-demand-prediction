@@ -387,6 +387,14 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Rationale: Every value is traceable to a PDF cell or to an approved decision, and quality columns allow evaluation with and without flagged values. Limitations are in `reports/dataset_v2/dataset_v2_report.md`.
 - Affected specs: DEV-002, DEV-005, DEV-006, REF-001. Later specs for modelling on v2 must cite this dataset version.
 
+### ADR-038 — EDA notebook for Dataset v2, adding Seaborn and notebook execution packages
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07.
+- Context: The project author requested an EDA notebook using Matplotlib and Seaborn, run and verified. Seaborn, nbformat, nbclient and ipykernel were not installed, and REF-008 lists Jupyter but not Seaborn. Plotly remains the charting library for the dashboard (CLAUDE.md Section 7), which this does not change.
+- Decision: Pinned `seaborn`, `nbformat`, `nbclient` and `ipykernel` in `requirements.txt` for offline analysis only. No existing package changed version. The notebook `notebooks/eda_dataset_v2.ipynb` reads Dataset v2 read-only and writes only to `reports/eda_v2/`. Feature-target analysis uses target years up to 2022, holding 2023 back as the future final test.
+- Alternatives considered: Matplotlib alone (rejected - Seaborn was explicitly requested); a pipeline script instead of a notebook (rejected - a notebook was requested).
+- Affected specs: REF-008.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

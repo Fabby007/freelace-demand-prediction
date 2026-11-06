@@ -1,0 +1,311 @@
+{
+  "rows": 375,
+  "columns": 39,
+  "target_values": 299,
+  "development_rows": 224,
+  "dataset_version": "modelling_dataset_v2_04eaecafd7e1",
+  "feature_target_max_target_year": 2022,
+  "duplicate_keys": 0,
+  "missing_licence": 4,
+  "missing_total_registrations_rows": 36,
+  "usable_target": 299,
+  "usable_licence_features": 219,
+  "usable_with_lag_2": 145,
+  "usable_with_registrations": 180,
+  "values_identical_to_previous_year": 3,
+  "copied_district_year_groups": 2,
+  "skew_raw": 2.29,
+  "skew_log": -0.85,
+  "licence_mean": 57830,
+  "licence_median": 31233,
+  "licence_min": 254,
+  "licence_max": 394975,
+  "median_by_vehicle": {
+    "Motorcycle": 98598.0,
+    "Car": 11428.0,
+    "Three-wheeler": 28827.0
+  },
+  "motorcycle_share_min": 40.0,
+  "motorcycle_share_max": 93.0,
+  "motorcycle_share_min_district": "Nuwara Eliya",
+  "motorcycle_share_max_district": "Mullaitivu",
+  "between_district_variance_share": {
+    "Motorcycle": 98.6,
+    "Car": 98.7,
+    "Three-wheeler": 98.4
+  },
+  "top_5_share_2022": {
+    "Motorcycle": 45.4,
+    "Car": 67.0,
+    "Three-wheeler": 46.4
+  },
+  "gini_2022": {
+    "Motorcycle": 0.394,
+    "Car": 0.623,
+    "Three-wheeler": 0.43
+  },
+  "largest_to_smallest_2022": {
+    "Motorcycle": 22.3,
+    "Car": 351.9,
+    "Three-wheeler": 100.7
+  },
+  "index_2023_all_series": {
+    "Motorcycle": 105.9,
+    "Car": 99.8,
+    "Three-wheeler": 89.0
+  },
+  "index_2023_excluding_flagged_series": {
+    "Motorcycle": 103.0,
+    "Car": 99.5,
+    "Three-wheeler": 97.5
+  },
+  "median_absolute_change_pct": 4.0,
+  "share_within_5_pct": 57.6,
+  "share_within_10_pct": 76.3,
+  "growth_observations": 295,
+  "values_beyond_50_pct": 6,
+  "registrations_fall_2019_2022_pct": 94.0,
+  "registrations_printed_by_year": {
+    "2019": 342064,
+    "2020": 186475,
+    "2021": 34261,
+    "2022": 20488,
+    "2023": 27871
+  },
+  "robust_outliers": 28,
+  "robust_outliers_documented": 20,
+  "robust_outliers_new": 8,
+  "new_outlier_list": [
+    "Kandy Motorcycle 2022",
+    "Puttalam Three-wheeler 2021",
+    "Puttalam Motorcycle 2022",
+    "Colombo Three-wheeler 2020",
+    "Matara Motorcycle 2022",
+    "Kilinochchi Car 2022",
+    "Mannar Motorcycle 2023",
+    "Colombo Motorcycle 2022"
+  ],
+  "tukey_level_outlier_districts": [
+    "Colombo",
+    "Gampaha",
+    "Kandy",
+    "Kurunegala"
+  ],
+  "spearman_level_vs_lag_1": 0.993,
+  "spearman_level_vs_rolling_mean": 0.998,
+  "spearman_level_vs_total_registrations": 0.35,
+  "vif": {
+    "log licence_count": 491.1,
+    "log licence_lag_1": 400.8,
+    "log licence_rolling_mean_3": 1427.8,
+    "log licence_rolling_std_3": 2.4,
+    "log total_registrations": 5.0,
+    "total_registrations_growth_log": 4.6
+  },
+  "vif_reduced": {
+    "log licence_count": 2.6,
+    "log licence_rolling_std_3": 2.3,
+    "log total_registrations": 4.9,
+    "total_registrations_growth_log": 4.6
+  },
+  "feature_target": {
+    "licence_count": {
+      "n": 220,
+      "target_years": 3,
+      "rho_with_next_level": 0.991,
+      "rho_with_next_change": -0.25,
+      "rho_change_within_year": -0.212
+    },
+    "total_registrations": {
+      "n": 199,
+      "target_years": 3,
+      "rho_with_next_level": 0.345,
+      "rho_with_next_change": -0.12,
+      "rho_change_within_year": -0.204
+    },
+    "licence_lag_1": {
+      "n": 145,
+      "target_years": 2,
+      "rho_with_next_level": 0.988,
+      "rho_with_next_change": -0.184,
+      "rho_change_within_year": -0.19
+    },
+    "licence_lag_2": {
+      "n": 71,
+      "target_years": 1,
+      "rho_with_next_level": 0.986,
+      "rho_with_next_change": 0.017,
+      "rho_change_within_year": -0.084
+    },
+    "licence_growth_log": {
+      "n": 145,
+      "target_years": 2,
+      "rho_with_next_level": -0.33,
+      "rho_with_next_change": -0.207,
+      "rho_change_within_year": -0.167
+    },
+    "licence_rolling_mean_3": {
+      "n": 145,
+      "target_years": 2,
+      "rho_with_next_level": 0.992,
+      "rho_with_next_change": -0.201,
+      "rho_change_within_year": -0.193
+    },
+    "licence_rolling_std_3": {
+      "n": 145,
+      "target_years": 2,
+      "rho_with_next_level": 0.722,
+      "rho_with_next_change": -0.166,
+      "rho_change_within_year": -0.023
+    },
+    "total_registrations_lag_1": {
+      "n": 142,
+      "target_years": 2,
+      "rho_with_next_level": 0.591,
+      "rho_with_next_change": -0.054,
+      "rho_change_within_year": -0.161
+    },
+    "total_registrations_growth_log": {
+      "n": 130,
+      "target_years": 2,
+      "rho_with_next_level": -0.222,
+      "rho_with_next_change": 0.157,
+      "rho_change_within_year": 0.04
+    }
+  },
+  "target_skew_raw": 2.33,
+  "target_skew_log": -0.84,
+  "dev_median_absolute_next_change_pct": 4.1,
+  "dev_share_next_within_10_pct": 75.9,
+  "dev_share_next_beyond_25_pct": 8.2,
+  "flagged_licence_values": 30,
+  "flagged_targets": 24,
+  "districts_with_issue": 13,
+  "flagged_targets_in_hold_out": 9,
+  "flagged_by_vehicle": {
+    "Motorcycle": 7,
+    "Car": 8,
+    "Three-wheeler": 15
+  },
+  "flag_comparison": {
+    "median_licences_flagged": 24800.0,
+    "median_licences_unflagged": 31732.0,
+    "median_abs_change_flagged": 38.3,
+    "median_abs_change_unflagged": 3.8,
+    "level_p": 0.14340804481422365,
+    "change_p": 9.97391968842772e-07
+  },
+  "sensitivity_change_abs": {
+    "all_median": 4.1,
+    "clean_median": 3.5,
+    "all_mean": 9.4,
+    "clean_mean": 5.3
+  },
+  "sensitivity_change_rho": {
+    "licence_count": {
+      "n_all": 220,
+      "n_clean": 179,
+      "change_rho_all": -0.212,
+      "change_rho_clean": -0.189
+    },
+    "total_registrations": {
+      "n_all": 199,
+      "n_clean": 161,
+      "change_rho_all": -0.204,
+      "change_rho_clean": -0.26
+    },
+    "licence_lag_1": {
+      "n_all": 145,
+      "n_clean": 116,
+      "change_rho_all": -0.19,
+      "change_rho_clean": -0.087
+    },
+    "licence_lag_2": {
+      "n_all": 71,
+      "n_clean": 55,
+      "change_rho_all": -0.084,
+      "change_rho_clean": 0.148
+    },
+    "licence_growth_log": {
+      "n_all": 145,
+      "n_clean": 116,
+      "change_rho_all": -0.167,
+      "change_rho_clean": -0.124
+    },
+    "licence_rolling_mean_3": {
+      "n_all": 145,
+      "n_clean": 116,
+      "change_rho_all": -0.193,
+      "change_rho_clean": -0.09
+    },
+    "licence_rolling_std_3": {
+      "n_all": 145,
+      "n_clean": 116,
+      "change_rho_all": -0.023,
+      "change_rho_clean": 0.057
+    },
+    "total_registrations_lag_1": {
+      "n_all": 142,
+      "n_clean": 112,
+      "change_rho_all": -0.161,
+      "change_rho_clean": -0.076
+    },
+    "total_registrations_growth_log": {
+      "n_all": 130,
+      "n_clean": 103,
+      "change_rho_all": 0.04,
+      "change_rho_clean": 0.027
+    }
+  },
+  "sensitivity_clean_rows": 179,
+  "sensitivity_all_rows": 220,
+  "level_rank_spearman_min": 0.937,
+  "level_rank_spearman_max": 0.995,
+  "growth_rank_spearman_min": -0.581,
+  "growth_rank_spearman_max": 0.06,
+  "growth_rank_spearman_median": -0.055,
+  "top_5_kept_min": 4,
+  "top_5_kept_median": 5.0,
+  "flagged_values_in_top_5": 5,
+  "flagged_values_in_top_5_list": [
+    "Kandy Car 2023 (rank 3)",
+    "Kurunegala Motorcycle 2023 (rank 1)",
+    "Gampaha Three-wheeler 2020 (rank 2)",
+    "Colombo Three-wheeler 2021 (rank 2)",
+    "Kandy Three-wheeler 2023 (rank 3)"
+  ],
+  "largest_flagged_rank_move": 11,
+  "level_rank_spearman_min_without_flagged": 0.986,
+  "top_5_kept_min_without_flagged": 4,
+  "rank_range_median": {
+    "Motorcycle": 2.0,
+    "Car": 2.0,
+    "Three-wheeler": 2.0
+  },
+  "rank_range_max": 12,
+  "figures": [
+    "fig01_missing_by_feature_and_year.png",
+    "fig02_usable_rows_by_feature_set.png",
+    "fig03_licence_distribution_raw_and_log.png",
+    "fig04_licences_by_vehicle_type.png",
+    "fig05_vehicle_mix_by_district.png",
+    "fig06_district_ranking_2022.png",
+    "fig07_district_year_heatmap.png",
+    "fig08_district_concentration.png",
+    "fig09_national_trend_indexed.png",
+    "fig10_growth_by_year_and_vehicle.png",
+    "fig11_registrations_by_year.png",
+    "fig12_growth_outliers.png",
+    "fig13_effect_of_approved_corrections.png",
+    "fig14_feature_correlation.png",
+    "fig15_feature_target_correlation.png",
+    "fig16_target_distribution_and_persistence.png",
+    "fig17_next_year_change_distribution.png",
+    "fig18_flagged_values_by_district_and_year.png",
+    "fig19_flagged_vs_unflagged.png",
+    "fig20_motorcycle_rank_over_time.png",
+    "fig21_rank_stability_level_vs_growth.png",
+    "fig22_rank_movement_by_district_size.png"
+  ],
+  "figure_count": 22
+}

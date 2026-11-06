@@ -24,6 +24,7 @@ Canonical technology stack and folder structure. Per MASTER_PROMPT.md Section 0 
 | Experiment tracking | MLflow or Weights & Biases | Parameters, metrics and artefacts |
 | Version control | Git + GitHub | Code history and collaboration |
 | Development | VS Code / Jupyter Notebook | Implementation and analysis |
+| Offline EDA charts | Matplotlib, Seaborn | EDA notebook only; dashboard charts stay in Plotly (REF-009 ADR-038) |
 | Data storage | CSV / Parquet; optional SQLite | Processed dataset and application data |
 
 ## 3. Appendix B — Suggested Project Folder Structure (verbatim, extended with `specs/` per MASTER_PROMPT.md Section 8)

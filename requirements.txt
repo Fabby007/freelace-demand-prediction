@@ -67,3 +67,9 @@ click==8.4.2              # was already present transitively (Flask); now pinned
                           # imports click directly — see REF-009 ADR-029
 email-validator==2.3.0    # required by WTForms' Email() validator (app/forms/auth.py); performs syntax
                           # validation only (check_deliverability=False), no network/DNS calls
+
+# Offline analysis only: EDA notebook, not used by the pipeline, dashboard or website (REF-009 ADR-038)
+seaborn==0.13.2
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel==6.29.5
