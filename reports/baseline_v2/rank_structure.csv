@@ -1,0 +1,7 @@
+fold,vehicle_type,n,spearman_previous_year,spearman_frozen_2019,share_districts_changing_rank,mean_absolute_rank_change,top_3_previous_year,top_3_frozen_2019,top_5_previous_year,top_5_frozen_2019,top_10_previous_year,top_10_frozen_2019
+fold_1,Car,24,0.9913,0.9896,0.375,0.5,0.6667,1.0,1.0,1.0,0.9,1.0
+fold_1,Motorcycle,23,0.9941,0.9881,0.3913,0.4348,1.0,1.0,1.0,1.0,0.9,0.9
+fold_1,Three-wheeler,24,0.9965,0.9887,0.3333,0.3333,1.0,1.0,1.0,1.0,1.0,0.9
+fold_2,Car,24,0.9948,0.9896,0.5,0.5,0.6667,0.6667,0.8,0.8,1.0,1.0
+fold_2,Motorcycle,23,0.9753,0.9783,0.2174,0.6087,1.0,1.0,1.0,1.0,0.9,0.9
+fold_2,Three-wheeler,24,0.9417,0.9591,0.5833,1.1667,1.0,1.0,1.0,1.0,0.9,0.9

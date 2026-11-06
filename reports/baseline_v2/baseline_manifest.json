@@ -1,0 +1,37 @@
+{
+  "run_date": "2026-11-07",
+  "dataset_sha256": "04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335",
+  "config_sha256": "b82ad2f73da70ee0e2d583195bf3d606945f8cfbd17d57679157712e1b8feeb6",
+  "folds_evaluated": [
+    "fold_1",
+    "fold_2"
+  ],
+  "target_years_evaluated": [
+    2021,
+    2022
+  ],
+  "final_test_evaluated": false,
+  "evaluation_rows": 145,
+  "tables": [
+    "bootstrap_against_previous_year.csv",
+    "errors_by_district.csv",
+    "feature_selection.csv",
+    "flagged_vs_unflagged.csv",
+    "metrics_by_fold.csv",
+    "metrics_summary.csv",
+    "outlier_candidate_review.csv",
+    "predictions.csv",
+    "rank_structure.csv",
+    "ranking_by_fold.csv",
+    "ranking_by_vehicle.csv",
+    "ranking_summary.csv"
+  ],
+  "figures": [
+    "fig01_error_by_fold.png",
+    "fig02_error_by_vehicle.png",
+    "fig03_sensitivity_to_flagged_rows.png",
+    "fig04_ranking_level_vs_change.png",
+    "fig05_error_by_district.png",
+    "fig06_rank_structure.png"
+  ]
+}

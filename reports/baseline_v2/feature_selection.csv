@@ -1,0 +1,13 @@
+feature,decision,reason
+licence_count,core,Most complete and strongest link to the next level (Spearman 0.99).
+vehicle_type,core,Vehicle types differ greatly in size and spread.
+licence_growth_log,core,"The only momentum signal. Weak link to next-year change (-0.17 within year), so it must earn its place."
+licence_rolling_std_3,add_on,"Different information from level (VIF 2.4), but no clear link to change (-0.02)."
+total_registrations,add_on,"Approved secondary signal. Weak link to change (-0.20), and using it loses rows."
+total_registrations_growth_log,add_on,"Looks useful pooled (+0.16) but not within year (+0.04), which suggests a calendar effect."
+licence_lag_1,excluded,Redundant. Growth is exactly log(licence_count) - log(licence_lag_1).
+licence_rolling_mean_3,excluded,"Near-duplicate of licence_count (VIF 1,428). Used only as the moving-average baseline."
+licence_lag_2,excluded,"Only one development target year (71 rows), and near-duplicate of level."
+total_registrations_lag_1,excluded,"Near-duplicate information given total_registrations and its growth, and loses rows."
+district,excluded,"A raw identifier would let a model memorise district size, and the design has no unseen districts to test this."
+year,excluded,"A tree model cannot extrapolate a year it has not seen, and two or three training years cannot support a trend."

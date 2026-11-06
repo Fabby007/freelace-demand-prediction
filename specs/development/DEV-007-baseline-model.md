@@ -16,6 +16,9 @@ Source doc Section 13 (baseline is "Required" priority), Section 14.2 step 2 ("T
 - Section 13, Section 14.2, Section 23.1
 - REF-003 (ML Component Architecture)
 
+## Dataset v2 note
+Baselines for Dataset v2's target are in `src/evaluation/baseline_evaluation_v2.py` (REF-009 ADR-039). The `src/models/baseline.py` module described below still serves Dataset v1 and is unchanged.
+
 ## User Roles
 None (backend/modelling spec).
 

@@ -1,0 +1,17 @@
+scenario,model,top_3_overlap,top_5_overlap,top_10_overlap,spearman_level,spearman_change,change_top_5_overlap,direction_accuracy
+all_rows,previous_year,0.8889,0.9667,0.9333,0.9805,,,
+all_rows,moving_average,0.8889,0.9667,0.95,0.9807,0.1341,0.4333,0.5436
+all_rows,growth_series,0.7778,0.9,0.8833,0.9592,-0.1699,0.2,0.4294
+all_rows,growth_vehicle_median,0.8889,0.9667,0.9333,0.9805,,,0.4969
+no_flagged_target,previous_year,0.8889,1.0,0.95,0.9939,,,
+no_flagged_target,moving_average,0.8889,0.9667,0.95,0.9929,0.0461,0.4,0.5303
+no_flagged_target,growth_series,0.7778,0.9667,0.9,0.972,-0.088,0.2667,0.4404
+no_flagged_target,growth_vehicle_median,0.8889,1.0,0.95,0.9939,,,0.4949
+no_flagged_target_or_input,previous_year,0.8889,0.9667,0.9333,0.9919,,,
+no_flagged_target_or_input,moving_average,0.8889,0.9667,0.9833,0.9922,0.1045,0.4333,0.5385
+no_flagged_target_or_input,growth_series,0.8333,1.0,0.9333,0.9842,-0.1044,0.1667,0.4419
+no_flagged_target_or_input,growth_vehicle_median,0.8889,0.9667,0.9333,0.9919,,,0.4605
+also_no_outlier_candidates,previous_year,0.8889,0.9667,0.95,0.9952,,,
+also_no_outlier_candidates,moving_average,0.8889,0.9667,0.9833,0.9928,0.0614,0.4333,0.5237
+also_no_outlier_candidates,growth_series,0.8333,1.0,0.9333,0.9882,-0.0748,0.2,0.4567
+also_no_outlier_candidates,growth_vehicle_median,0.8889,0.9667,0.95,0.9952,,,0.4529

@@ -395,6 +395,14 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Alternatives considered: Matplotlib alone (rejected - Seaborn was explicitly requested); a pipeline script instead of a notebook (rejected - a notebook was requested).
 - Affected specs: REF-008.
 
+### ADR-039 — Baseline evaluation on Dataset v2, with target year 2023 held back
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07, including the success criteria. Outlier candidates stay a sensitivity scenario, and Dataset v2 is unchanged.
+- Context: Source doc Section 23.1 requires proving, not assuming, that a model beats simple baselines. v1's `src/models/baseline.py` targets new registrations and writes to v1 result paths, so it cannot be reused without risking v1.
+- Decision: Added `src/evaluation/baseline_evaluation_v2.py` and `configs/baseline_v2.yaml`, writing only to `reports/baseline_v2/`. Development folds predict target years 2021 and 2022 on identical rows. Target year 2023 is not evaluated, even for baselines, and the code refuses it unless explicitly asked. The MASE scale is a pooled mean of one-year changes up to each fold's origin, because each series has too few years for its own scale. Success criteria for later models are fixed in the report before any model is trained.
+- Alternatives considered: Scoring baselines on 2023 now (rejected - its error would become a benchmark that could steer model design); a per-series MASE scale (rejected - fold 1 would rest on one change per series); MLflow logging (not used here - nothing is fitted, and writing to `mlruns/` would change a protected v1 store; to be decided when models are trained).
+- Affected specs: DEV-007, DEV-014. Results and limitations: `reports/baseline_v2/baseline_evaluation_report.md`.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

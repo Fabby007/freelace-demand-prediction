@@ -1,0 +1,98 @@
+# Baseline evaluation on Dataset v2 (src/evaluation/baseline_evaluation_v2.py, REF-009 ADR-039).
+# Separate from model_params.yaml and split_config.yaml, which Dataset v1 still reads.
+
+dataset_name: modelling_dataset_v2
+expected_dataset_sha256: 04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335
+
+# Each fold uses data up to origin_year only, and predicts target_year.
+development_folds:
+  - {name: fold_1, origin_year: 2020, target_year: 2021}
+  - {name: fold_2, origin_year: 2021, target_year: 2022}
+
+# Held back. The code refuses this fold unless explicitly asked (final evaluation only).
+final_test_fold: {name: final_test, origin_year: 2022, target_year: 2023}
+
+models: [previous_year, moving_average, growth_series, growth_vehicle_median]
+reference_model: previous_year
+
+top_n: [3, 5, 10]
+change_top_n: 5
+bootstrap_resamples: 5000
+bootstrap_seed: 42
+
+# Rows are removed the same way for every model, so comparisons stay on identical rows.
+scenarios:
+  - {name: all_rows, description: "All evaluation rows"}
+  - {name: no_flagged_target, description: "Excludes rows whose target is a flagged value"}
+  - {name: no_flagged_target_or_input, description: "Also excludes rows whose inputs (t-2 to t) include a flagged value"}
+  - {name: also_no_outlier_candidates, description: "Also excludes rows touching the eight EDA candidates, in the target or inputs"}
+
+# Features for later models, with reasons from the EDA (reports/eda_v2/eda_report.md).
+# Baselines use none of these as fitted inputs.
+feature_selection:
+  - {feature: licence_count, decision: core, reason: "Most complete and strongest link to the next level (Spearman 0.99)."}
+  - {feature: vehicle_type, decision: core, reason: "Vehicle types differ greatly in size and spread."}
+  - {feature: licence_growth_log, decision: core, reason: "The only momentum signal. Weak link to next-year change (-0.17 within year), so it must earn its place."}
+  - {feature: licence_rolling_std_3, decision: add_on, reason: "Different information from level (VIF 2.4), but no clear link to change (-0.02)."}
+  - {feature: total_registrations, decision: add_on, reason: "Approved secondary signal. Weak link to change (-0.20), and using it loses rows."}
+  - {feature: total_registrations_growth_log, decision: add_on, reason: "Looks useful pooled (+0.16) but not within year (+0.04), which suggests a calendar effect."}
+  - {feature: licence_lag_1, decision: excluded, reason: "Redundant. Growth is exactly log(licence_count) - log(licence_lag_1)."}
+  - {feature: licence_rolling_mean_3, decision: excluded, reason: "Near-duplicate of licence_count (VIF 1,428). Used only as the moving-average baseline."}
+  - {feature: licence_lag_2, decision: excluded, reason: "Only one development target year (71 rows), and near-duplicate of level."}
+  - {feature: total_registrations_lag_1, decision: excluded, reason: "Near-duplicate information given total_registrations and its growth, and loses rows."}
+  - {feature: district, decision: excluded, reason: "A raw identifier would let a model memorise district size, and the design has no unseen districts to test this."}
+  - {feature: year, decision: excluded, reason: "A tree model cannot extrapolate a year it has not seen, and two or three training years cannot support a trend."}
+
+# PDF review of the eight EDA candidates. Claude read each rendered PDF page on 2026-11-07.
+# Judgements are recommendations awaiting the project author's confirmation. No value
+# is changed by this file. Mannar 2023 lies in the held-back final test year: reading it
+# adds to what is already known about that year, and this is disclosed in the report.
+outlier_candidates:
+  - district: Kandy
+    vehicle_type: Motorcycle
+    year: 2022
+    pattern: partial_table_change
+    assessment: "Printed as extracted. Cars also rise strongly (+20%) but three-wheelers only +2.5%. The same 2022 column is repeated for 2023 (L03), so 2022 itself may deserve caution."
+    recommendation: flag_for_review
+  - district: Puttalam
+    vehicle_type: Three-wheeler
+    year: 2021
+    pattern: table_wide_dip
+    assessment: "Printed as extracted. Most Puttalam rows fall through 2021 and recover in 2022, so this looks like a district-wide reporting or renewal effect, not one bad cell."
+    recommendation: flag_for_review
+  - district: Puttalam
+    vehicle_type: Motorcycle
+    year: 2022
+    pattern: table_wide_rebound
+    assessment: "Printed as extracted. This is the recovery from the same district-wide 2021 dip (Total 183,716 to 229,044)."
+    recommendation: flag_for_review
+  - district: Colombo
+    vehicle_type: Three-wheeler
+    year: 2020
+    pattern: isolated_spike
+    assessment: "Printed as extracted. Three-wheelers rise 17.8% while cars and motorcycles fall, then fall 27% in 2021. This is the most isolated of the eight, and L13's flagged 2021 fall may simply be the return from it."
+    recommendation: flag_for_review
+  - district: Matara
+    vehicle_type: Motorcycle
+    year: 2022
+    pattern: table_wide_dip
+    assessment: "Printed as extracted. Most Matara rows fall in 2022 and recover in 2023 (Total 214,184 to 186,474 to 209,387), which looks like a district-wide effect."
+    recommendation: flag_for_review
+  - district: Kilinochchi
+    vehicle_type: Car
+    year: 2022
+    pattern: small_base_trend
+    assessment: "Printed as extracted. A steady rise on a very small base (254, 361, 439, 569). The +30% is unremarkable for this series, and only the later 2,356 is flagged (L08)."
+    recommendation: keep_no_flag
+  - district: Mannar
+    vehicle_type: Motorcycle
+    year: 2023
+    pattern: table_wide_dip
+    assessment: "Printed as extracted. Most Mannar rows fall in 2023 (Total 22,206 to 19,114). The 2023 column is also printed in a different typeface, which may mean it was compiled separately. In the final test year."
+    recommendation: flag_for_review
+  - district: Colombo
+    vehicle_type: Motorcycle
+    year: 2022
+    pattern: table_wide_rebound
+    assessment: "Printed as extracted. Colombo's whole table dips in 2021 and recovers in 2022 (Total 573,561 to 493,046 to 562,888). This is the recovery; the 2021 dip is arguably the more doubtful year."
+    recommendation: flag_for_review

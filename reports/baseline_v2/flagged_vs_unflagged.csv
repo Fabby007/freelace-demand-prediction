@@ -1,0 +1,9 @@
+model,rows,n,mape,median_ape,max_ape
+previous_year,no_flagged_target_or_input,116,5.3159,3.2038,20.2497
+previous_year,flagged_target_or_input,29,18.8672,10.1149,66.9972
+moving_average,no_flagged_target_or_input,116,5.517,4.2846,25.378
+moving_average,flagged_target_or_input,29,22.7585,20.9772,65.4876
+growth_series,no_flagged_target_or_input,116,7.6871,5.2769,31.9824
+growth_series,flagged_target_or_input,29,36.6918,30.4905,180.6597
+growth_vehicle_median,no_flagged_target_or_input,116,6.1824,4.8459,21.7226
+growth_vehicle_median,flagged_target_or_input,29,19.0276,11.6381,71.8996
