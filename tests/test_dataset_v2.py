@@ -492,7 +492,9 @@ def _sha(path):
 @needs_extraction
 def test_run_writes_only_to_given_paths_and_is_repeatable(tmp_path):
     first, second = tmp_path / "first", tmp_path / "second"
-    before = (_sha(V1_DATASET), V1_DATASET.stat().st_mtime_ns)
+    # Dataset v1 is not in git, so a fresh clone may not have it to protect.
+    protected = [V1_DATASET] if V1_DATASET.exists() else []
+    before = [(_sha(path), path.stat().st_mtime_ns) for path in protected]
     manifest = run(**_paths(first))
     run(**_paths(second))
 
@@ -502,7 +504,7 @@ def test_run_writes_only_to_given_paths_and_is_repeatable(tmp_path):
     assert manifest["rows"] == 375
     assert manifest["target_values"] == 299
     assert json.loads((first / "manifest.json").read_text(encoding="utf-8"))["dataset_version"].startswith("modelling_dataset_v2_")
-    assert (_sha(V1_DATASET), V1_DATASET.stat().st_mtime_ns) == before
+    assert [(_sha(path), path.stat().st_mtime_ns) for path in protected] == before
 
 
 @needs_extraction
