@@ -367,6 +367,16 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Rationale: Real interim data stays the read-only input, so the tests still exercise the real pipeline and real values, while everything they generate goes to disposable folders. Replacing `log_run.__defaults__` is unusual, but it is confined to one fixture and restored afterward.
 - Affected specs: DEV-015.
 
+### ADR-036 — Separate v2 DCS extractor based on PDF ruling lines; validation only flags
+- Date: 2026-11-07
+- Status: Accepted. Data decisions approved by the project author on 2026-11-07, to be applied when Dataset v2 is built.
+- Context: The v1 parser (`extract_dcs_handbook.py`) pairs labels and values by text position. It lost Anuradhapura's Table 9.3 values for 2019-2022, wrote `-` for empty cells, read repeated page headers as data, attached values to the wrong labels in several districts, and skipped the Total row. Changing it in place would make Dataset v1 impossible to reproduce.
+- Decision: Added `src/data/extract_dcs_tables_v2.py`, which reads local PDFs only and never downloads. It takes rows from the PDF's horizontal ruling lines, reads the year header per page, keeps blank, `-`, `n.a` and `n/r` distinct, matches labels to a fixed list in `configs/dcs_extraction_v2.yaml`, and extracts the Total row. Added `src/data/validate_dcs_extraction.py`, whose checks only raise flags. Decisions are recorded in `data/corrections/source_anomalies_v2.csv`, with original values and source PDFs, and are applied only when Dataset v2 is built; the extracted cells stay as printed. Outputs use new versioned paths, and the writer refuses the v1 output path.
+- Alternatives considered: Patching the v1 parser (rejected - changes how v1 was produced); `pdfplumber.extract_tables()` (not tried - word positions were needed anyway to rejoin split numbers, and the ruling-line approach passed every check); correcting values automatically (rejected - project rule against guessing).
+- Rationale: All 250 printed Totals equal the sum of their categories, and summed district Totals reach 92-101% of DMT's national all-vehicle figures, while v1's label and blank-cell errors no longer occur. `Grade A` in Trincomalee stays unresolved, because the PDF does not state that it means Car.
+- Approved data decisions: only clearly incorrect licence values are set to missing (Ampara 2019, Jaffna 2021 motorcycles); uncertain values stay flagged; verified district Total Registrations are the secondary feature and category-level registrations are not used; `-` and blank stay missing unless the source confirms zero. Because a Total can add up and still be wrong, every printed Table 9.4 Total also gets a status in `reports/extraction_v2/total_registrations_verification.csv`.
+- Affected specs: DEV-003, DEV-004, DEV-015. Results: `reports/extraction_v2/extraction_v2_report.md`.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

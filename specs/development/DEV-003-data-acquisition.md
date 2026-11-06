@@ -51,6 +51,8 @@ Implements Section 10's 9-step workflow:
 - **Web scraping (Section 7.4), if used:** respect website terms, robots guidance, and request-rate limits; store source URLs and extraction timestamps; do not collect personal information when aggregate statistics suffice.
 
 ## Business Rules
+**Implementation note (2026-11-07, REF-009 ADR-036):** corrected extraction for Tables 9.3 and 9.4 is in `src/data/extract_dcs_tables_v2.py`, including the printed Total row, with checks in `src/data/validate_dcs_extraction.py`. It reads the local PDFs without downloading. The v1 module stays unchanged so that Dataset v1 remains reproducible.
+
 - Never edit a raw downloaded file in place — `data/raw/` is an unedited archive; all transformation happens on copies in `data/interim/`/`data/processed/`.
 - Every extraction script must be traceable to a specific registered source (DEV-002).
 - Scraping (if used) must respect robots.txt/ToS and rate limits (REF-005).

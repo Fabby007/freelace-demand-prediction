@@ -1,0 +1,166 @@
+check_id,severity,district,metric,year,row_label,value,evidence,source_file,page,anomaly_id,decision_status
+column_identical_to_other_district,high,Kilinochchi,vehicle_population,2020,,,Every value is identical to Mullaitivu 2019.,DCS_Kilinochchi_2024_T9_3.pdf,,L05,approved_keep_flagged
+column_identical_to_other_district,high,Mullaitivu,vehicle_population,2019,,,Every value is identical to Kilinochchi 2020.,DCS_Mullaitivu_2024_T9_3.pdf,,L04,approved_keep_flagged
+dip_between_neighbours,high,Jaffna,vehicle_population,2021,Motor Bicycles,13091,133106 then 13091 then 133837.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+dip_between_neighbours,high,Jaffna,vehicle_population,2021,Total,47133,165523 then 47133 then 169713.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+district_sum_exceeds_dmt,high,ALL,new_registrations,2019,Car,53628,District sum 53628 exceeds DMT national 38232 (140%).,,,R10,approved_total_row_used
+district_sum_exceeds_dmt,high,ALL,new_registrations,2020,Car,29100,District sum 29100 exceeds DMT national 21021 (138%).,,,R10,approved_total_row_used
+district_sum_exceeds_dmt,high,ALL,new_registrations,2021,Car,5358,District sum 5358 exceeds DMT national 3495 (153%).,,,R10,approved_total_row_used
+district_sum_exceeds_dmt,high,ALL,new_registrations,2022,Three-wheeler,415,District sum 415 exceeds DMT national 36 (1153%).,,,R10,approved_total_row_used
+identical_year_columns,high,Kandy,vehicle_population,2023,,,All 8 non-zero values equal 2022.,DCS_Kandy_2024_T9_3.pdf,,L03,approved_keep_flagged
+licences_match_registrations,high,Ampara,vehicle_population,2019,,,"Table 9.3 repeats these Table 9.4 values for 2019: 14, 49, 68, 389, 9057.",DCS_Ampara_2024_T9_3.pdf,,L01,approved_set_missing
+missing_expected_label,high,Hambantota,new_registrations,,Ambulance,,Structural check on the PDF table.,DCS_Hambantota_2024_T9_4.pdf,,R09,no_action
+missing_expected_label,high,Trincomalee,new_registrations,,Car,,Structural check on the PDF table.,DCS_Trincomalee_2024_T9_4.pdf,,R07,unresolved
+missing_expected_label,high,Trincomalee,new_registrations,,Motor Lorry (Commercial),,Structural check on the PDF table.,DCS_Trincomalee_2024_T9_4.pdf,,R08,no_action
+registrations_high_vs_licences,high,Puttalam,new_registrations,2019,Car,16778,16778 new registrations vs 19371 licences (87%).,DCS_Puttalam_2024_T9_4.pdf,1,R01,approved_category_not_used
+district_totals_exceed_dmt,medium,ALL,new_registrations,2021,Total,34261,"District Totals sum to 34261, DMT national all-vehicle figure is 33850 (101.2%).",,,R11,flagged_year_caveat
+largest_registration_not_motorcycle,medium,Ampara,new_registrations,2019,Lorry Trailer / Bowser,9057,Lorry Trailer / Bowser = 9057; Motor Cycle = not numeric.,DCS_Ampara_2024_T9_4.pdf,1,R02,approved_category_not_used
+largest_registration_not_motorcycle,medium,Ampara,new_registrations,2020,Lorry Trailer / Bowser,5465,Lorry Trailer / Bowser = 5465; Motor Cycle = not numeric.,DCS_Ampara_2024_T9_4.pdf,1,R02,approved_category_not_used
+largest_registration_not_motorcycle,medium,Anuradhapura,new_registrations,2019,Car,828,Car = 828; Motor Cycle = 174.,DCS_Anuradhapura_2024_T9_4.pdf,1,R06,approved_category_not_used
+largest_registration_not_motorcycle,medium,Anuradhapura,new_registrations,2020,Tractor Trailer / Bowser,1094,Tractor Trailer / Bowser = 1094; Motor Cycle = 165.,DCS_Anuradhapura_2024_T9_4.pdf,2,R06,approved_category_not_used
+largest_registration_not_motorcycle,medium,Jaffna,new_registrations,2019,Lorry Trailer / Bowser,13389,Lorry Trailer / Bowser = 13389; Motor Cycle = 23.,DCS_Jaffna_2024_T9_4.pdf,1,R03,approved_category_not_used
+largest_registration_not_motorcycle,medium,Jaffna,new_registrations,2020,Lorry Trailer / Bowser,8073,Lorry Trailer / Bowser = 8073; Motor Cycle = 31.,DCS_Jaffna_2024_T9_4.pdf,1,R03,approved_category_not_used
+largest_registration_not_motorcycle,medium,Kandy,new_registrations,2019,Commercial (Bus),9905,Commercial (Bus) = 9905; Motor Cycle = 755.,DCS_Kandy_2024_T9_4.pdf,1,R04,approved_category_not_used
+largest_registration_not_motorcycle,medium,Kandy,new_registrations,2020,Commercial (Bus),5427,Commercial (Bus) = 5427; Motor Cycle = 492.,DCS_Kandy_2024_T9_4.pdf,1,R04,approved_category_not_used
+largest_registration_not_motorcycle,medium,Matara,new_registrations,2020,Commercial (Bus),4900,Commercial (Bus) = 4900; Motor Cycle = not numeric.,DCS_Matara_2024_T9_4.pdf,1,R05,approved_category_not_used
+largest_registration_not_motorcycle,medium,Puttalam,new_registrations,2019,Car,16778,Car = 16778; Motor Cycle = 5.,DCS_Puttalam_2024_T9_4.pdf,1,R01,approved_category_not_used
+largest_registration_not_motorcycle,medium,Puttalam,new_registrations,2020,Car,8130,Car = 8130; Motor Cycle = 6.,DCS_Puttalam_2024_T9_4.pdf,1,R01,approved_category_not_used
+licence_source_differs,medium,Kurunegala,vehicle_population,,,,"Table 9.3 cites: Source - Statistics Division, Department of Motor Traffic",DCS_Kurunegala_2024_T9_3.pdf,,L11,approved_keep_flagged
+total_registrations_against_peers,medium,Anuradhapura,new_registrations,2019,Total,3452,0.19 times the median district's registrations per licence.,DCS_Anuradhapura_2024_T9_4.pdf,2,R13,flagged_total_not_verified
+total_registrations_against_peers,medium,Anuradhapura,new_registrations,2020,Total,3238,0.32 times the median district's registrations per licence.,DCS_Anuradhapura_2024_T9_4.pdf,2,R13,flagged_total_not_verified
+total_registrations_against_peers,medium,Anuradhapura,new_registrations,2021,Total,4509,3.10 times the median district's registrations per licence; year-on-year change 8.09 times the median district's.,DCS_Anuradhapura_2024_T9_4.pdf,2,R13,flagged_total_not_verified
+total_registrations_against_peers,medium,Badulla,new_registrations,2022,Total,748,year-on-year change 2.76 times the median district's.,DCS_Badulla_2024_T9_4.pdf,2,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Batticaloa,new_registrations,2021,Total,1816,2.76 times the median district's registrations per licence.,DCS_Batticaloa_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Kegalle,new_registrations,2021,Total,320,0.36 times the median district's registrations per licence.,DCS_Kegalle_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Kegalle,new_registrations,2022,Total,288,0.35 times the median district's registrations per licence.,DCS_Kegalle_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Mannar,new_registrations,2023,Total,313,3.22 times the median district's registrations per licence.,DCS_Mannar_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Mullaitivu,new_registrations,2021,Total,510,3.65 times the median district's registrations per licence.,DCS_Mullaitivu_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Mullaitivu,new_registrations,2023,Total,328,2.75 times the median district's registrations per licence.,DCS_Mullaitivu_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Nuwara Eliya,new_registrations,2022,Total,115,0.34 times the median district's registrations per licence.,DCS_NuwaraEliya_2024_T9_4.pdf,2,R14,flagged_total_not_verified
+total_registrations_against_peers,medium,Vavuniya,new_registrations,2021,Total,689,2.73 times the median district's registrations per licence.,DCS_Vavuniya_2024_T9_4.pdf,1,R14,flagged_total_not_verified
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2020,Motor Cars,8742,389 to 8742 (+2147.3%); median district +3.1%.,DCS_Ampara_2024_T9_3.pdf,1,L01,approved_set_missing
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2020,Motor Bicycles,125991,9057 to 125991 (+1291.1%); median district -0.2%.,DCS_Ampara_2024_T9_3.pdf,1,L01,approved_set_missing
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2020,Three Weelers,23521,575 to 23521 (+3990.6%); median district -4.4%.,DCS_Ampara_2024_T9_3.pdf,1,L01,approved_set_missing
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2020,Total,180765,10152 to 180765 (+1680.6%); median district -1.3%.,DCS_Ampara_2024_T9_3.pdf,1,L01,approved_set_missing
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2021,Motor Cars,11912,8742 to 11912 (+36.3%); median district +3.4%.,DCS_Ampara_2024_T9_3.pdf,1,L12,approved_keep_flagged
+yoy_against_national_pattern,medium,Ampara,vehicle_population,2022,Motor Cars,8405,11912 to 8405 (-29.4%); median district +1.3%.,DCS_Ampara_2024_T9_3.pdf,1,L12,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2020,Motor Cars,11501,7316 to 11501 (+57.2%); median district +3.1%.,DCS_Badulla_2024_T9_3.pdf,1,L06,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2020,Motor Bicycles,64702,25814 to 64702 (+150.6%); median district -0.2%.,DCS_Badulla_2024_T9_3.pdf,1,L06,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2020,Three Weelers,8150,17116 to 8150 (-52.4%); median district -4.4%.,DCS_Badulla_2024_T9_3.pdf,1,L07,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2020,Total,107285,60781 to 107285 (+76.5%); median district -1.3%.,DCS_Badulla_2024_T9_3.pdf,1,L06,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2021,Three Weelers,13693,8150 to 13693 (+68.0%); median district +2.9%.,DCS_Badulla_2024_T9_3.pdf,1,L07,approved_keep_flagged
+yoy_against_national_pattern,medium,Badulla,vehicle_population,2022,Three Weelers,37628,13693 to 37628 (+174.8%); median district -2.2%.,DCS_Badulla_2024_T9_3.pdf,1,L07,approved_keep_flagged
+yoy_against_national_pattern,medium,Colombo,vehicle_population,2021,Three Weelers,88051,120716 to 88051 (-27.1%); median district +2.9%.,DCS_Colombo_2024_T9_3.pdf,1,L13,approved_keep_flagged
+yoy_against_national_pattern,medium,Gampaha,vehicle_population,2020,Three Weelers,113127,194704 to 113127 (-41.9%); median district -4.4%.,DCS_Gampaha_2024_T9_3.pdf,1,L10,approved_keep_flagged
+yoy_against_national_pattern,medium,Jaffna,vehicle_population,2021,Motor Bicycles,13091,133106 to 13091 (-90.2%); median district +0.1%.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+yoy_against_national_pattern,medium,Jaffna,vehicle_population,2021,Total,47133,165523 to 47133 (-71.5%); median district +1.9%.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+yoy_against_national_pattern,medium,Jaffna,vehicle_population,2022,Motor Bicycles,133837,13091 to 133837 (+922.4%); median district +2.2%.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+yoy_against_national_pattern,medium,Jaffna,vehicle_population,2022,Total,169713,47133 to 169713 (+260.1%); median district +1.3%.,DCS_Jaffna_2024_T9_3.pdf,1,L02,approved_set_missing
+yoy_against_national_pattern,medium,Kalutara,vehicle_population,2022,Motor Cars,26281,39813 to 26281 (-34.0%); median district +1.3%.,DCS_Kalutara_2024_T9_3.pdf,1,L09,approved_keep_flagged
+yoy_against_national_pattern,medium,Kalutara,vehicle_population,2022,Motor Bicycles,101043,162539 to 101043 (-37.8%); median district +2.2%.,DCS_Kalutara_2024_T9_3.pdf,1,L09,approved_keep_flagged
+yoy_against_national_pattern,medium,Kalutara,vehicle_population,2022,Three Weelers,35497,59279 to 35497 (-40.1%); median district -2.2%.,DCS_Kalutara_2024_T9_3.pdf,1,L09,approved_keep_flagged
+yoy_against_national_pattern,medium,Kalutara,vehicle_population,2022,Total,183655,302290 to 183655 (-39.2%); median district +1.3%.,DCS_Kalutara_2024_T9_3.pdf,1,L09,approved_keep_flagged
+yoy_against_national_pattern,medium,Kalutara,vehicle_population,2023,Motor Cars,20737,26281 to 20737 (-21.1%); median district +4.3%.,DCS_Kalutara_2024_T9_3.pdf,1,L09,approved_keep_flagged
+yoy_against_national_pattern,medium,Kilinochchi,vehicle_population,2020,Motor Cars,361,254 to 361 (+42.1%); median district +3.1%.,DCS_Kilinochchi_2024_T9_3.pdf,1,L05,approved_keep_flagged
+yoy_against_national_pattern,medium,Kilinochchi,vehicle_population,2023,Motor Cars,2356,569 to 2356 (+314.1%); median district +4.3%.,DCS_Kilinochchi_2024_T9_3.pdf,1,L08,approved_keep_flagged
+yoy_against_national_pattern,medium,Mannar,vehicle_population,2023,Three Weelers,1365,1903 to 1365 (-28.3%); median district +3.2%.,DCS_Mannar_2024_T9_3.pdf,1,L16,approved_keep_flagged
+yoy_against_national_pattern,medium,Matale,vehicle_population,2020,Three Weelers,30210,42814 to 30210 (-29.4%); median district -4.4%.,DCS_Matale_2024_T9_3.pdf,1,L14,approved_keep_flagged
+yoy_against_national_pattern,medium,Mullaitivu,vehicle_population,2020,Three Weelers,1056,1601 to 1056 (-34.0%); median district -4.4%.,DCS_Mullaitivu_2024_T9_3.pdf,1,L15,approved_keep_flagged
+yoy_against_national_pattern,medium,Puttalam,vehicle_population,2022,Three Weelers,27526,21759 to 27526 (+26.5%); median district -2.2%.,DCS_Puttalam_2024_T9_3.pdf,1,L17,approved_keep_flagged
+largest_registration_not_motorcycle,low,Ampara,new_registrations,2021,Dual Purpose (Commercial),612,Dual Purpose (Commercial) = 612; Motor Cycle = not numeric.,DCS_Ampara_2024_T9_4.pdf,1,R02,approved_category_not_used
+largest_registration_not_motorcycle,low,Ampara,new_registrations,2022,Three Wheeler,298,Three Wheeler = 298; Motor Cycle = not numeric.,DCS_Ampara_2024_T9_4.pdf,2,R02,approved_category_not_used
+largest_registration_not_motorcycle,low,Anuradhapura,new_registrations,2021,Tractor Trailer / Bowser,1987,Tractor Trailer / Bowser = 1987; Motor Cycle = 440.,DCS_Anuradhapura_2024_T9_4.pdf,2,R06,approved_category_not_used
+largest_registration_not_motorcycle,low,Anuradhapura,new_registrations,2022,Land Vehicle,425,Land Vehicle = 425; Motor Cycle = 423.,DCS_Anuradhapura_2024_T9_4.pdf,1,R06,approved_category_not_used
+largest_registration_not_motorcycle,low,Batticaloa,new_registrations,2021,Land Vehicle (Small),667,Land Vehicle (Small) = 667; Motor Cycle = 384.,DCS_Batticaloa_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Colombo,new_registrations,2021,Car,3569,Car = 3569; Motor Cycle = 1188.,DCS_Colombo_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Hambantota,new_registrations,2021,Land Vehicle,224,Land Vehicle = 224; Motor Cycle = 204.,DCS_Hambantota_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Jaffna,new_registrations,2021,Lorry Trailer / Bowser,347,Lorry Trailer / Bowser = 347; Motor Cycle = 9.,DCS_Jaffna_2024_T9_4.pdf,1,R03,approved_category_not_used
+largest_registration_not_motorcycle,low,Kandy,new_registrations,2022,Commercial (Bus),381,Commercial (Bus) = 381; Motor Cycle = not numeric.,DCS_Kandy_2024_T9_4.pdf,1,R04,approved_category_not_used
+largest_registration_not_motorcycle,low,Kilinochchi,new_registrations,2021,Land Vehicle,144,Land Vehicle = 144; Motor Cycle = 104.,DCS_Kilinochchi_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Kilinochchi,new_registrations,2022,Tractor Trailer / Bowser,80,Tractor Trailer / Bowser = 80; Motor Cycle = 51.,DCS_Kilinochchi_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Kurunegala,new_registrations,2021,Land Vehicle,988,Land Vehicle = 988; Motor Cycle = 837.,DCS_Kurunegala_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Mannar,new_registrations,2021,Land Vehicle,131,Land Vehicle = 131; Motor Cycle = 63.,DCS_Mannar_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Mannar,new_registrations,2022,Land Vehicle,52,Land Vehicle = 52; Motor Cycle = 51.,DCS_Mannar_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Matale,new_registrations,2021,Land Vehicle,235,Land Vehicle = 235; Motor Cycle = 137.,DCS_Matale_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Monaragala,new_registrations,2021,Land Vehicle,531,Land Vehicle = 531; Motor Cycle = 244.,DCS_Monaragala_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Monaragala,new_registrations,2022,Tractor Trailer / Bowser,196,Tractor Trailer / Bowser = 196; Motor Cycle = 192.,DCS_Monaragala_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Mullaitivu,new_registrations,2021,Land Vehicle,256,Land Vehicle = 256; Motor Cycle = 66.,DCS_Mullaitivu_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Mullaitivu,new_registrations,2022,Land Vehicle,109,Land Vehicle = 109; Motor Cycle = 58.,DCS_Mullaitivu_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Polonnaruwa,new_registrations,2021,Land Vehicle,472,Land Vehicle = 472; Motor Cycle = 273.,DCS_Polonnaruwa_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Puttalam,new_registrations,2021,Lorry Trailer / Bowser,430,Lorry Trailer / Bowser = 430; Motor Cycle = not numeric.,DCS_Puttalam_2024_T9_4.pdf,1,R01,approved_category_not_used
+largest_registration_not_motorcycle,low,Puttalam,new_registrations,2022,Lorry Trailer / Bowser,504,Lorry Trailer / Bowser = 504; Motor Cycle = not numeric.,DCS_Puttalam_2024_T9_4.pdf,1,R01,approved_category_not_used
+largest_registration_not_motorcycle,low,Trincomalee,new_registrations,2021,Land Vehicle,505,Land Vehicle = 505; Motor Cycle = 118.,DCS_Trincomalee_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Trincomalee,new_registrations,2022,Land Vehicle,175,Land Vehicle = 175; Motor Cycle = 129.,DCS_Trincomalee_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Vavuniya,new_registrations,2021,Land Vehicle,337,Land Vehicle = 337; Motor Cycle = 109.,DCS_Vavuniya_2024_T9_4.pdf,1,R12,approved_category_not_used
+largest_registration_not_motorcycle,low,Vavuniya,new_registrations,2022,Tractor Trailer / Bowser,126,Tractor Trailer / Bowser = 126; Motor Cycle = 100.,DCS_Vavuniya_2024_T9_4.pdf,1,R12,approved_category_not_used
+missing_cell_blank,low,Mullaitivu,new_registrations,2023,Three Wheeler,,"Printed as blank; kept as missing, not converted to zero.",DCS_Mullaitivu_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2019,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2020,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2021,Car,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2021,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2022,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ampara,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ampara_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Anuradhapura,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Anuradhapura_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Anuradhapura,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Anuradhapura_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Badulla,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Badulla_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Batticaloa,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Batticaloa_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Batticaloa,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Batticaloa_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Colombo,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Colombo_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Colombo,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Colombo_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Colombo,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Colombo_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Galle,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Galle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Galle,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Galle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Galle,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Galle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Hambantota,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Hambantota_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Hambantota,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Hambantota_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Jaffna,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Jaffna_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Jaffna,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Jaffna_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kalutara,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kalutara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kalutara,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kalutara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kalutara,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kalutara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kalutara,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kalutara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2022,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kandy,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kandy_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kegalle,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kegalle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kegalle,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kegalle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kegalle,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kegalle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kegalle,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kegalle_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kilinochchi,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kilinochchi_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kilinochchi,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kilinochchi_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Kurunegala,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Kurunegala_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mannar,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mannar_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mannar,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mannar_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mannar,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mannar_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matale,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matale_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matale,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matale_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matale,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matale_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matale,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matale_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matale,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matale_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matara,new_registrations,2019,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matara,new_registrations,2020,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matara,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matara,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Matara,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Matara_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Monaragala,new_registrations,2020,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Monaragala_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Monaragala,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Monaragala_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Monaragala,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Monaragala_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mullaitivu,new_registrations,2019,Car,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mullaitivu_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mullaitivu,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mullaitivu_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mullaitivu,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mullaitivu_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Mullaitivu,new_registrations,2023,Car,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Mullaitivu_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Nuwara Eliya,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_NuwaraEliya_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Nuwara Eliya,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_NuwaraEliya_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Nuwara Eliya,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_NuwaraEliya_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Polonnaruwa,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Polonnaruwa_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Puttalam,new_registrations,2021,Car,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Puttalam_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Puttalam,new_registrations,2021,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Puttalam_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Puttalam,new_registrations,2022,Motor Cycle,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Puttalam_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Ratnapura,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Ratnapura_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Trincomalee,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Trincomalee_2024_T9_4.pdf,2,D01,approved_keep_missing
+missing_cell_dash,low,Vavuniya,new_registrations,2021,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Vavuniya_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Vavuniya,new_registrations,2022,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Vavuniya_2024_T9_4.pdf,1,D01,approved_keep_missing
+missing_cell_dash,low,Vavuniya,new_registrations,2023,Three Wheeler,-,"Printed as dash; kept as missing, not converted to zero.",DCS_Vavuniya_2024_T9_4.pdf,1,D01,approved_keep_missing

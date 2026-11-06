@@ -1,0 +1,124 @@
+# Settings for the v2 DCS table extractor and its validation checks
+# (src/data/extract_dcs_tables_v2.py, src/data/validate_dcs_extraction.py).
+# See specs/reference/REF-009-architecture-decisions.md ADR-036.
+
+handbook_edition_year: 2024
+expected_years: [2019, 2020, 2021, 2022, 2023]
+
+tables:
+  "9.3":
+    metric: vehicle_population
+    title_keyword: Revenue
+    labels:
+      - Motor Cars
+      - Motor Bicycles
+      - Three Weelers
+      - Private Bus
+      - Dual Purpose Vehicles
+      - Motor Lorry
+      - Land Vehicles
+      - Other
+    optional_labels: []
+  "9.4":
+    metric: new_registrations
+    title_keyword: Registrations
+    labels:
+      - Ambulance
+      - Car
+      - Commercial (Bus)
+      - Dual Purpose (Commercial)
+      - Land Vehicle
+      - Land Vehicle (Small)
+      - Lorry Trailer / Bowser
+      - Motor Cycle
+      - Motor Hearse
+      - Motor Lorry (Commercial)
+      - Motor Tricycle Van
+      - Other Special Purpose Vehicle
+      - Primer Mover
+      - Single Cab
+      - Special Purpose Vehicle
+      - Three Wheeler
+      - Tractor Trailer / Bowser
+    # Printed by some districts only. Kept exactly as printed. "Grade A" is NOT
+    # mapped to Car: it fills the Car row in Trincomalee, but the PDF does not
+    # state that they are the same thing.
+    optional_labels:
+      - Quadricycle
+      - Grade A
+
+total_label: Total
+
+# "Total" row of DMT's "New Registration of Motor Vehicles" table, all vehicle
+# classes (data/raw/dmt/DMT_Vehicle_Population_2014-2025.pdf).
+dmt_national_new_registrations_all_vehicles:
+  2019: 367303
+  2020: 202628
+  2021: 33850
+  2022: 20511
+  2023: 27890
+
+# All thresholds only raise flags. No check ever changes a value.
+validation:
+  # Sum of categories vs printed Total: differences at or below this are ignored.
+  sum_tolerance: 0
+  # Year-on-year log change, relative to the median for all districts in the same
+  # year and category. 0.25 is roughly a 28% move against the national pattern.
+  yoy_relative_log_threshold: 0.25
+  yoy_min_base: 100
+  # A value below this share of BOTH neighbouring years is a dip (and the
+  # inverse is a spike).
+  dip_ratio: 0.5
+  # Identical-column checks need this many non-zero values in common.
+  min_matching_values: 5
+  # A Table 9.3 column sharing this many distinct values of at least the minimum
+  # size with the same year of Table 9.4 is treated as a possible copy.
+  cross_table_min_shared_values: 4
+  cross_table_min_value: 10
+  # New registrations above this share of licensed vehicles, same category and year.
+  registration_to_stock_ratio: 0.5
+  # Printed registration Totals, relative to the median district in the same year:
+  # 1.0 is a log difference of about 2.7 times, either way.
+  total_peer_log_threshold: 1.0
+
+# Links every validation flag to its entry in data/corrections/source_anomalies_v2.csv.
+# The first matching rule wins. Any flag with no rule fails the tests, so a new
+# problem cannot go undocumented.
+flag_review:
+  - {check_id: licences_match_registrations, district: Ampara, anomaly_id: L01}
+  - {check_id: yoy_against_national_pattern, district: Ampara, year: 2020, anomaly_id: L01}
+  - {check_id: yoy_against_national_pattern, district: Ampara, anomaly_id: L12}
+  - {check_id: dip_between_neighbours, district: Jaffna, anomaly_id: L02}
+  - {check_id: yoy_against_national_pattern, district: Jaffna, anomaly_id: L02}
+  - {check_id: identical_year_columns, district: Kandy, anomaly_id: L03}
+  - {check_id: column_identical_to_other_district, district: Mullaitivu, anomaly_id: L04}
+  - {check_id: column_identical_to_other_district, district: Kilinochchi, anomaly_id: L05}
+  - {check_id: yoy_against_national_pattern, district: Kilinochchi, year: 2020, anomaly_id: L05}
+  - {check_id: yoy_against_national_pattern, district: Kilinochchi, year: 2023, anomaly_id: L08}
+  - {check_id: yoy_against_national_pattern, district: Badulla, row_label: Three Weelers, anomaly_id: L07}
+  - {check_id: yoy_against_national_pattern, district: Badulla, anomaly_id: L06}
+  - {check_id: yoy_against_national_pattern, district: Kalutara, anomaly_id: L09}
+  - {check_id: yoy_against_national_pattern, district: Gampaha, anomaly_id: L10}
+  - {check_id: licence_source_differs, district: Kurunegala, anomaly_id: L11}
+  - {check_id: yoy_against_national_pattern, district: Colombo, anomaly_id: L13}
+  - {check_id: yoy_against_national_pattern, district: Matale, anomaly_id: L14}
+  - {check_id: yoy_against_national_pattern, district: Mullaitivu, anomaly_id: L15}
+  - {check_id: yoy_against_national_pattern, district: Mannar, anomaly_id: L16}
+  - {check_id: yoy_against_national_pattern, district: Puttalam, anomaly_id: L17}
+  - {check_id: registrations_high_vs_licences, district: Puttalam, anomaly_id: R01}
+  - {check_id: largest_registration_not_motorcycle, district: Puttalam, anomaly_id: R01}
+  - {check_id: largest_registration_not_motorcycle, district: Ampara, anomaly_id: R02}
+  - {check_id: largest_registration_not_motorcycle, district: Jaffna, anomaly_id: R03}
+  - {check_id: largest_registration_not_motorcycle, district: Kandy, anomaly_id: R04}
+  - {check_id: largest_registration_not_motorcycle, district: Matara, anomaly_id: R05}
+  - {check_id: largest_registration_not_motorcycle, district: Anuradhapura, anomaly_id: R06}
+  - {check_id: largest_registration_not_motorcycle, anomaly_id: R12}
+  - {check_id: missing_expected_label, district: Trincomalee, row_label: Car, anomaly_id: R07}
+  - {check_id: missing_expected_label, district: Trincomalee, anomaly_id: R08}
+  - {check_id: missing_expected_label, district: Hambantota, anomaly_id: R09}
+  - {check_id: district_sum_exceeds_dmt, anomaly_id: R10}
+  - {check_id: district_totals_exceed_dmt, anomaly_id: R11}
+  - {check_id: total_registrations_against_peers, district: Anuradhapura, anomaly_id: R13}
+  - {check_id: total_registrations_against_peers, anomaly_id: R14}
+  - {check_id: missing_cell_dash, anomaly_id: D01}
+  - {check_id: missing_cell_blank, anomaly_id: D01}

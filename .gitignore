@@ -59,6 +59,9 @@ app/static/images/mechanics/*
 *.log
 ~$*
 
+# Generated cell-level comparison; recreate with: python -m src.data.validate_dcs_extraction
+reports/extraction_v2/v1_v2_cell_differences.csv
+
 # Duplicate document folders (canonical copies live in research/documentation/)
 Claude outputs/
 Documents/
