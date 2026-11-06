@@ -56,6 +56,10 @@ One row per **district, time period (year, and month where available), and vehic
 
 "When monthly data does not exist consistently, prefer a clean yearly dataset over pretending to have monthly detail. Granularity is determined by the real source data." (Source doc, Section 9.) This is a **data-driven decision point**, not a defect — see `specs/COVERAGE.md`. The final chosen granularity must be recorded in DEV-006 once the real source coverage is known, and the `month` column left null (not fabricated) if only yearly data is reliably available.
 
+## 5a. Dataset v2
+
+This file describes the Dataset v1 schema. Dataset v2 has its own column list in `configs/dataset_v2.yaml`, published as `reports/dataset_v2/data_dictionary_v2.md` (REF-009 ADR-037). It leaves out `month`, `population` and related columns, for the reasons recorded there.
+
 ## 6. Columns beyond this dictionary
 
 Additional engineered columns (e.g. `rolling_std_3`, `vehicles_per_1000_people`, cyclic `month_sin`/`month_cos`, `demand_lag_1`) are introduced by DEV-005 (Feature Engineering) per Section 12 of the source doc. They extend this dictionary rather than replace it. When DEV-005 finalizes the feature list, append the new columns to Section 3 of this file (with type, description, and "Engineered" status) rather than duplicating the table elsewhere.

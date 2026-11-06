@@ -48,6 +48,9 @@ DEV-001 complete (folder structure and configs/ exist).
 ## Data Requirements
 Target Decision Record (completed):
 ```
+### Target Decision Record: Dataset v2 addition (2026-11-07)
+Dataset v2 uses next-year revenue licences as its proxy target, still under the Fallback path (REF-009 ADR-037). The project author reports lecturer approval. Lecturer approval date: not yet provided. Lecturer approval method: not yet provided. The record below remains in force for Dataset v1 and for `configs/target_config.yaml`.
+
 ### Target Decision Record
 - Date decided: 2026-08-15
 - Path chosen: Fallback (proxy forecast)

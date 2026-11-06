@@ -1,0 +1,72 @@
+# Dataset v2 definition (src/features/build_dataset_v2.py, REF-009 ADR-037).
+# Separate from feature_list.yaml, target_config.yaml and split_config.yaml, which
+# Dataset v1 and its models still read.
+#
+# This column list is the single source of the data dictionary, and of the feature
+# list for later model training (role: feature). A test fails if the dataset and
+# this list ever differ.
+
+dataset_name: modelling_dataset_v2
+years: [2019, 2020, 2021, 2022, 2023]
+vehicle_types: [Motorcycle, Car, Three-wheeler]
+expected_districts: 25
+target_horizon_years: 1
+rolling_window_years: 3
+rolling_min_observations: 2
+
+# Roles: key | time | audit | feature | target | quality | provenance
+# Stage: base columns are in modelling_base_v2.csv. Engineered columns are added in
+# modelling_dataset_v2.csv.
+columns:
+  - {name: district, type: string, role: key, stage: base, description: "Canonical district name (REF-002)."}
+  - {name: year, type: integer, role: time, stage: base, description: "Observation year t of the row."}
+  - {name: vehicle_type, type: category, role: feature, stage: base, description: "Motorcycle, Car or Three-wheeler. Categorical input; part of the row key."}
+
+  - {name: licence_row_label, type: string, role: audit, stage: base, description: "Row label as printed in Table 9.3, such as Motor Bicycles."}
+  - {name: licence_count_printed, type: integer, role: audit, stage: base, description: "Revenue licences exactly as printed for year t. Never a model input, because it still holds values rejected as clearly incorrect."}
+  - {name: licence_count, type: "numeric, nullable", role: feature, stage: base, description: "Revenue licences for year t after approved corrections: licence_count_printed, or empty where set to missing. A proxy for active vehicles, not an exact count."}
+  - {name: licence_value_status, type: category, role: quality, stage: base, description: "value, or set_missing where an approved correction removed a clearly incorrect value."}
+  - {name: licence_correction_id, type: "string, nullable", role: quality, stage: base, description: "Corrections file entry that set this value to missing (L01 or L02)."}
+  - {name: licence_flagged, type: boolean, role: quality, stage: base, description: "True if the value for year t is uncertain and kept for review."}
+  - {name: licence_flag_ids, type: "string, nullable", role: quality, stage: base, description: "Corrections file entries behind the flag, separated by semicolons."}
+
+  - {name: total_registrations_printed, type: integer, role: audit, stage: base, description: "District Total Registrations exactly as printed in Table 9.4 for year t. All vehicle types, so the same on each of a district's three rows. Never a model input."}
+  - {name: total_registrations_status, type: category, role: quality, stage: base, description: "verified, verified_with_year_caveat (2021 as a whole slightly exceeds DMT) or flagged_not_verified. See total_registrations_verification.csv."}
+  - {name: total_registrations, type: "numeric, nullable", role: feature, stage: base, description: "Printed Total if its status is verified or verified_with_year_caveat; empty if flagged_not_verified. Secondary signal of fleet inflow."}
+
+  - {name: licence_lag_1, type: "numeric, nullable", role: feature, stage: engineered, formula: "licence_count at t-1", description: "Previous year's licences for the same series. Empty for 2019 or where that value is missing."}
+  - {name: licence_lag_2, type: "numeric, nullable", role: feature, stage: engineered, formula: "licence_count at t-2", description: "Licences two years earlier. Empty for 2019-2020 or where that value is missing."}
+  - {name: licence_growth_log, type: "numeric, nullable", role: feature, stage: engineered, formula: "ln(licence_count at t / licence_count at t-1)", description: "Year-on-year growth. A log difference does not explode on small bases. Empty if either year is missing; it never bridges a gap."}
+  - {name: licence_rolling_mean_3, type: "numeric, nullable", role: feature, stage: engineered, formula: "mean of licence_count over t-2, t-1, t", description: "Three-year mean including the latest year. Needs at least 2 observed values, and skips missing years."}
+  - {name: licence_rolling_std_3, type: "numeric, nullable", role: feature, stage: engineered, formula: "sample standard deviation of licence_count over t-2, t-1, t", description: "Three-year variability including the latest year. Needs at least 2 observed values."}
+  - {name: licence_window_observations, type: integer, role: quality, stage: engineered, formula: "count of observed licence_count over t-2, t-1, t", description: "Observed values behind the rolling statistics (0-3), because early years and missing values shorten the window."}
+  - {name: total_registrations_lag_1, type: "numeric, nullable", role: feature, stage: engineered, formula: "total_registrations at t-1", description: "Previous year's verified Total. Empty for 2019 or where that Total is not verified."}
+  - {name: total_registrations_growth_log, type: "numeric, nullable", role: feature, stage: engineered, formula: "ln(total_registrations at t / total_registrations at t-1)", description: "Year-on-year growth in verified Totals. Empty if either Total is not verified."}
+
+  - {name: target_licence_count, type: "numeric, nullable", role: target, stage: engineered, formula: "licence_count at t+1", description: "PREDICTION TARGET: next year's revenue licences for the same district and vehicle type. A proxy for relative service opportunity, not a job count."}
+  - {name: target_year, type: integer, role: target, stage: engineered, formula: "t+1", description: "The year being predicted. Later validation splits should be keyed on this."}
+  - {name: target_status, type: category, role: quality, stage: engineered, description: "available, set_missing_next_year (next year's value was rejected), or no_next_year (2023 rows, kept for future predictions)."}
+  - {name: target_flagged, type: boolean, role: quality, stage: engineered, description: "True if the target value is an uncertain value kept for review. Allows evaluation with and without such rows."}
+  - {name: target_flag_ids, type: "string, nullable", role: quality, stage: engineered, description: "Corrections file entries behind the target flag."}
+  - {name: features_use_flagged_licence, type: boolean, role: quality, stage: engineered, description: "True if licences at t, t-1 or t-2 are flagged, so this row's lag or rolling inputs rest on an uncertain value."}
+  - {name: has_target, type: boolean, role: quality, stage: engineered, description: "True if target_licence_count is present."}
+  - {name: has_target_and_level, type: boolean, role: quality, stage: engineered, description: "True if both target_licence_count and licence_count are present."}
+
+  - {name: licence_source_id, type: string, role: provenance, stage: base, description: "Source table identifier for the licence value."}
+  - {name: licence_source_file, type: string, role: provenance, stage: base, description: "Original PDF of Table 9.3."}
+  - {name: licence_source_page, type: integer, role: provenance, stage: base, description: "PDF page holding the licence value."}
+  - {name: licence_source_url, type: string, role: provenance, stage: base, description: "URL the PDF was downloaded from."}
+  - {name: licence_pdf_sha256, type: string, role: provenance, stage: base, description: "SHA-256 of the PDF that was read."}
+  - {name: licence_source_note, type: string, role: provenance, stage: base, description: "Source line printed under the table. Kurunegala cites DMT; all others cite Divisional Secretariats."}
+  - {name: registrations_source_id, type: string, role: provenance, stage: base, description: "Source table identifier for the Total."}
+  - {name: registrations_source_file, type: string, role: provenance, stage: base, description: "Original PDF of Table 9.4."}
+  - {name: registrations_source_page, type: integer, role: provenance, stage: base, description: "PDF page holding the Total."}
+  - {name: retrieved_date, type: date, role: provenance, stage: base, description: "Date the PDFs were downloaded."}
+
+# Considered and deliberately left out, recorded in the data dictionary.
+excluded_columns:
+  - {name: "month, quarter, month_sin, month_cos", reason: "The data is annual, so these can never be filled."}
+  - {name: "new_registrations (by category), reg_lag_1, reg_lag_2, reg_growth_pct, change_from_lag_2", reason: "Category registrations are unreliable (corrections R01-R06, R10). Replaced by licence features and verified Totals."}
+  - {name: "rolling_mean_3, rolling_std_3 (v1)", reason: "v1 computed them on registrations and excluded the latest year. Replaced by licence versions covering t-2 to t."}
+  - {name: "population, population_density, vehicles_per_1000_people", reason: "DCS Chapter 2 has not been acquired, so these would be entirely empty. Add them when real data exists. v1's vehicles_per_1000_people also used registrations rather than vehicles."}
+  - {name: "split", reason: "Rolling-origin validation is designed at the modelling stage, keyed on target_year."}

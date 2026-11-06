@@ -377,6 +377,16 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Approved data decisions: only clearly incorrect licence values are set to missing (Ampara 2019, Jaffna 2021 motorcycles); uncertain values stay flagged; verified district Total Registrations are the secondary feature and category-level registrations are not used; `-` and blank stay missing unless the source confirms zero. Because a Total can add up and still be wrong, every printed Table 9.4 Total also gets a status in `reports/extraction_v2/total_registrations_verification.csv`.
 - Affected specs: DEV-003, DEV-004, DEV-015. Results: `reports/extraction_v2/extraction_v2_report.md`.
 
+### ADR-037 — Dataset v2: next-year revenue licences as the target, built separately from v1
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07. The project author reports lecturer approval of the target. Lecturer approval date: not yet provided. Lecturer approval method: not yet provided.
+- Context: v1 forecasts next-year new registrations. Category-level registrations proved unreliable (ADR-036), and most repair work comes from vehicles already in use. Source doc Section 8.2 allows any real observable vehicle-market variable as a proxy target, so this stays within the Fallback path: a different proxy, still never presented as a job count.
+- Decision: Added `src/features/build_dataset_v2.py` and `configs/dataset_v2.yaml`. Target: `target_licence_count` = next year's `licence_count` for the same district and vehicle type. Features for year t use years up to t, including rolling statistics over t-2 to t. Approved corrections are applied from `data/corrections/source_anomalies_v2.csv`; only verified Totals enter features. Outputs go to `data/processed/v2/` and `reports/dataset_v2/`.
+- v1 is unaffected: `build_features.py`, `assemble_modelling_dataset.py`, `feature_list.yaml`, `target_config.yaml` and `split_config.yaml` are unchanged and still drive v1, the dashboard and the Insights page.
+- Alternatives considered: Editing the v1 pipeline with a version switch (rejected - risks v1 reproducibility, and the code shares little); including a train/validation/test split now (deferred, approved by the project author - chronological rolling-origin validation is built at the modelling stage, so this deviates from DEV-006's assembly step for v2 only); log-transforming the target now (deferred, approved by the project author - the target stays as raw counts, and a log transform is considered during modelling); dropping uncertain values (rejected - approved decision is to keep and flag them).
+- Rationale: Every value is traceable to a PDF cell or to an approved decision, and quality columns allow evaluation with and without flagged values. Limitations are in `reports/dataset_v2/dataset_v2_report.md`.
+- Affected specs: DEV-002, DEV-005, DEV-006, REF-001. Later specs for modelling on v2 must cite this dataset version.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

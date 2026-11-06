@@ -1,0 +1,13 @@
+{
+  "dataset_version": "modelling_dataset_v2_04eaecafd7e1",
+  "dataset_sha256": "04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335",
+  "built_date": "2026-11-07",
+  "rows": 375,
+  "columns": 39,
+  "target_values": 299,
+  "target_and_level": 295,
+  "inputs": {
+    "dcs_extracted_cells_2024_v2.csv": "5abfaa7cd2ee216ef98f829a323fef75e8bf11ff85835d7149d2303be4d42beb",
+    "source_anomalies_v2.csv": "59076f3d00025990a70124fd9492b46a019b0c0f5216af46eda300bbf9624ff7"
+  }
+}
