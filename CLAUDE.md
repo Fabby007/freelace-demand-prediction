@@ -171,7 +171,7 @@ Dependencies pinned via `requirements.txt` or `pyproject.toml`; config files for
 - Do not use random train/test splitting for any model that predicts future periods.
 - Do not over-engineer (no microservices, no Kubernetes, no enterprise auth, no unnecessary abstraction).
 - When a low-level technical decision is not specified in the documentation, choose a sensible, industry-standard solution but record it in `specs/reference/REF-009-architecture-decisions.md` as an implementation decision, distinct from a documented requirement.
-- Every top-ranked district recommendation shown by the system must be accompanied by a SHAP-based explanation and the standard limitation disclaimer. Non-negotiable.
+- Every top-ranked district recommendation shown by the system must be accompanied by a SHAP-based explanation and the standard limitation disclaimer. Non-negotiable. **Scoped exception (REF-009 ADR-042, confirmed by the project author 2026-11-07):** the Dataset v2 output comes from the previous-year baseline, which has no model for SHAP to explain, so it carries a rule-based explanation built only from published values, plus the same disclaimer. The SHAP requirement still applies in full to Dataset v1 output.
 
 ## 21. Source-of-truth hierarchy
 
@@ -222,3 +222,10 @@ If a conflict is detected between levels, **do not silently pick whichever is ea
 - The Streamlit dashboard (`dashboard/app.py`) is not removed or degraded by this extension and must keep working exactly as DEV-013 left it (REF-009 ADR-026).
 - The Appendix C.3 disclaimer (Section 15 above) appears only on marketplace pages that show ML prediction/ranking output (i.e. Opportunity Insights); the separate marketplace review disclaimer (see `specs/reference/REF-013-marketplace-ui-business-rules.md` Section 4) appears wherever ratings/reviews are shown. The two must never be merged into one sentence.
 - Do not implement DEV-018 or any later marketplace spec until explicitly instructed — `MARKETPLACE_EXTENSION.md` Section 11 records this as the stop condition for the current planning pass.
+
+## 26. Dataset v2 recommendation output
+
+The approved plan is `specs/development/PLAN-recommendation-v2-integration.md`, with REF-009 ADR-042 and ADR-043. Standing rules:
+- `configs/recommendation_v2.yaml` chooses the v1 or v2 engine for the dashboard and Opportunity Insights. **v1 stays the default until the project author approves the switch.**
+- v2 is labelled "Vehicle-Fleet Service Opportunity". It describes relative licensed-vehicle fleet size, not mechanic jobs or measured service demand. The official project title is unchanged.
+- v2 reads Dataset v2 only, loads no model, and adds no scores, weights or formulas beyond the plan. `app/routes/insights.py` remains the only `app/` module that imports `src/`.

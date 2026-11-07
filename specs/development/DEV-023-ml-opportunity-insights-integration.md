@@ -99,3 +99,6 @@ DEV-018 (Auth). Existing, unmodified: DEV-008 (XGBoost), DEV-010 (SHAP), DEV-012
 
 ## Definition of Done
 All acceptance criteria met; this spec demonstrably adds zero new prediction/ranking/explanation logic — it is verifiably a thin presentation wrapper around DEV-012's existing, tested interface (the byte-for-byte comparison test against a direct `RankingEngine.rank()` call is the concrete proof of this, not just an inspection claim).
+
+## Dataset v2 addendum (2026-11-07)
+v1 behaviour stays unchanged and is the default. When `configs/recommendation_v2.yaml` selects v2, this page shows the "Vehicle-Fleet Service Opportunity" view with rule-based explanations (REF-009 ADR-042, ADR-043). `app/routes/insights.py` remains the only `app/` module that imports `src/`, and access rules do not change.

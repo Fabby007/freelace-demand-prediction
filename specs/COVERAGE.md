@@ -281,3 +281,11 @@ Booking, appointment scheduling, availability/online status, live GPS tracking, 
 Every functional requirement, non-functional requirement, and explicit exclusion in `MARKETPLACE_EXTENSION.md` has at least one owning DEV-018–024 spec or REF-010–013 spec, as tabulated above. No requirement from Parts 1–22 (the original ML system) was altered, weakened, or reinterpreted to accommodate this extension.
 
 **Implementation status (updated 2026-08-21): COMPLETE.** DEV-018 through DEV-024 have all been implemented and verified — 184 marketplace tests, the original 191-test ML suite unchanged, 375/375 in the final combined run (DEV-024's sign-off). DEV-024's own audit additionally corrected three cells in REF-012's authorization matrix that had been over-specified during planning (documentation corrections, not scope changes — see REF-009's dated note and DEV-024.md's "Audit findings" section) and closed eight genuine, narrow test-coverage gaps. No functional defect was found in the marketplace application code itself during that audit.
+
+## 29. Dataset v2 recommendation output
+
+| Requirement | Covered by |
+|---|---|
+| Recommendation output based on the selected previous-year baseline | `PLAN-recommendation-v2-integration.md`; REF-009 ADR-043 |
+| Rule-based explanation in place of SHAP, for v2 only | REF-009 ADR-042; DEV-012 addendum |
+| Dashboard and Opportunity Insights behind a switch, default v1 | DEV-013 and DEV-023 addenda; REF-009 ADR-043 |

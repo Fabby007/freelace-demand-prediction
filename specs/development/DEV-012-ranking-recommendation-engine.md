@@ -115,3 +115,6 @@ None beyond upstream rules.
 
 ## Definition of Done
 All acceptance criteria met; DEV-013 can render the full recommendation view (ranking table, map, SHAP panel, disclaimer) purely from `RankingEngine.rank()` / `RankingEngine.rank_from_query()`'s output.
+
+## Dataset v2 addendum (2026-11-07)
+`RankingEngine` and this spec's requirements stay unchanged for Dataset v1. The Dataset v2 output is produced by `src/recommendation/fleet_opportunity_v2.py` under `PLAN-recommendation-v2-integration.md`. It uses rule-based explanations instead of SHAP (REF-009 ADR-042) and per-year quartile bands instead of ADR-018's training-split quartiles (ADR-043).

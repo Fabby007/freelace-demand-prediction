@@ -127,3 +127,6 @@ No district boundary geometry existed anywhere in the project before this spec n
 
 ## Definition of Done
 All acceptance criteria met; the dashboard is runnable end-to-end (`streamlit run dashboard/app.py`, confirmed) and demonstrates the full user journey: select category/period (directly or via NL query) → view map/ranking/trend/forecast/SHAP → see disclaimer and data-source info.
+
+## Dataset v2 addendum (2026-11-07)
+v1 panels stay unchanged and are the default. When `configs/recommendation_v2.yaml` selects v2, the dashboard shows the "Vehicle-Fleet Service Opportunity" view, with licence trends and a rule-based explanation panel in place of the SHAP panel (REF-009 ADR-042, ADR-043).

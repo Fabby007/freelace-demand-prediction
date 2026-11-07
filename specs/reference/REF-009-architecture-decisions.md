@@ -421,6 +421,26 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Result: The previous-year baseline had the lowest MAE and MAPE, and no model met the rule for a meaningful accuracy improvement. See `reports/final_evaluation_v2/final_evaluation_report.md`.
 - Affected specs: DEV-014.
 
+### ADR-042 — Rule-based explanations instead of SHAP for the Dataset v2 recommendation output
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07, as an explicit decision (CLAUDE.md Section 21). This is a documented, scoped deviation from a requirement, not a removal.
+- Context: CLAUDE.md Section 20, MASTER_PROMPT.md Section 0 and DEV-012 require a SHAP-based explanation with every top-ranked recommendation. The final evaluation (ADR-041) selected the previous-year baseline, which has no fitted model, so there is nothing for SHAP to explain.
+- Decision: Dataset v2 recommendations carry a rule-based explanation built only from published values and fixed rules: licence count, rank, share of the vehicle type, band, historical change and any data-quality flag, together with the verbatim Appendix C.3 disclaimer. SHAP and the original XGBoost implementation are unchanged for Dataset v1, and the SHAP requirement still applies in full to v1 output.
+- Alternatives considered: Keeping XGBoost v1 with SHAP as the recommendation (rejected - it presents a model the research did not support, for a different target); showing SHAP from a Ridge or XGBoost model beside the baseline (rejected - it would explain a model that does not produce the numbers shown, and could need new training).
+- Rationale: The true reason a district ranks highly under this method is its licence count. Stating that directly is more honest than attaching an explanation of a different model.
+- Limits: The source documentation's SHAP objective is met by the v1 pipeline and research record, not by v2 output. The project author may wish to confirm this with the lecturer.
+- Affected specs: DEV-012, DEV-013, DEV-023, CLAUDE.md Section 20, `PLAN-recommendation-v2-integration.md` Section 9.
+
+### ADR-043 — Vehicle-Fleet Service Opportunity indicator behind a config switch, v1 remaining the default
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07. v2 becomes the default only after all integration tests pass and the author approves the switch.
+- Context: The evidence supports describing where licensed vehicles are, not forecasting beyond last year's value. The v1 engine forecasts new registrations on Dataset v1, so the website must be able to show either without risk to v1 or the marketplace.
+- Decision: Added a read-only engine, `src/recommendation/fleet_opportunity_v2.py`, that reads the hash-checked Dataset v2 and loads no model. Its estimate for a year equals the previous year's licence count. `src/recommendation/active_engine.py` and `configs/recommendation_v2.yaml` choose the engine in one setting. "Vehicle-Fleet Service Opportunity" is the interface label in v2 mode, and the official project title is preserved. Bands are quartiles per vehicle type of the selected data year, not ADR-018's training-split quartiles, because the baseline has no training split and no new target distribution should be introduced. Bands are therefore relative within a year.
+- Alternatives considered: Replacing `RankingEngine` in place (rejected - not reversible and would break v1); a composite score (rejected - no job data exists to justify weights); growth rankings (rejected - they did not persist and reduce to "smaller districts change more").
+- Rationale: An additive engine with the same output shape keeps existing panels, fallback states and tests, and rollback is one line.
+- Limits: See `PLAN-recommendation-v2-integration.md` Section 10. The indicator is a proxy for fleet size and does not measure mechanic jobs or service demand.
+- Affected specs: DEV-012, DEV-013, DEV-023, ADR-018 (scope limited to v1), ADR-026 (the dashboard stays independent of the marketplace).
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.
