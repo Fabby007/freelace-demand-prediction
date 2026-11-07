@@ -1,7 +1,8 @@
 """Opportunity Insights in v2 mode, through the real route and the real engine.
 
-The switch is changed only inside each test, so the committed v1 default and
-the existing page tests in test_insights_integration.py are not affected.
+v2 is the committed default (REF-009 ADR-043). The switch is still patched
+inside each test, so these tests do not depend on the config file, and the v1
+page tests in test_insights_integration.py pin v1 the same way.
 """
 import html as html_lib
 
@@ -232,3 +233,14 @@ def test_v1_mode_still_shows_the_v1_page(client, app, monkeypatch):
     _, text = _page(client)
     assert "XGBoost (tuned)" in text and "Vehicle-Fleet Service Opportunity" not in text
     assert DISCLAIMER_TEXT in text
+
+
+def test_committed_default_setting_shows_the_v2_page(client, app, monkeypatch):
+    """No patch on the switch: the page follows configs/recommendation_v2.yaml."""
+    monkeypatch.setattr(insights_module, "_engine", None)
+    monkeypatch.setattr(insights_module, "_engine_load_error", None)
+    response, text = _page(client, "/insights/?vehicle_type=Motorcycle&period=2024", email="default@example.com")
+    assert response.status_code == 200
+    assert "Vehicle-Fleet Service Opportunity" in text
+    assert DISCLAIMER_TEXT in text
+    assert "XGBoost" not in text

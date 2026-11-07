@@ -1,6 +1,6 @@
 # Recommendation System Integration Plan (Dataset v2)
 
-**Status:** approved by the project author on 2026-11-07 (Step 8). Decisions are recorded in Section 9, REF-009 ADR-042 and ADR-043. v1 stays the default until the author approves the switch.
+**Status:** approved by the project author on 2026-11-07 (Step 8). Decisions are recorded in Section 9, REF-009 ADR-042 and ADR-043. The author approved the switch on 2026-11-07, so v2 is now the default; v1 stays available for rollback.
 **Date:** 2026-11-07
 **Based on:** `reports/final_evaluation_v2/final_evaluation_report.md`, commit `4e7a691`, dataset `modelling_dataset_v2_04eaecafd7e1`.
 
@@ -232,6 +232,8 @@ Under option A, the explanation states the count, share, rank, band and any flag
 ### Decision 2: when to make v2 the default
 
 **Resolved.** v1 stays the default, with a config switch to enable v2. v2 becomes the default only after all integration tests pass and the project author approves the switch. Phase 4 is therefore not part of Step 9. After a switch, v1 remains available as a research record, not as a recommendation.
+
+**Update 2026-11-07:** all integration tests passed and the project author approved the switch. `active_engine` is now `v2`. Setting it back to `v1` and restarting both apps rolls back.
 
 ### Decision 3: user-facing name
 

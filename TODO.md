@@ -268,4 +268,4 @@ All seven marketplace specs (DEV-018 through DEV-024) are functionally complete,
 - [x] Indicator engine and config switch, with tests (162 new tests; full suite 815 passed, 2026-11-07)
 - [x] Streamlit dashboard connected behind the switch, default v1
 - [x] Opportunity Insights connected behind the switch, default v1
-- [ ] Project author approves making v2 the default
+- [x] Project author approves making v2 the default (approved 2026-11-07; `active_engine: v2`, v1 kept for rollback)

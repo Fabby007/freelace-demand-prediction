@@ -226,6 +226,6 @@ If a conflict is detected between levels, **do not silently pick whichever is ea
 ## 26. Dataset v2 recommendation output
 
 The approved plan is `specs/development/PLAN-recommendation-v2-integration.md`, with REF-009 ADR-042 and ADR-043. Standing rules:
-- `configs/recommendation_v2.yaml` chooses the v1 or v2 engine for the dashboard and Opportunity Insights. **v1 stays the default until the project author approves the switch.**
+- `configs/recommendation_v2.yaml` chooses the v1 or v2 engine for the dashboard and Opportunity Insights. **v2 is the default, approved by the project author on 2026-11-07.** Setting `active_engine: v1` rolls back to the v1 engine, which stays available and tested.
 - v2 is labelled "Vehicle-Fleet Service Opportunity". It describes relative licensed-vehicle fleet size, not mechanic jobs or measured service demand. The official project title is unchanged.
 - v2 reads Dataset v2 only, loads no model, and adds no scores, weights or formulas beyond the plan. `app/routes/insights.py` remains the only `app/` module that imports `src/`.

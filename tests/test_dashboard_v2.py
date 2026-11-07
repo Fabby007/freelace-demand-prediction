@@ -1,7 +1,8 @@
 """Streamlit dashboard in v2 mode, using Streamlit's AppTest with the real engine.
 
-The switch is patched only inside each test, and the cached engine is cleared
-around it, so the v1 dashboard tests keep using the committed v1 default.
+v2 is the committed default (REF-009 ADR-043). The switch is still patched
+inside each test, and the cached engine is cleared around it, so these tests do
+not depend on the config file; the v1 dashboard tests pin v1 the same way.
 """
 import json
 from pathlib import Path
@@ -330,3 +331,14 @@ def test_trend_keeps_gap_and_marks_flagged_years(engine):
 def test_method_summary_is_a_two_column_table(engine):
     df = format_fleet_method_summary(engine.method_summary())
     assert list(df.columns) == ["Field", "Value"]
+
+
+def test_committed_default_setting_shows_the_v2_dashboard():
+    """No patch on the switch: the dashboard follows configs/recommendation_v2.yaml."""
+    _clear()
+    try:
+        at = _run()
+        assert at.title[0].value == "Vehicle-Fleet Service Opportunity - Sri Lanka"
+        assert any(i.value == EXACT_DISCLAIMER for i in at.info)
+    finally:
+        _clear()

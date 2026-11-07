@@ -11,6 +11,9 @@ file and this pytest session.
 
 import os
 
+import pytest
+
+import app.routes.insights as insights_module
 from app.models.user import ROLE_ADMIN, ROLE_CUSTOMER, ROLE_MECHANIC, STATUS_BLOCKED, User
 from app.extensions import db
 
@@ -20,6 +23,25 @@ DISCLAIMER_TEXT = (
     "Predictions are based on available historical and proxy data. They indicate relative "
     "service opportunity and do not guarantee customer numbers, employment or income."
 )
+
+
+@pytest.fixture(scope="module")
+def _v1_engine():
+    from src.recommendation.ranking_engine import RankingEngine
+
+    return RankingEngine.load()
+
+
+@pytest.fixture(autouse=True)
+def v1_mode(monkeypatch, _v1_engine):
+    """These tests cover the v1 page, which stays available for rollback.
+    v2 is the committed default (REF-009 ADR-043); its page is tested in
+    test_insights_v2.py."""
+    from src.recommendation import active_engine
+
+    monkeypatch.setattr(active_engine, "get_active_engine_name", lambda *a, **k: "v1")
+    monkeypatch.setattr(insights_module, "_engine", _v1_engine)
+    monkeypatch.setattr(insights_module, "_engine_load_error", None)
 
 
 def _make_mechanic(email="insightsmech@example.com", password="password123"):

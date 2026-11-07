@@ -459,9 +459,9 @@ def test_engine_changes_nothing(engine):
 
 # --- Engine switch ------------------------------------------------------------
 
-def test_v1_is_the_committed_default():
-    """Change this only when the project author approves making v2 the default."""
-    assert active_engine.get_active_engine_name() == "v1"
+def test_v2_is_the_committed_default():
+    """Approved by the project author on 2026-11-07. Set active_engine back to v1 to roll back."""
+    assert active_engine.get_active_engine_name() == "v2"
 
 
 @pytest.mark.parametrize("value", ["v3", "", None, "V2"])

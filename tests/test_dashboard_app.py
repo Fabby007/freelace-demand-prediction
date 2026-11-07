@@ -27,6 +27,25 @@ EXACT_DISCLAIMER = (
 )
 
 
+@pytest.fixture(scope="module", autouse=True)
+def v1_mode():
+    """These tests cover the v1 dashboard, which stays available for rollback.
+    v2 is the committed default (REF-009 ADR-043); its view is tested in
+    test_dashboard_v2.py."""
+    import streamlit as st
+
+    from dashboard import data_access
+
+    def _clear():
+        data_access.load_ranking_engine.clear()
+        st.cache_data.clear()
+
+    _clear()
+    with patch("src.recommendation.active_engine.get_active_engine_name", return_value="v1"):
+        yield
+    _clear()
+
+
 def _run() -> AppTest:
     at = AppTest.from_file(APP_PATH, default_timeout=60)
     at.run()

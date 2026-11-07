@@ -288,4 +288,4 @@ Every functional requirement, non-functional requirement, and explicit exclusion
 |---|---|
 | Recommendation output based on the selected previous-year baseline | `PLAN-recommendation-v2-integration.md`; REF-009 ADR-043 |
 | Rule-based explanation in place of SHAP, for v2 only | REF-009 ADR-042; DEV-012 addendum |
-| Dashboard and Opportunity Insights behind a switch, default v1 | DEV-013 and DEV-023 addenda; REF-009 ADR-043 |
+| Dashboard and Opportunity Insights behind a switch, default v2 since 2026-11-07 (v1 kept for rollback) | DEV-013 and DEV-023 addenda; REF-009 ADR-043 |

@@ -1,9 +1,9 @@
 # Recommendation output configuration (PLAN-recommendation-v2-integration.md; REF-009 ADR-042, ADR-043)
 
 # Which engine the dashboard and Opportunity Insights use: v1 or v2.
-# v1 stays the default until the project author approves the switch.
+# v2 is the default, approved by the project author on 2026-11-07.
 # Restart the dashboard and the website after changing this. Set it back to v1 to roll back.
-active_engine: v1
+active_engine: v2
 
 dataset_path: data/processed/v2/modelling_dataset_v2.csv
 dataset_sha256: 04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335
