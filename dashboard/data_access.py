@@ -22,6 +22,7 @@ import src  # noqa: F401  (ADR-003 import order - must precede pandas/numpy/xgbo
 
 from src.data.fetch_district_geojson import load_geojson as _load_geojson, shape_name_to_canonical_district
 from src.nlp.sbert_router import SBERTRouter
+from src.recommendation.active_engine import is_fleet_engine, load_active_engine
 from src.recommendation.ranking_engine import RankingEngine
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -32,8 +33,9 @@ GEOJSON_PATH = REPO_ROOT / "data" / "raw" / "geo" / "sri_lanka_districts_adm2.ge
 
 
 @st.cache_resource
-def load_ranking_engine() -> RankingEngine:
-    return RankingEngine.load()
+def load_ranking_engine():
+    """The engine chosen in configs/recommendation_v2.yaml (REF-009 ADR-043)."""
+    return load_active_engine()
 
 
 @st.cache_resource
@@ -69,12 +71,13 @@ def load_dataset_version_info() -> dict:
 
 
 @st.cache_data(show_spinner="Ranking districts...")
-def cached_rank(_engine: RankingEngine, vehicle_type: str, period: int, top_n: int) -> dict:
+def cached_rank(_engine: RankingEngine, vehicle_type: str, period: int, top_n: int, engine_key: str = "v1") -> dict:
     """Cached wrapper around RankingEngine.rank() - `_engine` is excluded
     from Streamlit's cache key (leading underscore) since the engine object
     itself never changes within a server process; (vehicle_type, period,
     top_n) are the real cache key, avoiding recomputing predictions + SHAP
-    on every widget rerun for an unchanged selection."""
+    on every widget rerun for an unchanged selection. `engine_key` keeps v1
+    and v2 results apart in the cache."""
     return _engine.rank(vehicle_type, period, top_n=top_n)
 
 
@@ -86,7 +89,10 @@ def cached_route_query(_router: SBERTRouter, query: str):
 def get_district_history(_engine: RankingEngine, district: str, vehicle_type: str) -> pd.DataFrame:
     """Real historical new_registrations for one district/vehicle_type,
     read directly from the already-loaded frozen dataset - not a ranking
-    computation, just a filter of existing real rows for display."""
+    computation, just a filter of existing real rows for display. In v2 mode
+    it returns published licence counts instead."""
+    if is_fleet_engine(_engine):
+        return _engine.history(district, vehicle_type)
     df = _engine.frozen_df
     history = df[(df["district"] == district) & (df["vehicle_type"] == vehicle_type)].sort_values("year")
     return history[["year", "new_registrations", "data_quality_flag"]].reset_index(drop=True)

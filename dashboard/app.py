@@ -39,17 +39,28 @@ from dashboard.data_access import (  # noqa: E402
 )
 from dashboard.views import (  # noqa: E402
     DISCLAIMER,
+    build_band_choropleth_figure,
     build_choropleth_figure,
+    build_fleet_ranking_table,
+    build_fleet_trend_figure,
     build_ranking_table,
     build_trend_figure,
+    format_fleet_method_summary,
     format_model_version_summary,
     format_source_register,
 )
 from src.models.xgboost_model import VEHICLE_CATEGORIES  # noqa: E402
 from src.nlp.sbert_router import STATUS_CONFIDENT  # noqa: E402
+from src.recommendation.active_engine import ENGINE_V2, get_active_engine_name, is_fleet_engine  # noqa: E402
+from src.recommendation.fleet_opportunity_v2 import FleetDataError  # noqa: E402
 from src.recommendation.ranking_engine import STATUS_OK  # noqa: E402
 
-st.set_page_config(page_title="Mechanic Service Demand Opportunity - Sri Lanka", layout="wide")
+FLEET_PAGE_TITLE = "Vehicle-Fleet Service Opportunity - Sri Lanka"
+
+st.set_page_config(
+    page_title=FLEET_PAGE_TITLE if get_active_engine_name() == ENGINE_V2 else "Mechanic Service Demand Opportunity - Sri Lanka",
+    layout="wide",
+)
 
 
 def render_disclaimer() -> None:
@@ -186,13 +197,159 @@ def render_data_source_panel() -> None:
     st.dataframe(format_source_register(load_source_register()), hide_index=True, use_container_width=True)
 
 
-def main() -> None:
-    st.title("Mechanic Service Demand Opportunity - Sri Lanka")
-    st.caption("A decision-support tool for freelance mechanics. It does not guarantee jobs, customers, or income.")
+def render_fleet_sidebar_controls(engine, router) -> tuple[str, int, int, str]:
+    """The same controls as v1. Years are labelled by data year, and only the
+    latest year gives an unobserved estimate."""
+    with st.sidebar:
+        st.header("Compare districts")
 
-    engine = load_ranking_engine()
+        vehicle_types = VEHICLE_CATEGORIES
+        if "vehicle_type" not in st.session_state:
+            st.session_state.vehicle_type = vehicle_types[0]
+
+        with st.form("nl_query_form", clear_on_submit=False):
+            query = st.text_input("Describe your work (optional)", placeholder='e.g. "I repair motorcycles"')
+            submitted = st.form_submit_button("Match my category")
+        if submitted and query.strip():
+            route_result = cached_route_query(router, query)
+            if route_result.status == STATUS_CONFIDENT:
+                st.session_state.vehicle_type = route_result.matched_category
+                st.success(f"Matched to the '{route_result.matched_category}' mechanic category below. You can change it.")
+            else:
+                st.warning(route_result.message)
+        elif submitted:
+            st.warning("No query was submitted.")
+
+        # Bound by key, so a changing `index` cannot reset the widget and drop a selection.
+        vehicle_type = st.selectbox("Vehicle category", vehicle_types, key="vehicle_type")
+
+        periods = engine.available_periods()
+        period = st.selectbox("Data year", periods, index=len(periods) - 1, format_func=engine.period_label)
+
+        top_n = st.slider(
+            "Number of districts to show",
+            min_value=1, max_value=len(engine.canonical_districts), value=engine.config["top_n"],
+        )
+        selected_district = st.selectbox("District for detailed view", engine.canonical_districts)
+
+        st.divider()
+        st.caption(DISCLAIMER)
+
+    return vehicle_type, period, top_n, selected_district
+
+
+def render_fleet_map_and_table(result: dict, geo: dict, vehicle_type: str, top_n: int) -> None:
+    year = result["reference_year"]
+    st.subheader("Relative vehicle-fleet opportunity by district")
+    fig = build_band_choropleth_figure(
+        result["ranked_districts"], geo["geojson"], geo["canonical_to_shape_name"], vehicle_type,
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Full width, so the band, reliability and flag columns stay visible.
+    st.subheader(f"Top {top_n} districts by licensed vehicles ({year})")
+    entries = result["ranked_districts"][:top_n]
+    table_df = build_fleet_ranking_table(entries)
+    st.dataframe(table_df, hide_index=True, use_container_width=True)
+    st.download_button(
+        "Download this ranking as CSV",
+        data=table_df.assign(Disclaimer=DISCLAIMER).to_csv(index=False),
+        file_name=f"{vehicle_type.lower()}_fleet_opportunity_{year}.csv",
+        mime="text/csv",
+    )
+    st.caption(f"{result['uncertainty_note']} {result['position_note']}")
+
+    for entry in entries:
+        if entry["flag_warning"]:
+            st.warning(f"{entry['district']} (rank {entry['rank']}). {entry['flag_warning']}")
+
+
+def render_fleet_district_detail(engine, result: dict, selected_district: str, vehicle_type: str) -> None:
+    year = result["reference_year"]
+    st.divider()
+    st.subheader(f"Detail: {selected_district}")
+    entry = next((d for d in result["ranked_districts"] if d["district"] == selected_district), None)
+
+    col_value, col_trend = st.columns([1, 2])
+    with col_value:
+        if entry is None:
+            st.info(f"No usable {year} count is available for this district and vehicle type.")
+        else:
+            st.metric(f"Licensed vehicles, {vehicle_type.lower()} ({year})", f"{entry['licence_count']:,.0f}")
+            st.write(f"Opportunity band: **{entry['opportunity_band']}**")
+            st.write(f"Rank: **{entry['rank']} of {result['n_ranked']}**")
+            st.write(f"Share of {vehicle_type.lower()} licences: **{entry['share_pct']:.1f}%**")
+            st.write(f"Reliability: **{entry['reliability']}**")
+            if entry["flag_warning"]:
+                st.warning(entry["flag_warning"])
+
+    with col_trend:
+        st.markdown("**Licensed vehicles over time**")
+        history_df = get_district_history(engine, selected_district, vehicle_type)
+        if history_df.empty or history_df["licence_count"].notna().sum() == 0:
+            st.info("No licence counts are available for this district and vehicle type.")
+        else:
+            st.plotly_chart(build_fleet_trend_figure(history_df, selected_district, vehicle_type), use_container_width=True)
+
+    st.markdown("**Why this district ranks here**")
+    if entry is not None:
+        st.write(entry["recommendation_sentence"])
+        for fact in entry["explanation_facts"]:
+            if fact != entry["flag_warning"]:
+                st.markdown(f"- {fact}")
+        st.caption(entry["explanation_note"])
+
+
+def render_fleet_data_panel(engine) -> None:
+    st.divider()
+    st.subheader("Data sources and method")
+    st.dataframe(format_fleet_method_summary(engine.method_summary()), hide_index=True, use_container_width=True)
+    st.markdown("**Registered data sources**")
+    st.dataframe(format_source_register(load_source_register()), hide_index=True, use_container_width=True)
+
+
+def main_fleet(engine, router, geo) -> None:
+    """Vehicle-Fleet Service Opportunity view (REF-009 ADR-042, ADR-043). Every
+    panel reads one `rank()` result, as in the v1 view."""
+    vehicle_type, period, top_n, selected_district = render_fleet_sidebar_controls(engine, router)
+    render_disclaimer()
+    st.info(engine.config["meaning_note"])
+    st.caption(engine.config["evidence_note"])
+
+    result = cached_rank(engine, vehicle_type, period, len(engine.canonical_districts), engine_key=ENGINE_V2)
+    if result["status"] != STATUS_OK:
+        render_no_data_state(result["message"])
+        render_fleet_data_panel(engine)
+        return
+
+    if result["missing_message"]:
+        st.warning(result["missing_message"])
+    render_fleet_map_and_table(result, geo, vehicle_type, top_n)
+    render_fleet_district_detail(engine, result, selected_district, vehicle_type)
+    render_fleet_data_panel(engine)
+    render_disclaimer()
+
+
+def main() -> None:
+    is_v2 = get_active_engine_name() == ENGINE_V2
+    if is_v2:
+        st.title(FLEET_PAGE_TITLE)
+        st.caption("Part of the project: Mechanic Service Demand Opportunity Prediction and Recommendation System.")
+    else:
+        st.title("Mechanic Service Demand Opportunity - Sri Lanka")
+        st.caption("A decision-support tool for freelance mechanics. It does not guarantee jobs, customers, or income.")
+
+    try:
+        engine = load_ranking_engine()
+    except FleetDataError as exc:
+        st.error(f"Results are not shown because the licence data failed a check. {exc}")
+        return
     router = load_sbert_router()
     geo = load_geo_resources()
+
+    if is_fleet_engine(engine):
+        main_fleet(engine, router, geo)
+        return
 
     vehicle_type, period, top_n, selected_district = render_sidebar_controls(engine, router)
 

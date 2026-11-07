@@ -1,0 +1,61 @@
+{# Vehicle-Fleet Service Opportunity results (REF-009 ADR-042, ADR-043). #}
+<h2>
+  {{ interface_label }}:
+  {% if selected_district %}
+    {{ selected_district }}, {{ result.vehicle_type }}, {{ result.reference_year }} data
+  {% else %}
+    {{ result.vehicle_type }}, {{ result.reference_year }} data
+  {% endif %}
+</h2>
+<p class="field-hint">{{ result.evidence_note }}</p>
+<p class="field-hint">{{ result.uncertainty_note }} {{ result.position_note }}</p>
+
+<div class="insights-grid">
+  {% for entry in display_entries %}
+    <div class="insights-card">
+      <div class="insights-card-header">
+        <span class="insights-rank">#{{ entry.rank }}</span>
+        <h3>{{ entry.district }}</h3>
+        <span class="tag">{{ entry.opportunity_band }}</span>
+      </div>
+      <p class="insights-predicted-value">Licensed vehicles ({{ entry.reference_year }}): <strong>{{ "{:,.0f}".format(entry.licence_count) }}</strong></p>
+      {% if entry.flag_warning %}
+        <p class="insights-warning">&#9888; {{ entry.flag_warning }}</p>
+      {% endif %}
+      <p class="insights-factors-label">Why this district ranks here</p>
+      <ul class="insights-factors-list">
+        {% for fact in entry.explanation_facts %}
+          {% if fact != entry.flag_warning %}<li>{{ fact }}</li>{% endif %}
+        {% endfor %}
+      </ul>
+      <p class="insights-sentence">{{ entry.recommendation_sentence }}</p>
+      <p class="field-hint">{{ entry.explanation_note }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+{% if not selected_district %}
+  <div class="profile-section">
+    <h2>All reporting districts</h2>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Rank</th><th>District</th><th>Band</th><th>Licensed vehicles</th><th>Share of {{ result.vehicle_type }} (%)</th><th>Change from previous year (%)</th><th>Reliability</th></tr>
+        </thead>
+        <tbody>
+          {% for row in result.ranked_districts %}
+            <tr>
+              <td>{{ row.rank }}</td>
+              <td>{{ row.district }}</td>
+              <td>{{ row.opportunity_band }}</td>
+              <td>{{ "{:,.0f}".format(row.licence_count) }}</td>
+              <td>{{ "%.1f"|format(row.share_pct) }}</td>
+              <td>{% if row.change_pct is none %}Not available{% else %}{{ "%+.1f"|format(row.change_pct) }}{% if row.change_caution %} (caution){% endif %}{% endif %}</td>
+              <td>{% if row.flag_warning %}&#9888; {% endif %}{{ row.reliability }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,53 @@
+# Recommendation output configuration (PLAN-recommendation-v2-integration.md; REF-009 ADR-042, ADR-043)
+
+# Which engine the dashboard and Opportunity Insights use: v1 or v2.
+# v1 stays the default until the project author approves the switch.
+# Restart the dashboard and the website after changing this. Set it back to v1 to roll back.
+active_engine: v1
+
+dataset_path: data/processed/v2/modelling_dataset_v2.csv
+dataset_sha256: 04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335
+dataset_version: modelling_dataset_v2_04eaecafd7e1
+anomaly_register: data/corrections/source_anomalies_v2.csv
+
+interface_label: Vehicle-Fleet Service Opportunity
+official_project_title: Mechanic Service Demand Opportunity Prediction and Recommendation System
+method_label: Previous-year value (no machine-learning model)
+
+vehicle_categories:
+  Motorcycle: motorcycles
+  Car: cars
+  Three-wheeler: three-wheelers
+
+meaning_note: >
+  This indicator shows relative licensed-vehicle fleet size: how many vehicles hold a revenue
+  licence in each district compared with other districts. It does not represent actual mechanic
+  jobs or measured service demand.
+evidence_note: >
+  On the 2023 evaluation, machine-learning models did not beat last year's value, so this page
+  uses last year's value.
+position_note: >
+  Nearby positions can swap from one year to the next, especially below the top 5, so read the
+  band before the exact position.
+explanation_note: >
+  Rule-based explanation: these facts come directly from published licence counts and fixed
+  rules. No model is involved.
+
+# Previous-year forecast error by vehicle type, target years 2021-2023, all rows, from
+# reports/baseline_v2/predictions.csv and reports/final_evaluation_v2/predictions.csv.
+# A test recalculates these from those files. They are past changes, not prediction intervals.
+typical_change:
+  Motorcycle: {median_pct: 2.8, p90_pct: 12.6}
+  Car: {median_pct: 4.6, p90_pct: 18.6}
+  Three-wheeler: {median_pct: 3.9, p90_pct: 15.7}
+
+# Previous-year baseline, target year 2023, all 75 rows, from
+# reports/final_evaluation_v2/metrics_final.csv. A test compares these with that file.
+final_evaluation:
+  target_year: 2023
+  mae: 2729
+  mape_pct: 6.66
+  median_ape_pct: 4.00
+
+# reports/dataset_v2/dataset_v2_report.md, Limitations.
+coverage_note: District licences sum to 57-85% of the DMT national vehicle population, by vehicle type (2019 and 2023).

@@ -3,18 +3,32 @@
 {% block content %}
 <section class="insights-page">
   <h1>Opportunity Insights</h1>
+  {% if indicator_v2 %}
+    <p class="page-intro">
+      Compare districts by licensed vehicles in your vehicle category, using published
+      revenue-licence counts.
+    </p>
+  {% else %}
   <p class="page-intro">
     See which districts currently show the strongest predicted service opportunity for your
     vehicle category, using the project's XGBoost prediction model and SHAP explanations —
     the same backend the research dashboard uses.
   </p>
+  {% endif %}
 
   {% if backend_unavailable %}
     <div class="empty-state">
+      {% if indicator_v2 %}
+        <p>Opportunity Insights is temporarily unavailable — the licence data could not be loaded. Please try again later.</p>
+      {% else %}
       <p>Opportunity Insights is temporarily unavailable — the prediction model could not be loaded. Please try again later.</p>
+      {% endif %}
     </div>
   {% else %}
     <p class="disclaimer-banner">{{ result.disclaimer }}</p>
+    {% if indicator_v2 and result.meaning_note %}
+      <p class="disclaimer-banner">{{ result.meaning_note }}</p>
+    {% endif %}
 
     <form method="GET" class="search-filter-form" novalidate>
       <div class="filter-row">
@@ -40,6 +54,10 @@
       </div>
     </form>
 
+    {% if indicator_v2 and result.missing_message %}
+      <p class="insights-warning">&#9888; {{ result.missing_message }}</p>
+    {% endif %}
+
     {% if result.status != "ok" %}
       <div class="empty-state">
         <p>{{ result.message }}</p>
@@ -48,6 +66,8 @@
       <div class="empty-state">
         <p>No opportunity data available for this district.</p>
       </div>
+    {% elif indicator_v2 %}
+      {% include "insights/_fleet_opportunity_v2.html" %}
     {% else %}
       <h2>
         {% if selected_district %}
@@ -91,6 +111,14 @@
     {% endif %}
 
     <div class="profile-section">
+      {% if indicator_v2 %}
+        <h2>Method &amp; data information</h2>
+        <table class="admin-table">
+          <tbody>
+            {% for field, value in method_summary %}<tr><th>{{ field }}</th><td>{{ value }}</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      {% else %}
       <h2>Model &amp; data information</h2>
       <table class="admin-table">
         <tbody>
@@ -100,6 +128,7 @@
           <tr><th>Test-period average error (MAE)</th><td>{{ model_info.test_mae }}</td></tr>
         </tbody>
       </table>
+      {% endif %}
     </div>
 
     <p class="disclaimer-banner">{{ result.disclaimer }}</p>

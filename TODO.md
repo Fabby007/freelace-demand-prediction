@@ -265,7 +265,7 @@ All seven marketplace specs (DEV-018 through DEV-024) are functionally complete,
 
 ## Dataset v2 recommendation system (PLAN-recommendation-v2-integration.md; REF-009 ADR-042, ADR-043)
 - [x] Integration plan approved; rule-based explanations for v2 recorded (ADR-042)
-- [ ] Indicator engine and config switch, with tests
-- [ ] Streamlit dashboard connected behind the switch, default v1
-- [ ] Opportunity Insights connected behind the switch, default v1
+- [x] Indicator engine and config switch, with tests (162 new tests; full suite 815 passed, 2026-11-07)
+- [x] Streamlit dashboard connected behind the switch, default v1
+- [x] Opportunity Insights connected behind the switch, default v1
 - [ ] Project author approves making v2 the default
