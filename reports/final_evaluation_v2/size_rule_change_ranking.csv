@@ -1,0 +1,4 @@
+fold,vehicle_type,n,spearman_change_smaller_is_higher
+final_test,Car,25,0.2492
+final_test,Motorcycle,25,0.0092
+final_test,Three-wheeler,25,0.0562

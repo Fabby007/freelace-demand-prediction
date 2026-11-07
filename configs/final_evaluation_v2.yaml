@@ -1,0 +1,62 @@
+# Frozen plan for the final evaluation on target year 2023 (REF-009 ADR-041).
+# Fixed before any 2023 result was computed. Explained in
+# reports/final_evaluation_v2/evaluation_plan.md. Do not edit: the run refuses a changed plan.
+
+plan_version: final_evaluation_v2_plan_1
+frozen_date: '2026-11-07'
+dataset_name: modelling_dataset_v2
+expected_dataset_sha256: 04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335
+
+final_fold: {name: final_test, origin_year: 2022, target_year: 2023}
+
+reference_model: previous_year
+models: [previous_year, moving_average, ridge_log_change_level]
+
+baselines:
+  previous_year: "licence_count at t"
+  moving_average: "licence_rolling_mean_3: mean of licence_count over t-2, t-1 and t"
+
+ridge:
+  column: ridge_log_change_level
+  source_experiment: ridge__level__log_change__train_all
+  target: log_change
+  numeric_inputs: [log_licence_count]
+  categorical_inputs: [vehicle_type]
+  preprocessing: "StandardScaler on numeric inputs and OneHotEncoder on vehicle_type, fitted on training rows only"
+  # Chosen by Step 6 cross-validation in both development folds. Not tuned again.
+  alpha: 100.0
+  training_rows_rule: all
+  retransformation: "licence_count * exp(prediction), with no bias adjustment"
+
+# Known in advance from flags and availability, not from 2023 values.
+expected:
+  training_rows: 220
+  training_target_years: [2020, 2021, 2022]
+  evaluation_rows: 75
+  flagged_targets: 9
+
+metrics:
+  accuracy: [mae, mase, mape, median_ape]
+  ranking: [spearman_level, top_5_overlap, top_3_overlap, top_10_overlap, spearman_change, change_top_5_overlap, direction_accuracy]
+
+# Rules fixed from the baseline evaluation, section 8.
+decision_rules:
+  meaningful_accuracy_improvement: >
+    Lower MAE and lower MAPE than previous_year on all_rows and on no_flagged_target_or_input,
+    and a 95% bootstrap interval for the MAE ratio entirely below 1 on both.
+  ranking_not_worse: >
+    Spearman and top-5 overlap on levels no lower than previous_year on all_rows.
+  claim_about_change: >
+    A positive Spearman (change) in every vehicle type.
+  best_performing: >
+    The lowest MAE and the lowest MAPE on all_rows, reported separately if they differ.
+    This describes one year only, and does not by itself show a meaningful improvement.
+
+# Files whose hashes are recorded at the freeze. Any change stops the run.
+frozen_files:
+  - configs/final_evaluation_v2.yaml
+  - configs/baseline_v2.yaml
+  - configs/ml_v2.yaml
+  - src/evaluation/final_evaluation_v2.py
+  - src/evaluation/baseline_evaluation_v2.py
+  - src/models/ml_experiments_v2.py

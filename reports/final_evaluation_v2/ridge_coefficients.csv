@@ -1,0 +1,6 @@
+term,coefficient
+intercept,0.0063
+numeric__log_licence_count,-0.0244
+vehicle__vehicle_type_Motorcycle,0.0103
+vehicle__vehicle_type_Car,0.0031
+vehicle__vehicle_type_Three-wheeler,-0.0134

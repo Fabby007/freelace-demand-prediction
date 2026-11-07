@@ -412,6 +412,15 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Limits: Growth features can be tested in one fold only, trained on one year. Results are in `reports/ml_v2/ml_experiments_report.md`.
 - Affected specs: DEV-008, DEV-014, REF-003.
 
+### ADR-041 — Frozen, one-shot final evaluation on target year 2023
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07. The previous-year baseline is the selected forecasting method.
+- Context: The project author selected three approaches for a final comparison and required that 2023 not influence training, selection or tuning, and that it be evaluated exactly once.
+- Decision: Added `configs/final_evaluation_v2.yaml`, `src/evaluation/final_evaluation_v2.py` and a separate charts module. Forecasts come from a blind copy with all 2023 values removed. Before the run, hashes of the plan, code, configs and dataset are recorded; the run refuses any difference and creates a lock so that it cannot run twice. Ridge uses Step 6's `alpha = 100`, not tuned again, on 220 rows from target years 2020-2022. Rows and metrics use the baseline evaluation's code.
+- Alternatives considered: Committing the plan to git before the run (not done - commits were limited to what the project author asked for, so the order rests on the freeze record and lock timestamps, and this is disclosed); re-tuning alpha on all rows before 2023 (rejected - the approved plan was to use Step 6's hyperparameters); saving the fitted Ridge to `models/` (not done - it did not earn deployment; coefficients are saved, and it can be refitted).
+- Result: The previous-year baseline had the lowest MAE and MAPE, and no model met the rule for a meaningful accuracy improvement. See `reports/final_evaluation_v2/final_evaluation_report.md`.
+- Affected specs: DEV-014.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

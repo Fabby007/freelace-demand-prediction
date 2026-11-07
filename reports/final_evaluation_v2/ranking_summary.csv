@@ -1,0 +1,13 @@
+scenario,model,top_3_overlap,top_5_overlap,top_10_overlap,spearman_level,spearman_change,change_top_5_overlap,direction_accuracy
+all_rows,previous_year,1.0,1.0,0.9,0.9936,,,
+all_rows,moving_average,1.0,0.9333,0.9,0.9769,0.0444,0.3333,0.4306
+all_rows,ridge_log_change_level,1.0,1.0,0.9,0.9936,0.1049,0.3333,0.5139
+no_flagged_target,previous_year,1.0,0.9333,0.9333,0.9921,,,
+no_flagged_target,moving_average,1.0,0.9333,0.9333,0.9831,0.1899,0.4,0.4545
+no_flagged_target,ridge_log_change_level,1.0,0.9333,0.9333,0.9921,0.1037,0.2667,0.5152
+no_flagged_target_or_input,previous_year,1.0,0.9333,0.9667,0.9907,,,
+no_flagged_target_or_input,moving_average,1.0,0.9333,0.9667,0.992,0.1911,0.4667,0.4762
+no_flagged_target_or_input,ridge_log_change_level,1.0,0.9333,0.9667,0.9907,0.1523,0.2667,0.5524
+also_no_outlier_candidates,previous_year,1.0,0.9333,0.9333,0.9908,,,
+also_no_outlier_candidates,moving_average,1.0,1.0,0.9333,0.9909,0.1189,0.4667,0.4631
+also_no_outlier_candidates,ridge_log_change_level,1.0,0.9333,0.9333,0.9908,0.2036,0.2667,0.586

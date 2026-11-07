@@ -1,0 +1,23 @@
+{
+  "plan_version": "final_evaluation_v2_plan_1",
+  "frozen_at": "2026-11-07T05:42:06",
+  "dataset_sha256": "04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335",
+  "file_sha256": {
+    "configs/final_evaluation_v2.yaml": "604339e9fafca3a299b8b6354a43e691aa4394c933518c275935ba653f6a9ffd",
+    "configs/baseline_v2.yaml": "b82ad2f73da70ee0e2d583195bf3d606945f8cfbd17d57679157712e1b8feeb6",
+    "configs/ml_v2.yaml": "f26ded4e6d99ae4bb8a1e14482ba6873afca299b1fc981edfae9370ebad39d8d",
+    "src/evaluation/final_evaluation_v2.py": "52b996a2d2384dfe438ddaa7d6e89947d10e323ffc17017d1b779447790d8618",
+    "src/evaluation/baseline_evaluation_v2.py": "ac5582fd5d09478bf362359e074bb328885f498c0092b44dc9bda01a3f8a0498",
+    "src/models/ml_experiments_v2.py": "1ea79f22006261e7d7a7a70ab49855213006c78a9203136636c99b430e5a4b90"
+  },
+  "preflight": {
+    "training_rows": 220,
+    "training_target_years": [
+      2020,
+      2021,
+      2022
+    ],
+    "evaluation_rows": 75,
+    "flagged_targets": 9
+  }
+}

@@ -1,0 +1,7 @@
+model,rows,n,mape,median_ape,max_ape
+previous_year,no_flagged_target_or_input,57,5.2056,4.1008,19.1467
+previous_year,flagged_target_or_input,18,11.286,3.1892,75.8489
+moving_average,no_flagged_target_or_input,57,5.7579,4.6768,25.034
+moving_average,flagged_target_or_input,18,22.6839,11.2688,80.631
+ridge_log_change_level,no_flagged_target_or_input,57,5.1585,3.9078,22.5955
+ridge_log_change_level,flagged_target_or_input,18,12.1147,2.9035,74.1329
