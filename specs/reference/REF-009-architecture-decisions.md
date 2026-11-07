@@ -403,6 +403,15 @@ While implementing DEV-023, the "blocked mechanic accounts cannot access protect
 - Alternatives considered: Scoring baselines on 2023 now (rejected - its error would become a benchmark that could steer model design); a per-series MASE scale (rejected - fold 1 would rest on one change per series); MLflow logging (not used here - nothing is fitted, and writing to `mlruns/` would change a protected v1 store; to be decided when models are trained).
 - Affected specs: DEV-007, DEV-014. Results and limitations: `reports/baseline_v2/baseline_evaluation_report.md`.
 
+### ADR-040 — Ridge and gated XGBoost experiments on Dataset v2
+- Date: 2026-11-07
+- Status: Accepted by the project author on 2026-11-07. No ML model beat the previous-year baseline, and this negative result stands.
+- Context: Source doc Section 23.1 requires proving that a model adds value over simple baselines. v1's `src/models/xgboost_model.py` targets new registrations and saves to `models/xgboost_v1/`, so it cannot be reused without risking v1. Ridge regression is planned in the Research Brief, and uses the already-pinned scikit-learn.
+- Decision: Added `src/models/ml_experiments_v2.py` and `configs/ml_v2.yaml`. Models are fitted only on rows whose target year is at or before the fold's origin, with scaling, encoding and hyperparameters fitted inside those rows. They are scored with the baseline evaluation's own code, so metrics and row rules are the same. Target year 2023 is not used. XGBoost runs only through a gate fixed before Ridge results were seen, decided from Ridge alone. Runs are logged to a new `mlruns_v2/` store, leaving `mlruns/` untouched. No fitted model is saved to `models/`, because no model passed the success criteria.
+- Alternatives considered: Tuning hyperparameters on the 2022 fold (rejected - it would leave no untouched development year); imputing missing registrations (rejected - approved decision is that they stay missing); separate models per vehicle type (not run - about a third of the rows each, and more comparisons).
+- Limits: Growth features can be tested in one fold only, trained on one year. Results are in `reports/ml_v2/ml_experiments_report.md`.
+- Affected specs: DEV-008, DEV-014, REF-003.
+
 ## 5. Related specs
 
 All DEV specs may append here. REF-008 (Technology Stack) is the baseline this log records deviations/clarifications against. ADR-026–034 additionally cross-reference REF-010–013 (Marketplace Extension reference specs) and MARKETPLACE_EXTENSION.md.

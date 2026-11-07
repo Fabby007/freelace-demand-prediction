@@ -1,0 +1,68 @@
+# Machine-learning experiments on Dataset v2 (src/models/ml_experiments_v2.py, REF-009 ADR-040).
+# Separate from model_params.yaml and feature_list.yaml, which Dataset v1 and its models read.
+
+random_seed: 42
+
+# Same development folds as the baseline evaluation. Training rows must have a
+# target_year no later than origin_year. Target year 2023 is never used.
+final_test_target_year: 2023
+
+# Target scales. All predictions are converted back to counts before scoring.
+# raw_count is the approved primary target; the others are investigations of it.
+targets: [raw_count, log_count, log_change]
+
+# Each input appears once. Log inputs use natural logs of positive values.
+feature_sets:
+  level:
+    description: "Current size and vehicle type. Available in both folds."
+    numeric: [log_licence_count]
+    folds: [fold_1, fold_2]
+  level_growth:
+    description: "Adds the only momentum signal. Needs two years of history, so fold 2 only, trained on one year."
+    numeric: [log_licence_count, licence_growth_log]
+    folds: [fold_2]
+  level_growth_volatility:
+    description: "Adds recent variability, which EDA found carries different information from level."
+    numeric: [log_licence_count, licence_growth_log, log_licence_rolling_std_3]
+    folds: [fold_2]
+  level_growth_registrations:
+    description: "Adds verified district Total Registrations. Unverified Totals stay missing, so rows are fewer."
+    numeric: [log_licence_count, licence_growth_log, log_total_registrations, total_registrations_growth_log]
+    folds: [fold_2]
+
+# With the raw_count target, level is entered as a raw count instead of a log.
+raw_count_level_input: licence_count
+
+# Targets tested on each feature set. Fewer on the add-on sets to limit the number of comparisons.
+experiments:
+  level: [raw_count, log_count, log_change]
+  level_growth: [raw_count, log_count, log_change]
+  level_growth_volatility: [log_count, log_change]
+  level_growth_registrations: [log_count, log_change]
+
+# Whether training keeps rows with a flagged target or input. Evaluation scenarios are separate.
+training_rows: [all, no_flagged]
+
+ridge:
+  # Chosen inside each fold's training rows only, by cross-validation across districts.
+  alpha_grid: [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]
+  cv_folds: 5
+
+# Rule fixed before any Ridge result was seen: XGBoost runs only if a Ridge model has a lower
+# MAE and MAPE than the previous-year baseline on both row sets, or a positive change ranking
+# in every vehicle type and evaluated fold. It is decided from Ridge results alone.
+xgboost:
+  # Log change only: trees cannot predict beyond the values seen in training, so a level
+  # target could never exceed the largest training count.
+  target: log_change
+  feature_sets: [level, level_growth]
+  # Deliberately small, because each fold has few rows. Chosen inside training rows only.
+  grid:
+    max_depth: [1, 2]
+    n_estimators: [50, 100]
+  fixed:
+    learning_rate: 0.05
+    min_child_weight: 5
+    reg_lambda: 5.0
+    subsample: 1.0
+    colsample_bytree: 1.0

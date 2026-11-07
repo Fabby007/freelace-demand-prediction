@@ -17,6 +17,9 @@ Source doc Section 14 (XGBoost — Primary Tabular Prediction Model), Section 14
 - Section 14, Section 23 (evaluation), Section 24 (model registry)
 - REF-003 (ML Component Architecture — Why XGBoost, Section 4)
 
+## Dataset v2 note
+XGBoost on Dataset v2 is investigated in `src/models/ml_experiments_v2.py` (REF-009 ADR-040). The `src/models/xgboost_model.py` module described below still serves Dataset v1 and is unchanged.
+
 ## User Roles
 None (backend/modelling spec).
 

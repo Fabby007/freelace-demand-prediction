@@ -29,6 +29,7 @@ models/*
 
 # MLflow / experiment tracking local artefacts
 mlruns/
+mlruns_v2/
 mlartifacts/
 
 # OS

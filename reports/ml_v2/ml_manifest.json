@@ -1,0 +1,54 @@
+{
+  "run_date": "2026-11-07",
+  "dataset_sha256": "04eaecafd7e18c939dcd847ab2e50a45a41e00979f2692fcecf19b6fa3675335",
+  "config_sha256": "f26ded4e6d99ae4bb8a1e14482ba6873afca299b1fc981edfae9370ebad39d8d",
+  "experiments": 24,
+  "fits": 32,
+  "target_years_evaluated": [
+    2021,
+    2022
+  ],
+  "final_test_evaluated": false,
+  "rows_by_comparison": {
+    "both_folds_level_features": 145,
+    "fold_2_licence_features": 74,
+    "fold_2_with_registrations": 59
+  },
+  "xgboost_gate": {
+    "open": true,
+    "ridge_lower_mae_and_mape_both_row_sets": [],
+    "ridge_positive_change_ranking_every_vehicle_and_fold": [
+      "ridge__level__log_change__train_all",
+      "ridge__level__log_change__train_no_flagged",
+      "ridge__level__log_count__train_all",
+      "ridge__level__log_count__train_no_flagged",
+      "ridge__level__raw_count__train_no_flagged",
+      "ridge__level_growth__log_change__train_all",
+      "ridge__level_growth__log_change__train_no_flagged",
+      "ridge__level_growth__log_count__train_all",
+      "ridge__level_growth__log_count__train_no_flagged",
+      "ridge__level_growth_registrations__log_count__train_no_flagged",
+      "ridge__level_growth_volatility__log_change__train_all",
+      "ridge__level_growth_volatility__log_count__train_all",
+      "ridge__level_growth_volatility__log_count__train_no_flagged"
+    ]
+  },
+  "xgboost_run": true,
+  "tables": [
+    "bootstrap_against_previous_year.csv",
+    "coefficients.csv",
+    "experiments.csv",
+    "metrics_by_fold.csv",
+    "metrics_summary.csv",
+    "ranking_by_fold.csv",
+    "ranking_by_vehicle.csv",
+    "ranking_summary.csv",
+    "size_rule_change_ranking.csv",
+    "success_criteria.csv"
+  ],
+  "figures": [
+    "fig01_models_vs_baseline_both_folds.png",
+    "fig02_mae_ratio_intervals_fold_2.png",
+    "fig03_change_ranking_fold_2.png"
+  ]
+}
