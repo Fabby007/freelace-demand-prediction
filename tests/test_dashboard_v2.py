@@ -342,3 +342,27 @@ def test_committed_default_setting_shows_the_v2_dashboard():
         assert any(i.value == EXACT_DISCLAIMER for i in at.info)
     finally:
         _clear()
+
+
+def test_band_map_draws_missing_districts_grey_and_labelled(engine):
+    geojson = data_access.load_geo_resources()
+    result = engine.rank("Motorcycle", 2022, top_n=25)
+    assert result["excluded_districts"] == ["Jaffna"]
+    fig = build_band_choropleth_figure(
+        result["ranked_districts"], geojson["geojson"], geojson["canonical_to_shape_name"], "Motorcycle",
+        excluded_districts=result["excluded_districts"],
+    )
+    assert [t.name for t in fig.data][-1] == "No usable count"
+    no_data = fig.data[-1]
+    assert list(no_data.locations) == [geojson["canonical_to_shape_name"]["Jaffna"]]
+    assert "not treated as zero" in no_data.hovertemplate
+    drawn = {loc for t in fig.data for loc in t.locations}
+    assert len(drawn) == 25
+
+
+def test_unranked_district_detail_explains_why(v2_mode):
+    at = _run()
+    _selectbox(at, "Data year").select(2022).run()
+    _selectbox(at, "District for detailed view").select("Jaffna").run()
+    assert not at.exception
+    assert any("Jaffna is not ranked for 2021" in i.value and "not treated as zero" in i.value for i in at.info)

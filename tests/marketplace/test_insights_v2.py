@@ -244,3 +244,8 @@ def test_committed_default_setting_shows_the_v2_page(client, app, monkeypatch):
     assert "Vehicle-Fleet Service Opportunity" in text
     assert DISCLAIMER_TEXT in text
     assert "XGBoost" not in text
+
+
+def test_data_year_field_is_widened_only_in_v2(client, app, v2_mode):
+    _, text = _page(client, email="wide@example.com")
+    assert "form-field form-field-wide" in text

@@ -1002,6 +1002,11 @@ textarea:focus {
   margin: var(--space-3) 0 0.2rem;
 }
 
+/* v2 data-year labels such as "2023 data (2024 estimate)" need more room. */
+.filter-row .form-field-wide {
+  flex-basis: 240px;
+}
+
 .insights-warning {
   background: var(--color-error-bg);
   color: var(--color-error-text);

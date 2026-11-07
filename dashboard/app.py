@@ -243,6 +243,7 @@ def render_fleet_map_and_table(result: dict, geo: dict, vehicle_type: str, top_n
     st.subheader("Relative vehicle-fleet opportunity by district")
     fig = build_band_choropleth_figure(
         result["ranked_districts"], geo["geojson"], geo["canonical_to_shape_name"], vehicle_type,
+        excluded_districts=result["excluded_districts"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -298,6 +299,11 @@ def render_fleet_district_detail(engine, result: dict, selected_district: str, v
             if fact != entry["flag_warning"]:
                 st.markdown(f"- {fact}")
         st.caption(entry["explanation_note"])
+    else:
+        st.info(
+            f"{selected_district} is not ranked for {year} because no usable count is available. "
+            "A missing count is not treated as zero."
+        )
 
 
 def render_fleet_data_panel(engine) -> None:

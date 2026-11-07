@@ -107,6 +107,9 @@ def format_model_version_summary(model_metadata: dict, dataset_version_info: dic
 BAND_ORDER = ["Low", "Moderate", "High", "Very High"]
 # One hue, light to dark, as the bands are ordered.
 BAND_COLOURS = {"Low": "#deebf7", "Moderate": "#9ecae1", "High": "#4292c6", "Very High": "#08519c"}
+# Districts left out of the ranking. Grey with a hatch, so they do not look like "Low".
+NO_DATA_LABEL = "No usable count"
+NO_DATA_COLOUR = "#bdbdbd"
 
 FLEET_TABLE_COLUMNS = [
     "Rank", "District", "Opportunity band", "Licensed vehicles", "Share of vehicle type (%)",
@@ -137,8 +140,10 @@ def clockwise_geojson(geojson: dict) -> dict:
 
 def build_band_choropleth_figure(
     ranked_districts: list[dict], geojson: dict, canonical_to_shape_name: dict, vehicle_type: str,
+    excluded_districts: list[str] | None = None,
 ) -> go.Figure:
-    """Map coloured by band, from the same rows as the ranking table."""
+    """Map coloured by band, from the same rows as the ranking table. Districts
+    without a usable count are drawn grey and labelled, not left blank."""
     geojson = clockwise_geojson(geojson)
     df = pd.DataFrame(ranked_districts)
     df["shape_name"] = df["district"].map(canonical_to_shape_name)
@@ -158,8 +163,18 @@ def build_band_choropleth_figure(
             "share": f"Share of {vehicle_type.lower()} (%)", "reliability": "Reliability",
         },
     )
-    fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
     fig.update_traces(marker_line_color="#6b7280", marker_line_width=0.5)
+    if excluded_districts:
+        fig.add_trace(go.Choropleth(
+            geojson=geojson, featureidkey="properties.shapeName",
+            locations=[canonical_to_shape_name[d] for d in excluded_districts],
+            z=[0] * len(excluded_districts), text=excluded_districts,
+            colorscale=[[0, NO_DATA_COLOUR], [1, NO_DATA_COLOUR]], showscale=False,
+            name=NO_DATA_LABEL, showlegend=True,
+            marker_line_color="#6b7280", marker_line_width=0.5,
+            hovertemplate="<b>%{text}</b><br>No usable count for this year. Not ranked, and not treated as zero.<extra></extra>",
+        ))
+    fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
     fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=560, legend_title_text="Relative band")
     return fig
 
