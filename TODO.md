@@ -269,3 +269,8 @@ All seven marketplace specs (DEV-018 through DEV-024) are functionally complete,
 - [x] Streamlit dashboard connected behind the switch, default v1
 - [x] Opportunity Insights connected behind the switch, default v1
 - [x] Project author approves making v2 the default (approved 2026-11-07; `active_engine: v2`, v1 kept for rollback)
+
+### Known v1 dashboard issues (documented 2026-11-08, not fixed: out of scope for the v2 activation step)
+These affect only the v1 view (`active_engine: v1`). The v2 view already avoids both.
+- [ ] v1 map ring orientation: all 42 outer rings in `data/raw/geo/sri_lanka_districts_adm2.geojson` are counter-clockwise, and `build_choropleth_figure` in `dashboard/views.py` passes them to Plotly unchanged. Plotly's renderer expects clockwise outer rings and can fill the area outside each district. The v2 map uses `clockwise_geojson()`; the v1 map could use the same helper.
+- [ ] v1 vehicle selector: `render_sidebar_controls` in `dashboard/app.py` sets `index=` from `st.session_state.vehicle_type` instead of binding the widget by `key`, so a changing `index` can reset the widget and drop a selection (for example after an SBERT match). The v2 sidebar binds by `key`.
