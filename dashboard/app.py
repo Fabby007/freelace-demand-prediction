@@ -251,7 +251,15 @@ def render_fleet_map_and_table(result: dict, geo: dict, vehicle_type: str, top_n
     st.subheader(f"Top {top_n} districts by licensed vehicles ({year})")
     entries = result["ranked_districts"][:top_n]
     table_df = build_fleet_ranking_table(entries)
-    st.dataframe(table_df, hide_index=True, use_container_width=True)
+    # Display formatting only: always one decimal place, with a sign on the change,
+    # matching the website table (0.0 rather than 0, +21.5 rather than 21.5).
+    st.dataframe(
+        table_df, hide_index=True, use_container_width=True,
+        column_config={
+            "Share of vehicle type (%)": st.column_config.NumberColumn(format="%.1f"),
+            "Change from previous year (%)": st.column_config.NumberColumn(format="%+.1f"),
+        },
+    )
     st.download_button(
         "Download this ranking as CSV",
         data=table_df.assign(Disclaimer=DISCLAIMER).to_csv(index=False),

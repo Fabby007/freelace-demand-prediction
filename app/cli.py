@@ -9,6 +9,7 @@ setup, not for repeated use.
 import os
 
 import click
+from email_validator import EmailNotValidError, validate_email
 
 from .extensions import db
 from .models.user import ROLE_ADMIN, User
@@ -37,6 +38,15 @@ def register_cli(app):
                 "Provide --name/--email/--password, or set MARKETPLACE_ADMIN_NAME / "
                 "MARKETPLACE_ADMIN_EMAIL / MARKETPLACE_ADMIN_PASSWORD environment variables."
             )
+        # Same check as the login form's Email() validator, so the CLI cannot
+        # create an admin whose email the login form would then refuse
+        # (for example an address ending in ".local").
+        try:
+            validate_email(email, check_deliverability=False)
+        except EmailNotValidError as exc:
+            raise click.UsageError(
+                f"'{email}' is not an email address the login form accepts: {exc}"
+            ) from exc
         if len(password) < 8:
             raise click.UsageError("Admin password must be at least 8 characters.")
         if User.query.filter_by(email=email).first() is not None:

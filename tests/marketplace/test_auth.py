@@ -285,6 +285,29 @@ def test_admin_cli_rejects_short_password(app):
     assert User.query.filter_by(email="weak@example.com").first() is None
 
 
+def test_admin_cli_rejects_email_the_login_form_would_refuse(app, client):
+    # Regression (pre-demo audit, 2026-11-17): the CLI used to accept
+    # "admin@school.local", which the login form's Email() validator rejects,
+    # leaving an admin account that could never log in.
+    runner = app.test_cli_runner()
+    for bad_email in ("admin@school.local", "not-an-email"):
+        result = runner.invoke(
+            args=["create-admin", "--name", "Bad Email", "--email", bad_email, "--password", "adminpassword1"],
+        )
+        assert result.exit_code != 0
+        assert User.query.filter_by(email=bad_email).first() is None
+
+
+def test_admin_created_by_cli_can_log_in(app, client):
+    runner = app.test_cli_runner()
+    result = runner.invoke(
+        args=["create-admin", "--name", "Site Admin", "--email", "loginadmin@example.com", "--password", "adminpassword1"],
+    )
+    assert result.exit_code == 0
+    response = login(client, "loginadmin@example.com", "adminpassword1")
+    assert b"Welcome back" in response.data
+
+
 # --- Customer account edit (FR-M03) ---------------------------------------
 
 def test_customer_account_view_and_edit(client):

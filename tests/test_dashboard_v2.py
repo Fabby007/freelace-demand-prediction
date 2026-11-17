@@ -115,6 +115,15 @@ def test_table_shows_required_columns_and_real_values(v2_mode, engine):
     assert table["Licensed vehicles"].iloc[0] == 394975
 
 
+def test_table_shows_one_decimal_place_for_share_and_signed_change(v2_mode):
+    # Regression (pre-demo audit, 2026-11-17): Streamlit's default number display
+    # showed 0 instead of 0.0 and 21.5 instead of +21.5, unlike the website table.
+    at = _run()
+    column_config = json.loads(at.dataframe[0].proto.columns)
+    assert column_config["Share of vehicle type (%)"]["type_config"]["format"] == "%.1f"
+    assert column_config["Change from previous year (%)"]["type_config"]["format"] == "%+.1f"
+
+
 def test_table_and_map_use_the_same_bands(v2_mode):
     at = _run()
     at.sidebar.slider[0].set_value(25).run()

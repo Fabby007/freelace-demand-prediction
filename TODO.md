@@ -274,3 +274,9 @@ All seven marketplace specs (DEV-018 through DEV-024) are functionally complete,
 These affect only the v1 view (`active_engine: v1`). The v2 view already avoids both.
 - [ ] v1 map ring orientation: all 42 outer rings in `data/raw/geo/sri_lanka_districts_adm2.geojson` are counter-clockwise, and `build_choropleth_figure` in `dashboard/views.py` passes them to Plotly unchanged. Plotly's renderer expects clockwise outer rings and can fill the area outside each district. The v2 map uses `clockwise_geojson()`; the v1 map could use the same helper.
 - [ ] v1 vehicle selector: `render_sidebar_controls` in `dashboard/app.py` sets `index=` from `st.session_state.vehicle_type` instead of binding the widget by `key`, so a changing `index` can reset the widget and drop a selection (for example after an SBERT match). The v2 sidebar binds by `key`.
+
+### Pre-lecturer-demo audit (2026-11-17; report: `research/final_project_report/Pre_Lecturer_Demo_Audit_Report.md`)
+- [x] `flask create-admin` now rejects emails the login form refuses (e.g. `@school.local`), so a CLI-created admin can always log in (regression tests in `tests/marketplace/test_auth.py`)
+- [x] v2 dashboard table shows share and change with one decimal place and a sign on the change (`0.0`, `+21.5`), matching the website (regression test in `tests/test_dashboard_v2.py`)
+- [x] Marketplace pages no longer request a missing `/favicon.ico`
+- [ ] Before the demo: create the demo admin account in the real database (`flask --app wsgi create-admin`); there is no admin account in `instance/marketplace.db`
