@@ -5,6 +5,7 @@ inside each test, so these tests do not depend on the config file, and the v1
 page tests in test_insights_integration.py pin v1 the same way.
 """
 import html as html_lib
+import re
 
 import pytest
 
@@ -249,3 +250,41 @@ def test_committed_default_setting_shows_the_v2_page(client, app, monkeypatch):
 def test_data_year_field_is_widened_only_in_v2(client, app, v2_mode):
     _, text = _page(client, email="wide@example.com")
     assert "form-field form-field-wide" in text
+
+
+# --- Link to the Streamlit Vehicle-Fleet Opportunity Dashboard -----------
+
+STREAMLIT_LINK_TEXT = "Open Vehicle-Fleet Opportunity Dashboard"
+
+
+def _streamlit_link_tag(text):
+    match = re.search(r'<a [^>]*>\s*' + re.escape(STREAMLIT_LINK_TEXT), text)
+    return match.group(0) if match else None
+
+
+def test_insights_page_links_to_streamlit_in_a_new_tab(client, app, v2_mode):
+    response, text = _page(client)
+    assert response.status_code == 200
+    tag = _streamlit_link_tag(text)
+    assert tag, "Streamlit dashboard link not found on the Insights page"
+    assert f'href="{app.config["STREAMLIT_DASHBOARD_URL"]}"' in tag
+    assert 'target="_blank"' in tag and 'rel="noopener noreferrer"' in tag
+    # The page's own content is still there.
+    assert DISCLAIMER_TEXT in text
+    assert "View Opportunities" in text
+
+
+def test_insights_streamlit_link_uses_the_configured_url(client, app, v2_mode):
+    app.config["STREAMLIT_DASHBOARD_URL"] = "http://192.168.1.20:8502"
+    _, text = _page(client)
+    assert 'href="http://192.168.1.20:8502"' in _streamlit_link_tag(text)
+
+
+def test_insights_streamlit_link_still_shown_when_insights_data_is_unavailable(client, app, v2_engine, monkeypatch):
+    def _raise(*args, **kwargs):
+        raise RuntimeError("simulated")
+
+    monkeypatch.setattr(v2_engine, "rank", _raise)
+    response, text = _page(client)
+    assert response.status_code == 503
+    assert _streamlit_link_tag(text)

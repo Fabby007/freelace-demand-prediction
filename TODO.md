@@ -283,3 +283,4 @@ These affect only the v1 view (`active_engine: v1`). The v2 view already avoids 
 
 ### Link to the Streamlit dashboard from the mechanic dashboard (2026-11-18)
 - [x] Mechanic dashboard (`/mechanic/profile`) has a "Vehicle-Fleet Opportunity Dashboard" card whose button opens the separate Streamlit app in a new tab. The URL comes from the `STREAMLIT_DASHBOARD_URL` environment variable (default `http://localhost:8501`, read once in `app/config.py`). It is a plain link: the Flask login does not carry over into Streamlit, and Streamlit must be started separately. Tests are in `tests/marketplace/test_mechanic_profile.py`; the browser check is `audit_scripts/browser_streamlit_link.py`.
+- [x] The Opportunity Insights page (`/insights/`) has the same "Open Vehicle-Fleet Opportunity Dashboard" button below the page intro, using the same `STREAMLIT_DASHBOARD_URL` setting. Tests are in `tests/marketplace/test_insights_v2.py`.
