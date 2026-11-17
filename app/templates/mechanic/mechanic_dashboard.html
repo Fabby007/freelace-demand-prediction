@@ -59,5 +59,12 @@
   <div class="profile-section">
     <a class="btn btn-primary" href="{{ url_for('insights.dashboard') }}">View Opportunity Insights</a>
   </div>
+
+  <div class="profile-section">
+    <h2>Vehicle-Fleet Opportunity Dashboard</h2>
+    <p>Explore district-level vehicle-fleet opportunities, historical trends, maps and analytics.</p>
+    <a class="btn btn-secondary" href="{{ config.STREAMLIT_DASHBOARD_URL }}" target="_blank" rel="noopener noreferrer">Open Vehicle-Fleet Opportunity Dashboard</a>
+    <p class="text-muted">Opens in a new tab. The dashboard is a separate app, so it must be running.</p>
+  </div>
 </section>
 {% endblock %}

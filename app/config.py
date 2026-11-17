@@ -46,6 +46,11 @@ class Config:
         days=_MARKETPLACE_YAML.get("session", {}).get("permanent_session_lifetime_days", 7)
     )
 
+    # Address of the separate Streamlit dashboard (dashboard/app.py). The
+    # mechanic dashboard only links to it; Flask does not run or proxy it,
+    # and the Flask login does not carry over into Streamlit.
+    STREAMLIT_DASHBOARD_URL = os.environ.get("STREAMLIT_DASHBOARD_URL", "http://localhost:8501")
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

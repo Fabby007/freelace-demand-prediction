@@ -7,6 +7,11 @@ it to make a POST easier, per project security policy.
 """
 
 import io
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
 
 from app.extensions import db
 from app.models.mechanic import (
@@ -438,3 +443,77 @@ def test_mechanic_vehicle_type_rows_deleted_when_profile_deleted(app):
     db.session.commit()
 
     assert MechanicVehicleType.query.filter_by(mechanic_id=profile_id).count() == 0
+
+
+# --- Link to the Streamlit Vehicle-Fleet Opportunity Dashboard -----------
+
+STREAMLIT_LINK_TEXT = "Open Vehicle-Fleet Opportunity Dashboard"
+
+
+def test_mechanic_dashboard_shows_streamlit_link_opening_in_new_tab(client, app):
+    user = create_user(role=ROLE_MECHANIC, email="fleetlink@example.com", password="mypassword1")
+    create_mechanic_profile(user)
+    login(client, "fleetlink@example.com", "mypassword1")
+    response = client.get("/mechanic/profile")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert "Vehicle-Fleet Opportunity Dashboard" in html
+    assert ("Explore district-level vehicle-fleet opportunities, historical trends, "
+            "maps and analytics.") in html
+    link = re.search(r'<a [^>]*>\s*' + re.escape(STREAMLIT_LINK_TEXT), html)
+    assert link, "Streamlit dashboard link not found"
+    tag = link.group(0)
+    assert f'href="{app.config["STREAMLIT_DASHBOARD_URL"]}"' in tag
+    assert 'target="_blank"' in tag
+    assert 'rel="noopener noreferrer"' in tag
+    # The existing Opportunity Insights button is still there.
+    assert 'href="/insights/' in html or "View Opportunity Insights" in html
+
+
+def test_streamlit_link_uses_the_configured_url(client, app):
+    app.config["STREAMLIT_DASHBOARD_URL"] = "http://192.168.1.20:8502"
+    user = create_user(role=ROLE_MECHANIC, email="fleeturl@example.com", password="mypassword1")
+    create_mechanic_profile(user)
+    login(client, "fleeturl@example.com", "mypassword1")
+    html = client.get("/mechanic/profile").get_data(as_text=True)
+    assert 'href="http://192.168.1.20:8502"' in html
+    assert "http://localhost:8501" not in html
+
+
+def test_streamlit_url_defaults_to_localhost_8501_and_reads_env_var():
+    code = "from app.config import Config; print(Config.STREAMLIT_DASHBOARD_URL)"
+    root = Path(__file__).resolve().parents[2]
+    env = {k: v for k, v in os.environ.items() if k != "STREAMLIT_DASHBOARD_URL"}
+    default = subprocess.run([sys.executable, "-c", code], cwd=root, env=env,
+                             capture_output=True, text=True, check=True)
+    assert default.stdout.strip() == "http://localhost:8501"
+    env["STREAMLIT_DASHBOARD_URL"] = "http://example.org:9000"
+    custom = subprocess.run([sys.executable, "-c", code], cwd=root, env=env,
+                            capture_output=True, text=True, check=True)
+    assert custom.stdout.strip() == "http://example.org:9000"
+
+
+def test_customer_does_not_see_streamlit_link(client):
+    create_user(role=ROLE_CUSTOMER, email="fleetcust@example.com", password="mypassword1")
+    login(client, "fleetcust@example.com", "mypassword1")
+    assert client.get("/mechanic/profile").status_code == 403
+    for url in ("/", "/search", "/account/", "/account/reviews"):
+        response = client.get(url)
+        assert response.status_code == 200, url
+        assert STREAMLIT_LINK_TEXT not in response.get_data(as_text=True), url
+
+
+def test_admin_does_not_see_streamlit_link(client):
+    create_user(role=ROLE_ADMIN, email="fleetadmin@example.com", password="mypassword1")
+    login(client, "fleetadmin@example.com", "mypassword1")
+    assert client.get("/mechanic/profile").status_code == 403
+    response = client.get("/admin/")
+    assert response.status_code == 200
+    assert STREAMLIT_LINK_TEXT not in response.get_data(as_text=True)
+
+
+def test_anonymous_visitor_does_not_see_streamlit_link(client):
+    assert STREAMLIT_LINK_TEXT not in client.get("/").get_data(as_text=True)
+    response = client.get("/mechanic/profile")
+    assert response.status_code == 302
+    assert "/login" in response.headers["Location"]

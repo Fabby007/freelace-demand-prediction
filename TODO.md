@@ -280,3 +280,6 @@ These affect only the v1 view (`active_engine: v1`). The v2 view already avoids 
 - [x] v2 dashboard table shows share and change with one decimal place and a sign on the change (`0.0`, `+21.5`), matching the website (regression test in `tests/test_dashboard_v2.py`)
 - [x] Marketplace pages no longer request a missing `/favicon.ico`
 - [ ] Before the demo: create the demo admin account in the real database (`flask --app wsgi create-admin`); there is no admin account in `instance/marketplace.db`
+
+### Link to the Streamlit dashboard from the mechanic dashboard (2026-11-18)
+- [x] Mechanic dashboard (`/mechanic/profile`) has a "Vehicle-Fleet Opportunity Dashboard" card whose button opens the separate Streamlit app in a new tab. The URL comes from the `STREAMLIT_DASHBOARD_URL` environment variable (default `http://localhost:8501`, read once in `app/config.py`). It is a plain link: the Flask login does not carry over into Streamlit, and Streamlit must be started separately. Tests are in `tests/marketplace/test_mechanic_profile.py`; the browser check is `audit_scripts/browser_streamlit_link.py`.
