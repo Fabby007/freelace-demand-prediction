@@ -1,0 +1,126 @@
+district_raw,district_canonical,year,vehicle_type_raw,value_raw,metric,source_id,source_url,retrieved_date,handbook_edition_year
+Kandy,Kandy,2019,Ambulance,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Ambulance,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Ambulance,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Ambulance,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Ambulance,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Car,"2,532",new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Car,"1,297",new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Car,120,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Car,50,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Car,56,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Commercial (Bus),"9,905",new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Commercial (Bus),"5,427",new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Commercial (Bus),-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Commercial (Bus),381,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Commercial (Bus),-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Dual Purpose (Commercial),192,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Dual Purpose (Commercial),141,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Dual Purpose (Commercial),41,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Dual Purpose (Commercial),8,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Dual Purpose (Commercial),2,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Land Vehicle,18,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Land Vehicle,4,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Land Vehicle,68,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Land Vehicle,39,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Land Vehicle,8,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Land Vehicle (Small),51,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Land Vehicle (Small),30,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Land Vehicle (Small),39,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Land Vehicle (Small),45,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Land Vehicle (Small),30,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Lorry Trailer / Bowser,48,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Lorry Trailer / Bowser,42,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Lorry Trailer / Bowser,2,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Lorry Trailer / Bowser,8,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Lorry Trailer / Bowser,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Cycle,755,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Cycle,492,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Cycle,214,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Cycle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Cycle,813,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Hearse,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Hearse,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Hearse,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Hearse,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Hearse,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Lorry (Commercial),1,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Lorry (Commercial),5,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Lorry (Commercial),163,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Lorry (Commercial),32,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Lorry (Commercial),9,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Tricycle Van,31,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Tricycle Van,16,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Tricycle Van,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Tricycle Van,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Tricycle Van,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Other Special Purpose Vehicle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Other Special Purpose Vehicle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Other Special Purpose Vehicle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Other Special Purpose Vehicle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Other Special Purpose Vehicle,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Primer Mover,1,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Primer Mover,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Primer Mover,8,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Primer Mover,2,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Primer Mover,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Single Cab,27,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Single Cab,24,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Single Cab,6,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Single Cab,7,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Single Cab,9,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Special Purpose Vehicle,176,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Special Purpose Vehicle,186,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Special Purpose Vehicle,40,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Special Purpose Vehicle,18,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Special Purpose Vehicle,1,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Three Wheeler,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Three Wheeler,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Three Wheeler,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Three Wheeler,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Three Wheeler,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Tractor Trailer / Bowser,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Tractor Trailer / Bowser,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Tractor Trailer / Bowser,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Tractor Trailer / Bowser,-,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Tractor Trailer / Bowser,4,new_registrations,DCS_Kandy_2024_T9_4,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.4.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Cars,"46,885",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Cars,"44,142",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Cars,"44,042",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Cars,"52,858",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Cars,"52,858",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Bicycles,"104,208",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Bicycles,"103,777",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Bicycles,"96,454",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Bicycles,"120,945",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Bicycles,"120,945",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Three Weelers,"80,059",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Three Weelers,"76,572",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Three Weelers,"76,940",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Three Weelers,"78,853",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Three Weelers,"78,853",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Private Bus,"3,550",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Private Bus,"1,661",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Private Bus,"2,186",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Private Bus,"3,521",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Private Bus,"3,521",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Dual Purpose Vehicles,"24,710",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Dual Purpose Vehicles,"23,870",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Dual Purpose Vehicles,"23,879",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Dual Purpose Vehicles,"25,123",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Dual Purpose Vehicles,"25,123",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Motor Lorry,"15,169",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Motor Lorry,"14,739",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Motor Lorry,"14,984",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Motor Lorry,"14,621",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Motor Lorry,"14,621",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Land Vehicles,"1,400",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Land Vehicles,"1,452",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Land Vehicles,"1,456",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Land Vehicles,"1,517",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Land Vehicles,"1,517",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2019,Other,314,vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2020,Other,"2,195",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2021,Other,"1,493",vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2022,Other,604,vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024
+Kandy,Kandy,2023,Other,604,vehicle_stock,DCS_Kandy_2024_T9_3,https://www.statistics.gov.lk/statistical%20Hbook/2024/Kandy/9.3.pdf,2026-08-15,2024

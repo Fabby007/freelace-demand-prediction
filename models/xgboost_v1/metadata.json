@@ -1,0 +1,262 @@
+{
+  "dataset_version": "modelling_dataset_v1_1310eaead622",
+  "generated_date": "2026-08-15",
+  "random_seed": 42,
+  "feature_columns": [
+    "new_registrations",
+    "vehicle_population",
+    "reg_lag_1",
+    "reg_lag_2",
+    "reg_growth_pct",
+    "change_from_lag_2",
+    "rolling_mean_3",
+    "rolling_std_3",
+    "vehicle_type_Motorcycle",
+    "vehicle_type_Car",
+    "vehicle_type_Three-wheeler"
+  ],
+  "active_numeric_features": [
+    "new_registrations",
+    "vehicle_population",
+    "reg_lag_1",
+    "reg_lag_2",
+    "reg_growth_pct",
+    "change_from_lag_2",
+    "rolling_mean_3",
+    "rolling_std_3"
+  ],
+  "excluded_all_null_features": [
+    "population",
+    "population_density",
+    "quarter",
+    "month_sin",
+    "month_cos",
+    "vehicles_per_1000_people"
+  ],
+  "categorical_feature": "vehicle_type",
+  "categorical_categories": [
+    "Motorcycle",
+    "Car",
+    "Three-wheeler"
+  ],
+  "target_column": "target_value",
+  "train_rows": 102,
+  "validation_rows": 49,
+  "test_rows": 47,
+  "selection_metric": "val_mae",
+  "tuning_search_space": {
+    "n_estimators": [
+      100,
+      300,
+      500
+    ],
+    "learning_rate": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "max_depth": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "min_child_weight": [
+      1,
+      3,
+      5
+    ],
+    "subsample": [
+      0.7,
+      0.8,
+      1.0
+    ],
+    "colsample_bytree": [
+      0.7,
+      0.8,
+      1.0
+    ]
+  },
+  "n_tuning_combinations_evaluated": 972,
+  "selected_hyperparameters": {
+    "n_estimators": 500,
+    "learning_rate": 0.01,
+    "max_depth": 5,
+    "min_child_weight": 3,
+    "subsample": 1.0,
+    "colsample_bytree": 1.0
+  },
+  "top_tuning_results": [
+    {
+      "params": {
+        "n_estimators": 500,
+        "learning_rate": 0.01,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0
+      },
+      "val_mae": 125.22394545467533,
+      "val_rmse": 218.4880408043023,
+      "val_r2": 0.36643985975396076
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "min_child_weight": 1,
+        "subsample": 1.0,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 126.06825842176166,
+      "val_rmse": 210.21163330905688,
+      "val_r2": 0.41352973330976683
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 6,
+        "min_child_weight": 3,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 126.2908694111571,
+      "val_rmse": 214.63124846219742,
+      "val_r2": 0.3886098900964582
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "min_child_weight": 3,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0
+      },
+      "val_mae": 127.17351642920046,
+      "val_rmse": 218.7502634507471,
+      "val_r2": 0.3649181882665753
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 6,
+        "min_child_weight": 3,
+        "subsample": 0.7,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 127.82139791761126,
+      "val_rmse": 234.25403229203226,
+      "val_r2": 0.271706127327523
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.1,
+        "max_depth": 5,
+        "min_child_weight": 1,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0
+      },
+      "val_mae": 128.66721609660559,
+      "val_rmse": 201.81635892371824,
+      "val_r2": 0.4594383410764943
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 6,
+        "min_child_weight": 1,
+        "subsample": 0.7,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 128.89524578561588,
+      "val_rmse": 224.6049652218867,
+      "val_r2": 0.3304681968566979
+    },
+    {
+      "params": {
+        "n_estimators": 100,
+        "learning_rate": 0.05,
+        "max_depth": 6,
+        "min_child_weight": 3,
+        "subsample": 1.0,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 129.95327064942342,
+      "val_rmse": 232.14064032857277,
+      "val_r2": 0.2847878861533023
+    },
+    {
+      "params": {
+        "n_estimators": 300,
+        "learning_rate": 0.05,
+        "max_depth": 5,
+        "min_child_weight": 1,
+        "subsample": 1.0,
+        "colsample_bytree": 0.8
+      },
+      "val_mae": 130.20066676577744,
+      "val_rmse": 229.817426829426,
+      "val_r2": 0.2990316309435197
+    },
+    {
+      "params": {
+        "n_estimators": 500,
+        "learning_rate": 0.01,
+        "max_depth": 4,
+        "min_child_weight": 3,
+        "subsample": 1.0,
+        "colsample_bytree": 1.0
+      },
+      "val_mae": 130.5773952481698,
+      "val_rmse": 224.39488941158237,
+      "val_r2": 0.33172005394673865
+    }
+  ],
+  "validation_metrics_at_selection": {
+    "mae": 125.22394545467533,
+    "rmse": 218.4880408043023,
+    "r2": 0.36643985975396076
+  },
+  "test_metrics": {
+    "n_total": 47,
+    "n_scored": 47,
+    "mae": 312.8663456186335,
+    "rmse": 696.8137542719835,
+    "r2": 0.1447167933003769,
+    "n_negative_predictions": 1
+  },
+  "baseline_comparison": {
+    "xgboost_full_coverage": {
+      "n_total": 47,
+      "n_scored": 47,
+      "mae": 312.8663456186335,
+      "rmse": 696.8137542719835,
+      "r2": 0.1447167933003769,
+      "n_negative_predictions": 1
+    },
+    "n_matched_with_baseline": 42,
+    "xgboost_matched_subset": {
+      "n_total": 42,
+      "n_scored": 42,
+      "mae": 306.39188114802045,
+      "rmse": 710.0239510376093,
+      "r2": 0.16996249227234173,
+      "n_negative_predictions": 1
+    },
+    "baseline_matched_subset": {
+      "n_total": 42,
+      "n_scored": 42,
+      "mae": 230.52380952380952,
+      "rmse": 555.8028084714595,
+      "r2": 0.4913802807825386,
+      "n_negative_predictions": 0
+    }
+  },
+  "refit_on_train_plus_validation": true
+}
